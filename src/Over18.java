@@ -1,0 +1,2 @@
+public class Over18 {
+}
