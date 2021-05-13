@@ -3,12 +3,11 @@ public class Main {
 
     Medlem medlem = new Medlem();
 
-    new Medlem(17, "Younes", "aktiv");
-    new Medlem(37, "Vitaliy", "aktiv");
+    //new Medlem(17, "Younes", "aktiv");
+    //new Medlem(37, "Vitaliy", "aktiv");
 
     Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
 
-    medlem.afgørAktivitetsform();
-    konkurrencesvømmer.afgørÅrgang();
+    medlem.run();
   }
 }
