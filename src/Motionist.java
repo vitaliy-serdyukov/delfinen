@@ -6,4 +6,16 @@ public class Motionist {
         this.alder = alder;
         this.navn = navn;
     }
+
+    public Motionist(){
+
+    }
+
+    public String getNavn(){
+        return navn;
+    }
+
+    public int getAlder(){
+        return alder;
+    }
 }

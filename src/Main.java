@@ -1,13 +1,14 @@
+import java.util.function.ToDoubleBiFunction;
+
 public class Main {
   public static void main(String[] args) {
 
-    Medlem medlem = new Medlem();
-
-    //new Medlem(17, "Younes", "aktiv");
-    //new Medlem(37, "Vitaliy", "aktiv");
+    Formand formand = new Formand();
 
     Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
 
-    medlem.run();
+    konkurrencesvømmer.run();
+
+    //TODO Fiks filen Juniorsvømmerliste
   }
 }
