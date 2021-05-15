@@ -24,9 +24,6 @@ public class Menu {
 
     //----Instantiering----
     Formand formand = new Formand();
-    Kasserer kasserer = new Kasserer();
-    Træner træner = new Træner();
-    //PizzaMenu pizzaMenuen = new PizzaMenu();
 
 
     //----Metoder----
@@ -59,12 +56,15 @@ public class Menu {
     //----Lavet af Anna-Christopher---
     public void visMenu() throws FileNotFoundException {
         Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
+        Formand formand = new Formand();
+        Kasserer kasserer = new Kasserer();
 
         String[] menuChoice = {
                 "1. Opret medlem",
-                "2. Se juniorsvømmere fra fil",
-                "3. Se seniorsvømmere fra fil",
-                "4. Se oversigt over kontingentbetalinger",
+                "2. Kontingentbetalinger",
+                "3. Se medlemmer",
+                "4. Se juniorsvømmere",
+                "5. Se seniorsvømmere",
                 "9. Afslut"};
 
         Menu menu = new Menu("Svømmeklubben Delfinen:", "\nVælg: \n", menuChoice);
@@ -78,23 +78,31 @@ public class Menu {
             switch (userChoice) {
                 case 1:
                     formand.opretMedlem();
+                    visMenu();
                     break;
                 case 2:
-                    træner.visJuniorsvømmerFil(); //Skal være i træner klassen
+                    kasserer.seKontingentOversigt();
+                    visMenu();
                     break;
                 case 3:
-                    træner.visSeniorsvømmerFil(); //Skal være i træner klassen
+                    formand.seMedlemmer();
+                    visMenu();
                     break;
                 case 4:
-                    kasserer.seKontingentbetalinger(); //Skal være i kasserer klassen
+                    konkurrencesvømmer.downloadJuniorsvømmerFil();
+                    visMenu();
                     break;
+                case 5:
+                    konkurrencesvømmer.downloadSeniorsvømmerFil();
+                    visMenu();
                 case 9:
                     isRunning = false;
+                    visMenu();
                     break;
                 default:
                     ui.getInt("\nFejl.\nDet indtastede er ugyldigt ");
             }
-            /*for (int i = 0; i < pizzaMenuen.getPizzaMenu().size(); i++) {
+           /*for (int i = 0; i < pizzaMenuen.getPizzaMenu().size(); i++) {
 
                 if (pizzaMenuen.getPizzaMenu().get(i).equals(userChoice)) ;
             }*/

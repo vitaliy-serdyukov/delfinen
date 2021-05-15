@@ -13,16 +13,9 @@ public class Konkurrencesvømmer {
     private int svarPåAktivitetsstatus;
     private ArrayList<Konkurrencesvømmer> konkurrencesvømmerListe = new ArrayList<>();
     private ArrayList<Motionist> motionistListe = new ArrayList<>();
-
     private ArrayList<Konkurrencesvømmer> juniorsvømmerListe = new ArrayList<>();
-
     private ArrayList<Konkurrencesvømmer> seniorsvømmerListe = new ArrayList<>();
     Scanner input = new Scanner(System.in);
-
-    public int getAlder() {
-        return alder;
-    }
-
 
     //----Gettere----
     public ArrayList<Konkurrencesvømmer> getSeniorsvømmerListe() {
@@ -30,6 +23,12 @@ public class Konkurrencesvømmer {
     }
     public ArrayList<Konkurrencesvømmer> getJuniorsvømmerListe() {
         return juniorsvømmerListe;
+    }
+    public String getNavn(){
+        return navn;
+    }
+    public int getAlder() {
+        return alder;
     }
 
     //----Konstruktør----
@@ -48,7 +47,6 @@ public class Konkurrencesvømmer {
     Formand formand = new Formand();
 
     //----Metoder----
-
     public void run() throws IOException {
         formand.opretMedlem();
         afgørAktivitetsstatus();
@@ -128,6 +126,14 @@ public class Konkurrencesvømmer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void downloadJuniorsvømmerFil(){
+        System.out.println("Downloader juniorsvømmer fil");
+    }
+
+    public void downloadSeniorsvømmerFil(){
+        System.out.println("Downloader seniorsvømmer fil");
     }
 
     @Override

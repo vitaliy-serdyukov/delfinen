@@ -1,5 +1,6 @@
 public class Kasserer {
 
-    public void seKontingentbetalinger(){
+    public void seKontingentOversigt(){
+        System.out.println("Ser kontingentoversigt");
     }
 }

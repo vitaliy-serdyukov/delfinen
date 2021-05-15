@@ -5,7 +5,8 @@ public class Main {
   public static void main(String[] args) throws IOException {
 
     Formand formand = new Formand();
-    formand.opretMedlem();
+    Menu menu = new Menu();
+    menu.visMenu();
 
     Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
 

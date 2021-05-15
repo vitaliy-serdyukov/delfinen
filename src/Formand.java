@@ -9,16 +9,8 @@ public class Formand {
     //----Attributter
     private int alder;
     private String navn;
-
-    public int getSvarPåAktivitetsstatus() {
-        return svarPåAktivitetsstatus;
-    }
-
     private int svarPåAktivitetsstatus;
-    //private Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
     Scanner input = new Scanner(System.in);
-
-
 
     //----Konstruktøren----
     public Formand() {
@@ -38,18 +30,23 @@ public class Formand {
     public String getNavn() {
         return navn;
     }
+    public int getSvarPåAktivitetsstatus() {
+        return svarPåAktivitetsstatus;
+    }
 
     //----Objekter----
-    Menu menu = new Menu();
+
 
     //----Metoder----
-    public void opretMedlem() throws FileNotFoundException {
-        menu.printMenu();
+    public void opretMedlem() {
         System.out.println("Hvad er dit navn?: ");
         navn = input.nextLine();
         System.out.println("Hvad er din alder?: ");
         alder = input.nextInt();
         medlemmer.add(new Medlem(navn, alder, svarPåAktivitetsstatus));
+    }
 
+    public void seMedlemmer(){
+        System.out.println("Ser medlemmer");
     }
 }
