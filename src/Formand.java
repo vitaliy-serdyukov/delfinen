@@ -39,8 +39,12 @@ public class Formand {
         return navn;
     }
 
+    //----Objekter----
+    Menu menu = new Menu();
+
     //----Metoder----
-    public void opretMedlem(){
+    public void opretMedlem() throws FileNotFoundException {
+        menu.printMenu();
         System.out.println("Hvad er dit navn?: ");
         navn = input.nextLine();
         System.out.println("Hvad er din alder?: ");
@@ -48,7 +52,4 @@ public class Formand {
         medlemmer.add(new Medlem(navn, alder, svarPåAktivitetsstatus));
 
     }
-
-
-
 }

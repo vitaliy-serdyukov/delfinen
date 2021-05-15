@@ -5,15 +5,12 @@ public class Juniorsvømmer {
         this.navn = navn;
     }
 
-    public Juniorsvømmer(){
-    }
-
-    public String getNavn(){
+    public String navn(){
         return navn;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return navn;
     }
 }

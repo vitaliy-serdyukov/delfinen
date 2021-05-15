@@ -5,8 +5,9 @@ public class Seniorsvømmer {
     public Seniorsvømmer(Konkurrencesvømmer konkurrencesvømmer){
         this.navn = navn;
     }
+
     @Override
     public String toString() {
-        return super.toString();
+        return navn;
     }
 }

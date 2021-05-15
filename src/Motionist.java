@@ -18,4 +18,9 @@ public class Motionist {
     public int getAlder(){
         return alder;
     }
+
+    @Override
+    public String toString() {
+        return "Navn og alder: " + navn + ", " + alder + " år";
+    }
 }
