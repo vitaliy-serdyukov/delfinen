@@ -35,7 +35,7 @@ public class Formand {
     }
 
     //----Objekter----
-
+    Menu menu = new Menu();
 
     //----Metoder----
     public void opretMedlem() {
@@ -46,7 +46,8 @@ public class Formand {
         medlemmer.add(new Medlem(navn, alder, svarPåAktivitetsstatus));
     }
 
-    public void seMedlemmer(){
+    public void seMedlemmer() {
         System.out.println("Ser medlemmer");
+
     }
 }

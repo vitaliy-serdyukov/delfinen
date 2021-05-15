@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,6 +42,7 @@ public class Konkurrencesvømmer {
     Medlem medlem = new Medlem();
     Motionist motionist = new Motionist();
     Formand formand = new Formand();
+    Menu menu = new Menu();
 
     //----Metoder----
     public void run() throws IOException {
@@ -67,12 +65,13 @@ public class Konkurrencesvømmer {
             if (svarPåAktivitetsForm == 1) {
                 konkurrencesvømmerListe.add(new Konkurrencesvømmer(formand.getNavn(), formand.getAlder()));
                 System.out.println("Ny konkurrencesvømmer registeret: " + formand.getNavn());
-
                 afgørÅrgang();
 
             } else if (svarPåAktivitetsForm == 2) {
                 motionistListe.add(new Motionist(formand.getNavn(), formand.getAlder()));
                 System.out.println("Ny motionist registreret: " + formand.getNavn());
+
+                menu.visMenu();
             }
         } else {
             System.out.println("Velkommen til klubben.");
@@ -91,7 +90,7 @@ public class Konkurrencesvømmer {
             } else if (konkurrencesvømmerListe.get(i).getAlder() >= 18) {
                 seniorsvømmerListe.add(konkurrencesvømmerListe.get(i));
                 System.out.println("Da det nye medlem er 18+, er der registreret en seniorsvømmer: \n" +
-                        seniorsvømmerListe.toString());
+                        seniorsvømmerListe.get(i));
                 indlæsSeniorsvømmerListe();
             }
         }
@@ -111,6 +110,7 @@ public class Konkurrencesvømmer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        menu.visMenu();
     }
     public void indlæsSeniorsvømmerListe() throws IOException {
 
@@ -128,13 +128,7 @@ public class Konkurrencesvømmer {
         }
     }
 
-    public void downloadJuniorsvømmerFil(){
-        System.out.println("Downloader juniorsvømmer fil");
-    }
 
-    public void downloadSeniorsvømmerFil(){
-        System.out.println("Downloader seniorsvømmer fil");
-    }
 
     @Override
     public String toString() {

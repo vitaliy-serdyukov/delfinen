@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
@@ -23,11 +24,11 @@ public class Menu {
     }
 
     //----Instantiering----
-    Formand formand = new Formand();
+    //Formand formand = new Formand();
+
 
 
     //----Metoder----
-    //----Lavet af Anna-Christopher---
     public void printMenu() {
         String printString = menuOverskrift + "\n";
         for (int i = 0; i < pizzaMenu.length; i++)
@@ -54,10 +55,11 @@ public class Menu {
     }
 
     //----Lavet af Anna-Christopher---
-    public void visMenu() throws FileNotFoundException {
+    public void visMenu() throws IOException {
         Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
         Formand formand = new Formand();
         Kasserer kasserer = new Kasserer();
+        Træner træner = new Træner();
 
         String[] menuChoice = {
                 "1. Opret medlem",
@@ -77,7 +79,7 @@ public class Menu {
 
             switch (userChoice) {
                 case 1:
-                    formand.opretMedlem();
+                    konkurrencesvømmer.run();
                     visMenu();
                     break;
                 case 2:
@@ -89,12 +91,13 @@ public class Menu {
                     visMenu();
                     break;
                 case 4:
-                    konkurrencesvømmer.downloadJuniorsvømmerFil();
+                    træner.visJuniorsvømmerFil();
                     visMenu();
                     break;
                 case 5:
-                    konkurrencesvømmer.downloadSeniorsvømmerFil();
+                    træner.visSeniorsvømmerFil();
                     visMenu();
+                    break;
                 case 9:
                     isRunning = false;
                     visMenu();
