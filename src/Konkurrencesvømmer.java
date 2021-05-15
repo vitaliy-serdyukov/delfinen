@@ -16,12 +16,18 @@ public class Konkurrencesvømmer {
    private ArrayList<Seniorsvømmer> seniorsvømmerListe = new ArrayList<>();
    Scanner input = new Scanner(System.in);
 
-    public int getAlder() {
-        return alder;
-    }
+// ----Settere---
 
-   //----Gettere----
 
+//----Gettere----
+
+  public int getAlder() {
+  return alder;
+}
+
+  public String getNavn() {
+    return navn;
+  }
 
     //----Konstruktør----
    public Konkurrencesvømmer(String navn, int alder){
@@ -68,6 +74,7 @@ public class Konkurrencesvømmer {
         } else {
             System.out.println("Velkommen til klubben.");
         }
+     // System.out.println(konkurrencesvømmerListe.toString() + "test Konkurrence liste"); test
         afgørÅrgang();
     }
 
@@ -82,15 +89,20 @@ public class Konkurrencesvømmer {
                 System.out.println("Da det nye medlem er 18+, er der registreret en seniorsvømmer.");
             }
         }
+     // System.out.println(juniorsvømmerListe.toString() + "test Junior liste"); test
+
+      indlæsJuniorsvømmerListe();
     }
 
     public void indlæsJuniorsvømmerListe() {
         File file = new File("src/JuniorsvømmerListe.txt");
         try {
-            FileWriter fileWriter = new FileWriter(file, true);
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write("Juniorsvømmere: \n"); // printer kun den ene gang i toppen a filen i stedet  for flere
             for (int i = 0; i < juniorsvømmerListe.size(); i++) {
-                fileWriter.append("Juniorsvømmere: \n");
-                fileWriter.append(juniorsvømmerListe.get(i).getNavn());
+
+                fileWriter.write(juniorsvømmerListe.get(i).getNavn() + "\n");
+                fileWriter.write(juniorsvømmerListe.get(i).getAlder() + "\n");
 
             }
             fileWriter.close();
