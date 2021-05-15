@@ -74,7 +74,7 @@ public class Konkurrencesvømmer {
         } else {
             System.out.println("Velkommen til klubben.");
         }
-     // System.out.println(konkurrencesvømmerListe.toString() + "test Konkurrence liste"); test
+    //  System.out.println(konkurrencesvømmerListe.toString() + "test Konkurrence liste");// test
         afgørÅrgang();
     }
 
@@ -84,14 +84,19 @@ public class Konkurrencesvømmer {
             if (konkurrencesvømmerListe.get(i).getAlder() < 18) {
                 juniorsvømmerListe.add(new Juniorsvømmer(konkurrencesvømmerListe.get(i)));
                 System.out.println("Da det nye medlem er under 18, er der registreret en juniorsvømmer.");
-            } else if (alder >= 18) {
+                indlæsJuniorsvømmerListe(); // gemmer Junior til TXT
+            } else {
                 seniorsvømmerListe.add(new Seniorsvømmer(konkurrencesvømmerListe.get(i)));
                 System.out.println("Da det nye medlem er 18+, er der registreret en seniorsvømmer.");
+                indlæsSeniorsvømmerListe(); // gemmer Senior til TXT
             }
         }
      // System.out.println(juniorsvømmerListe.toString() + "test Junior liste"); test
+    //  System.out.println(seniorsvømmerListe.toString() + "test Senior liste"); test
 
-      indlæsJuniorsvømmerListe();
+
+
+
     }
 
     public void indlæsJuniorsvømmerListe() {
@@ -112,9 +117,27 @@ public class Konkurrencesvømmer {
         }
     }
 
+  public void indlæsSeniorsvømmerListe() {
+    File file = new File("src/SeniorsvømmerListe.txt");
+    try {
+      FileWriter fileWriter = new FileWriter(file);
+      fileWriter.write("Seniorsvømmere: \n"); // printer kun den ene gang i toppen a filen i stedet  for flere
+      for (int i = 0; i < seniorsvømmerListe.size(); i++) {
+
+        fileWriter.write(seniorsvømmerListe.get(i).getNavn() + "\n");
+        fileWriter.write(seniorsvømmerListe.get(i).getAlder() + "\n");
+
+      }
+      fileWriter.close();
+    } catch(IOException e){
+      e.printStackTrace();
+
+    }
+  }
+
     @Override
     public String toString() {
-        return navn;
+        return navn +  ", " + alder;
     }
 
 }

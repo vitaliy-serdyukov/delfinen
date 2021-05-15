@@ -20,6 +20,6 @@ public class Juniorsvømmer {
     @Override
     public String toString() {
     // return super.toString();
-     return navn + alder;
+     return navn + ", "+  alder;
     }
 }
