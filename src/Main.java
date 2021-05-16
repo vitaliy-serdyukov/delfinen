@@ -8,10 +8,11 @@ public class Main {
     Menu menu = new Menu();
     menu.visMenu();
 
-    Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
+    //Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
 
     //konkurrencesvømmer.run();
 
     //TODO Fiks filen Juniorsvømmerliste
   }
+
 }

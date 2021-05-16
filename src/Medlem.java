@@ -1,16 +1,17 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class Medlem {
     private String navn;
     private int alder;
-    private int aktivitetsstatus;
+    private int aktivitetsStatus;
+    private int aktivitetsForm;
     private int kontingent;
 
-    public Medlem(String navn, int alder, int aktivitetsstatus, int kontingent){
+    public Medlem(String navn, int alder, int aktivitetsstatus, int aktivitetsForm, int kontingent){
         this.navn = navn;
         this.alder = alder;
-        this.aktivitetsstatus = aktivitetsstatus;
+        this.aktivitetsStatus = aktivitetsstatus;
+        this.aktivitetsForm = aktivitetsForm;
         this.kontingent = kontingent;
     }
 
@@ -27,7 +28,16 @@ public class Medlem {
         return alder;
     }
 
-    public int getAktivitetsstatus() {return aktivitetsstatus;}
+    public int getAktivitetsstatus() {return aktivitetsStatus;}
+
+
+    public int getAktivitetsStatus() {
+        return aktivitetsStatus;
+    }
+
+    public int getAktivitetsForm() {
+        return aktivitetsForm;
+    }
 
     public int getKontingent() {
         return kontingent;
@@ -36,17 +46,31 @@ public class Medlem {
 
     // -------Settere----------
 
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+
+    public void setAlder(int alder) {
+        this.alder = alder;
+    }
+
     public void setAktivitetsstatus(int aktivitetsstatus) {
-        this.aktivitetsstatus = aktivitetsstatus;
+        this.aktivitetsStatus = aktivitetsstatus;
+    }
+
+    public void setAktivitetsForm(int aktivitetsForm) {
+        this.aktivitetsForm = aktivitetsForm;
     }
 
     public void setKontingent(int kontingent) {
         this.kontingent = kontingent;
     }
 
+
     @Override
     public String toString() {
-        return navn + alder + aktivitetsstatus + kontingent + " kr." ;
+        return  navn + ", " +  alder +  ", " +  aktivitetsStatus   +  ", " + aktivitetsForm +
+        ", " + kontingent + " kr.";
     }
 }
 

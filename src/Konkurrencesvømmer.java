@@ -7,7 +7,7 @@ public class Konkurrencesvømmer {
     //----Attributter----
     private String navn;
     private int alder;
-    private int svarPåAktivitetsstatus;
+    //private int svarPåAktivitetsstatus;
     private ArrayList<Konkurrencesvømmer> konkurrencesvømmerListe = new ArrayList<>();
     private ArrayList<Motionist> motionistListe = new ArrayList<>();
     private ArrayList<Konkurrencesvømmer> juniorsvømmerListe = new ArrayList<>();
@@ -39,52 +39,52 @@ public class Konkurrencesvømmer {
     }
 
     //----Objekter----
-    Medlem medlem = new Medlem();
+   // Medlem medlem = new Medlem();
     Motionist motionist = new Motionist();
     Formand formand = new Formand();
     Menu menu = new Menu();
 
-    //----Metoder----
-    public void run() throws IOException {
-        formand.opretMedlem();
-        afgørAktivitetsstatus();
+    // --------Gettere og settere --------------------
+
+    public ArrayList<Konkurrencesvømmer> getKonkurrencesvømmerListe() {
+        return konkurrencesvømmerListe;
     }
 
-    public void afgørAktivitetsstatus() throws IOException {
-        System.out.println("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: ");
-        svarPåAktivitetsstatus = input.nextInt();
-            if (svarPåAktivitetsstatus == 1){
-                medlem.setAktivitetsstatus(1);
-            }
-            else if (svarPåAktivitetsstatus == 2)  {
-                medlem.setAktivitetsstatus(2);
-        } // UI, input validering her
-        afgørAktivitetsform();
+    public void setKonkurrencesvømmerListe(ArrayList<Konkurrencesvømmer> konkurrencesvømmerListe) {
+        this.konkurrencesvømmerListe = konkurrencesvømmerListe;
     }
 
-    public void afgørAktivitetsform() throws IOException {
+    public void setJuniorsvømmerListe(ArrayList<Konkurrencesvømmer> juniorsvømmerListe) {
+        this.juniorsvømmerListe = juniorsvømmerListe;
+    }
 
-        if (svarPåAktivitetsstatus == 1) {
-            System.out.println("Hvad for en aktivitetsform er du interesseret i? \nTast 1 for konkurrencesvømmer, 2 for motionist: ");
-            int svarPåAktivitetsForm = input.nextInt();
+    public void setSeniorsvømmerListe(ArrayList<Konkurrencesvømmer> seniorsvømmerListe) {
+        this.seniorsvømmerListe = seniorsvømmerListe;
+    }
 
-            if (svarPåAktivitetsForm == 1) {
-                konkurrencesvømmerListe.add(new Konkurrencesvømmer(formand.getNavn(), formand.getAlder()));
-                System.out.println("Ny konkurrencesvømmer registeret: " + formand.getNavn());
-                afgørÅrgang();
 
-            } else if (svarPåAktivitetsForm == 2) {
-                motionistListe.add(new Motionist(formand.getNavn(), formand.getAlder()));
-                System.out.println("Ny motionist registreret: " + formand.getNavn());
 
-                menu.visMenu();
-            }
-        } else {
+
+    public void afgørKonkurrencesvømmer(Medlem medlem) throws IOException {
+
+           if (medlem.getAktivitetsForm() == 1 )  {
+                konkurrencesvømmerListe.add(new Konkurrencesvømmer(medlem.getNavn(), medlem.getAlder()));
+                System.out.println("Ny konkurrencesvømmer registeret " + medlem.getNavn());
+                afgørHoldEfterÅrgang();
+
+
+           } else if (medlem.getAktivitetsForm() == 2) {
+                motionistListe.add(new Motionist(medlem.getNavn(), medlem.getAlder()));
+                System.out.println("Ny motionist registreret " + medlem.getNavn());
+
+                //menu.visMenu();
+           } else {
             System.out.println("Velkommen til klubben.");
         }
     }
 
-    public void afgørÅrgang() throws IOException {
+
+    public void afgørHoldEfterÅrgang() throws IOException {
 
         for (int i = 0; i < konkurrencesvømmerListe.size(); i++) {
             if (konkurrencesvømmerListe.get(i).getAlder() < 18) {
@@ -133,7 +133,6 @@ public class Konkurrencesvømmer {
             e.printStackTrace();
         }
     }
-
 
 
     @Override

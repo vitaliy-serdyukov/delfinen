@@ -14,6 +14,12 @@ public class Menu {
         "4. Se juniorsvømmere",
         "5. Se seniorsvømmere",
         "9. Afslut"};
+
+    Formand formand = new Formand();
+
+
+
+
     final UI ui = new UI();
 
     //----Konstruktør----
@@ -57,6 +63,7 @@ public class Menu {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 validChoice = true;
+            //    scanner.nextLine();  scanner bug her eller?
             } else {
                // ui.getInt("Fejl, indtast et tal fra menuen");
                 System.out.println("Fejl, indtast et tal fra menuen");
@@ -69,7 +76,7 @@ public class Menu {
 
     public void visMenu() throws IOException {
         Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
-        Formand formand = new Formand();
+
         Kasserer kasserer = new Kasserer();
         Træner træner = new Træner();
 
@@ -87,12 +94,11 @@ public class Menu {
 
             switch (userChoice) {
                 case 1:
-                    konkurrencesvømmer.run();
-
+                    formand.run();
                     visMenu();
                     break;
                 case 2:
-                    kasserer.seKontingentOversigt();
+                  //  kasserer.seKontingentOversigt();
                     visMenu();
                      break;
                 case 3:
