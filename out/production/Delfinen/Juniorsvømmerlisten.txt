@@ -1,1 +1,4 @@
 Juniorsvømmer: Navn og alder: er, 1 år
+Juniorsvømmer: Navn og alder: John Doe, 15 år
+Juniorsvømmer: Navn og alder: Jonas, 12 år
+Juniorsvømmer: Navn og alder: Albert, 12 år

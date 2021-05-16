@@ -53,6 +53,12 @@ public class Konkurrencesvømmer {
     public void afgørAktivitetsstatus() throws IOException {
         System.out.println("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: ");
         svarPåAktivitetsstatus = input.nextInt();
+            if (svarPåAktivitetsstatus == 1){
+                medlem.setAktivitetsstatus(1);
+            }
+            else if (svarPåAktivitetsstatus == 2)  {
+                medlem.setAktivitetsstatus(2);
+        } // UI, input validering her
         afgørAktivitetsform();
     }
 

@@ -1,22 +1,27 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
 
     //----Attributter------
-    //---Lavet af Christopher------
-    private String menuOverskrift;
+
+    private String menuOverskrift =  "Svømmeklubben Delfinen:" +  "\n" + "Vælg venligst: \n";
     private String brugerValg;
-    private String[] pizzaMenu;
+    private  String[] menuChoice = {
+        "1. Opret medlem",
+        "2. Kontingentbetalinger",
+        "3. Se medlemmer",
+        "4. Se juniorsvømmere",
+        "5. Se seniorsvømmere",
+        "9. Afslut"};
     final UI ui = new UI();
 
     //----Konstruktør----
-    //---Lavet af Christopher------
-    public Menu(String menuOverskrift, String brugerValg, String[] pizzaMenu) {
+
+    public Menu(String menuOverskrift, String brugerValg, String[] menuChoice) {
         this.menuOverskrift = menuOverskrift;
         this.brugerValg = brugerValg;
-        this.pizzaMenu = pizzaMenu;
+        this.menuChoice = menuChoice;
     }
 
     //----Override konstrtuktør----
@@ -29,63 +34,67 @@ public class Menu {
 
 
     //----Metoder----
-    public void printMenu() {
-        String printString = menuOverskrift + "\n";
-        for (int i = 0; i < pizzaMenu.length; i++)
-            printString += pizzaMenu[i] + "\n";
-        ui.getString("\n" + printString);
+   /* public void printMenu() {
+       String printString = menuOverskrift + "\n";
+        for (int i = 0; i < menuChoice.length; i++)
+            printString += menuChoice[i] + "\n";
+        //ui.getString("\n" + printString);*//*
+    }*/
+
+    public void printMenu(){
+        for (int i = 0; i < menuChoice.length; i++){
+            System.out.println(menuChoice[i]);
+        }
     }
 
-    //----Lavet af Anna-Christopher---
+
     public int readChoice() {
         Scanner scanner = new Scanner(System.in);
         boolean validChoice = false;
         int choice = -1;
         while (!validChoice) {
-            System.out.print(brugerValg);
+           // System.out.print(brugerValg); giver null efter menuen
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 validChoice = true;
             } else {
-                ui.getInt("Fejl, indtast et tal fra menuen");
+               // ui.getInt("Fejl, indtast et tal fra menuen");
+                System.out.println("Fejl, indtast et tal fra menuen");
                 scanner.nextLine();
             }
         }
         return choice;
     }
 
-    //----Lavet af Anna-Christopher---
+
     public void visMenu() throws IOException {
         Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
         Formand formand = new Formand();
         Kasserer kasserer = new Kasserer();
         Træner træner = new Træner();
 
-        String[] menuChoice = {
-                "1. Opret medlem",
-                "2. Kontingentbetalinger",
-                "3. Se medlemmer",
-                "4. Se juniorsvømmere",
-                "5. Se seniorsvømmere",
-                "9. Afslut"};
 
-        Menu menu = new Menu("Svømmeklubben Delfinen:", "\nVælg: \n", menuChoice);
 
-        menu.printMenu();
+      //  Menu menu = new Menu("Svømmeklubben Delfinen:", "\nVælg: \n", menuChoice);
+        System.out.println();
+        System.out.println(menuOverskrift);
+        printMenu();
+
         boolean isRunning;
         isRunning = true;
         while (isRunning) {
-            int userChoice = menu.readChoice();
+            int userChoice = readChoice();
 
             switch (userChoice) {
                 case 1:
                     konkurrencesvømmer.run();
+
                     visMenu();
                     break;
                 case 2:
                     kasserer.seKontingentOversigt();
                     visMenu();
-                    break;
+                     break;
                 case 3:
                     formand.seMedlemmer();
                     visMenu();
@@ -103,7 +112,7 @@ public class Menu {
                     visMenu();
                     break;
                 default:
-                    ui.getInt("\nFejl.\nDet indtastede er ugyldigt ");
+                   ui.getInt("\nFejl.\nDet indtastede er ugyldigt ");
             }
            /*for (int i = 0; i < pizzaMenuen.getPizzaMenu().size(); i++) {
 

@@ -10,6 +10,7 @@ public class Formand {
     private int alder;
     private String navn;
     private int svarPåAktivitetsstatus;
+    private int kontingent;
     Scanner input = new Scanner(System.in);
 
     //----Konstruktøren----
@@ -43,11 +44,24 @@ public class Formand {
         navn = input.nextLine();
         System.out.println("Hvad er din alder?: ");
         alder = input.nextInt();
-        medlemmer.add(new Medlem(navn, alder, svarPåAktivitetsstatus));
+        kontingent = medlem.getKontingent();
+        medlemmer.add(new Medlem(navn, alder, medlem.getAktivitetsstatus(), medlem.getKontingent()));
     }
 
     public void seMedlemmer() {
         System.out.println("Ser medlemmer");
+        for (int i = 0; i <= medlemmer.size(); i++ ){
+            System.out.println(medlemmer.toString());
+        }
 
     }
+
+    @Override
+    public String toString() {
+        return "Formand{" +
+            "medlemmer=" + medlemmer +
+            '}';
+    }
 }
+
+
