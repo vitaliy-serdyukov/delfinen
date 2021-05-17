@@ -18,12 +18,15 @@ public class Konkurrencesvømmer {
     public ArrayList<Konkurrencesvømmer> getSeniorsvømmerListe() {
         return seniorsvømmerListe;
     }
+
     public ArrayList<Konkurrencesvømmer> getJuniorsvømmerListe() {
         return juniorsvømmerListe;
     }
-    public String getNavn(){
+
+    public String getNavn() {
         return navn;
     }
+
     public int getAlder() {
         return alder;
     }
@@ -39,7 +42,7 @@ public class Konkurrencesvømmer {
     }
 
     //----Objekter----
-   // Medlem medlem = new Medlem();
+    // Medlem medlem = new Medlem();
     Motionist motionist = new Motionist();
     Formand formand = new Formand();
     Menu menu = new Menu();
@@ -63,22 +66,20 @@ public class Konkurrencesvømmer {
     }
 
 
-
-
     public void afgørKonkurrencesvømmer(Medlem medlem) throws IOException {
 
-           if (medlem.getAktivitetsForm() == 1 )  {
-                konkurrencesvømmerListe.add(new Konkurrencesvømmer(medlem.getNavn(), medlem.getAlder()));
-                System.out.println("Ny konkurrencesvømmer registeret " + medlem.getNavn());
-                afgørHoldEfterÅrgang();
+        if (medlem.getAktivitetsForm().contains("Konkurrencesvømmer")) {
+            konkurrencesvømmerListe.add(new Konkurrencesvømmer(medlem.getNavn(), medlem.getAlder()));
+            System.out.println("Ny konkurrencesvømmer registeret " + medlem.getNavn());
+            afgørHoldEfterÅrgang();
 
 
-           } else if (medlem.getAktivitetsForm() == 2) {
-                motionistListe.add(new Motionist(medlem.getNavn(), medlem.getAlder()));
-                System.out.println("Ny motionist registreret " + medlem.getNavn());
+        } else if (medlem.getAktivitetsForm().contains("Motionist")) {
+            motionistListe.add(new Motionist(medlem.getNavn(), medlem.getAlder()));
+            System.out.println("Ny motionist registreret " + medlem.getNavn());
 
-                //menu.visMenu();
-           } else {
+            //menu.visMenu();
+        } else {
             System.out.println("Velkommen til klubben.");
         }
     }
@@ -90,13 +91,13 @@ public class Konkurrencesvømmer {
             if (konkurrencesvømmerListe.get(i).getAlder() < 18) {
                 juniorsvømmerListe.add(konkurrencesvømmerListe.get(i));
                 System.out.println("Da det nye medlem er under 18, er der registreret en juniorsvømmer: \n" +
-                        juniorsvømmerListe.get(i));
+                    juniorsvømmerListe.get(i));
                 indlæsJuniorsvømmerListe();
 
             } else if (konkurrencesvømmerListe.get(i).getAlder() >= 18) {
                 seniorsvømmerListe.add(konkurrencesvømmerListe.get(i));
                 System.out.println("Da det nye medlem er 18+, er der registreret en seniorsvømmer: \n" +
-                        seniorsvømmerListe.get(i));
+                    seniorsvømmerListe.get(i));
                 indlæsSeniorsvømmerListe();
             }
         }
@@ -106,7 +107,7 @@ public class Konkurrencesvømmer {
 
         File file = new File("src/Juniorsvømmerlisten.txt");
         try {
-            FileWriter fileWriter= new FileWriter(file, true);
+            FileWriter fileWriter = new FileWriter(file, true);
             fileWriter.append("Juniorsvømmer: ");
             for (int i = 0; i < juniorsvømmerListe.size(); i++) {
                 fileWriter.write(juniorsvømmerListe.get(i) + "\n");
@@ -116,8 +117,9 @@ public class Konkurrencesvømmer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        menu.visMenu();
+       // menu.visMenu();
     }
+
     public void indlæsSeniorsvømmerListe() throws IOException {
 
         File file = new File("src/Seniorsvømmerlisten.txt");
@@ -137,7 +139,7 @@ public class Konkurrencesvømmer {
 
     @Override
     public String toString() {
-        return "Navn og alder: " + navn + ", " + alder + " år";
+        return  navn + ", " + alder + " år";
     }
 
 }

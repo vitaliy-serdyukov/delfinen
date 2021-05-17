@@ -63,7 +63,6 @@ public class Menu {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 validChoice = true;
-            //    scanner.nextLine();  scanner bug her eller?
             } else {
                // ui.getInt("Fejl, indtast et tal fra menuen");
                 System.out.println("Fejl, indtast et tal fra menuen");

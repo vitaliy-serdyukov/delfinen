@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Formand {
 
     //----Attributter
+    private int svarPåAktivitetsStatus;
+    private int svarPåAktivitetsForm;
     private Scanner input = new Scanner(System.in);
 
     //----Lister----
@@ -33,6 +35,7 @@ public class Formand {
         registrerAktivitetsform();
         kasserer.beregnKontingent(medlem);
         opretMedlem();
+        indlæsmedlemListe();
 
         new Konkurrencesvømmer().afgørKonkurrencesvømmer(medlem);
 
@@ -40,11 +43,12 @@ public class Formand {
 
     public void opretMedlem() {
 
-        medlemmer.add(new Medlem(medlem.getNavn(), medlem.getAlder(), medlem.getAktivitetsstatus(),
+        medlemmer.add(new Medlem(medlem.getNavn(), medlem.getAlder(), medlem.getAktivitetsStatus(),
             medlem.getAktivitetsForm(), medlem.getKontingent()));
     }
 
     public void registrerNavnOgAlder(){
+
         System.out.println("Hvad er dit navn?: ");
         medlem.setNavn(input.nextLine());
         System.out.println("Hvad er din alder?: ");
@@ -53,37 +57,58 @@ public class Formand {
 
     public void registrerAktivitetsstatus() throws IOException {
         System.out.println("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: ");
-        medlem.setAktivitetsstatus(input.nextInt());
-        if (medlem.getAktivitetsstatus() == 1){
-            medlem.setAktivitetsstatus(1);
+        svarPåAktivitetsStatus =  input.nextInt();
+        if (svarPåAktivitetsStatus == 1){
+            medlem.setAktivitetsstatus("Aktiv medlemskab");
         }
-        else if (medlem.getAktivitetsStatus() == 2)  {
-            medlem.setAktivitetsstatus(2);
+        else if (svarPåAktivitetsStatus == 2)  {
+            medlem.setAktivitetsstatus("Passiv medlemskab");
             System.out.println("Velkommen til klubben!");
         } // UI, input validering her
 
     }
 
     public void registrerAktivitetsform() throws IOException {
-        if (medlem.getAktivitetsStatus() == 1) {
+        if (medlem.getAktivitetsStatus().contains("Aktiv medlemskab")) {
             System.out.println("Hvad for en aktivitetsform er du interesseret i? \nTast 1 for konkurrencesvømmer, 2 for motionist: ");
-            medlem.setAktivitetsForm(input.nextInt());
-            if (medlem.getAktivitetsForm() == 1 )
-            System.out.println("Ny konkurrencesvømmer registeret");
-            System.out.println("Velkommen til klubben!");
-        } else if (medlem.getAktivitetsForm() == 2) {
-            System.out.println("Ny motionist registreret:");
-            System.out.println("Velkommen til klubben!");
+            svarPåAktivitetsForm = input.nextInt();
+            if (svarPåAktivitetsForm == 1) {
+                medlem.setAktivitetsForm("Konkurrencesvømmer");
+                System.out.println("Ny konkurrencesvømmer registeret");
+                System.out.println("Velkommen til klubben!");
+                input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
+            } else if (svarPåAktivitetsForm == 2) {
+                medlem.setAktivitetsForm("Motionist");
+                System.out.println("Ny motionist registreret:");
+                System.out.println("Velkommen til klubben!");
+                input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
+            }
         }
     }
 
     public void seMedlemmer() {
         System.out.println("Ser medlemmer");
         for (int i = 0; i < medlemmer.size(); i++ ){
-            System.out.println(medlemmer.toString().replaceAll("\\[", "").replaceAll("]", ""));
+            System.out.println(medlemmer.get(i).toString().replaceAll("\\[", "").replaceAll("]", ""));
         }
     }
 
+    public void indlæsmedlemListe() {
+
+        File file = new File("src/Medlemliste.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, true);
+            fileWriter.append("Medlem: ");
+            for (int i = 0; i < medlemmer.size(); i++) {
+                fileWriter.write(medlemmer.get(i) + "\n");
+            }
+            fileWriter.close();
+            medlemmer.clear();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      //  menu.visMenu();
+    }
 }
 
 
