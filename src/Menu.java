@@ -98,7 +98,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 2:
-                    kasserer.seKontingentOversigt(formand);
+                    kasserer.seKontingentOversigt();
                     visMenu();
                      break;
                 case 3:

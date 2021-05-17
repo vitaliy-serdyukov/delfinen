@@ -13,32 +13,24 @@ public class Træner {
 
 
     public void visJuniorsvømmerFil() {
-        konkurrencesvømmer.getJuniorsvømmerListe().clear();
+        ArrayList<String> downloadJuniorfil = new ArrayList<>();
         try {
-            File fileRead = new File("src/Juniorsvømmerliste.txt");
+            File fileRead = new File("src/Juniorsvømmerlisten.txt");
+
             Scanner fileReader = new Scanner(fileRead);
 
             while (fileReader.hasNextLine()) {
-                //filListe.add(fileReader.next());
-            }
 
+                downloadJuniorfil.add(fileReader.nextLine() + "\n");
+
+            } //TODO Fiks mellemrum på første linje ved "Medlem" når man printer filen ovenpå
+            System.out.println(downloadJuniorfil.toString().replaceAll("\\[", "").replaceAll("]", ""));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+
     public void visSeniorsvømmerFil() {
-        konkurrencesvømmer.getJuniorsvømmerListe().clear();
-        try {
-            File fileRead = new File("src/Seniorsvømmerliste.txt");
-            Scanner fileReader = new Scanner(fileRead);
-
-            while (fileReader.hasNextLine()) {
-                //filListe.add(fileReader.next());
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -3,14 +3,14 @@
 public class Medlem {
     private String navn;
     private int alder;
-    private String aktivitetsStatus;
+    private String aktivitetsstatus;
     private String aktivitetsForm;
     private int kontingent;
 
     public Medlem(String navn, int alder, String aktivitetsstatus, String aktivitetsForm, int kontingent){
         this.navn = navn;
         this.alder = alder;
-        this.aktivitetsStatus = aktivitetsstatus;
+        this.aktivitetsstatus = aktivitetsstatus;
         this.aktivitetsForm = aktivitetsForm;
         this.kontingent = kontingent;
     }
@@ -28,9 +28,8 @@ public class Medlem {
         return alder;
     }
 
-
-    public String getAktivitetsStatus() {
-        return aktivitetsStatus;
+    public String getAktivitetsstatus() {
+        return aktivitetsstatus;
     }
 
     public String getAktivitetsForm() {
@@ -53,7 +52,7 @@ public class Medlem {
     }
 
     public void setAktivitetsstatus(String aktivitetsstatus) {
-        this.aktivitetsStatus = aktivitetsstatus;
+        this.aktivitetsstatus = aktivitetsstatus;
     }
 
     public void setAktivitetsForm(String aktivitetsForm) {
@@ -67,8 +66,8 @@ public class Medlem {
 
     @Override
     public String toString() {
-        return  navn + ", " +  alder + " år" +   ", " +  aktivitetsStatus   +  ", " + aktivitetsForm +
-        ", " + " kontingent " + kontingent + " kr.";
+        return  navn + ", " +  alder + " år" +   ", " + aktivitetsstatus +  ", " + aktivitetsForm +
+        ", " + "Kontingent " + kontingent + " kr.";
     }
 }
 

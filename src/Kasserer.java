@@ -1,4 +1,7 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Kasserer {
 
@@ -7,24 +10,41 @@ public class Kasserer {
    // Formand formand = new Formand();
 
   public void beregnKontingent(Medlem medlem) { // equals, contains eller matches?
-    if (medlem.getAktivitetsStatus().contains("Aktiv medlemskab") && medlem.getAlder() < 18) {
+    if (medlem.getAktivitetsstatus().contains("Aktivt medlemskab") && medlem.getAlder() < 18) {
       medlem.setKontingent(1000);
-    } else if (medlem.getAktivitetsStatus().contains("Aktiv medlemskab") && 18 <= medlem.getAlder() && medlem.getAlder() < 60) {
+    } else if (medlem.getAktivitetsstatus().contains("Aktivt medlemskab") && 18 <= medlem.getAlder() && medlem.getAlder() < 60) {
       medlem.setKontingent(1600);
-    } else if (medlem.getAktivitetsStatus().contains("Aktiv medlemskab") && medlem.getAlder() >= 60) {
+    } else if (medlem.getAktivitetsstatus().contains("Aktivt medlemskab") && medlem.getAlder() >= 60) {
       medlem.setKontingent(1200);
-    } else if (medlem.getAktivitetsStatus().contains("Passiv medlemskab")) {
+    } else if (medlem.getAktivitetsstatus().contains("Passivt medlemskab")) {
       medlem.setKontingent(500);
     }
   }
 
-
-    public void seKontingentOversigt(Formand formand) {
+    public void seKontingentOversigt() {
+    //TODO Hent KUN kontingent fra filen og smid det ind i en int ArrayListe som vi kan bruge i næste metode og udregne årlig
+      ArrayList<String> downloadKontingent = new ArrayList<>();
       System.out.println("Ser kontingentoversigt");
-      for (int i = 0; i < formand.getMedlemmer().size(); i++) {
-        System.out.println(formand.getMedlemmer().get(i).toString());
+        try {
+          File fileRead = new File("src/Medlemliste.txt");
+
+          Scanner fileReader = new Scanner(fileRead);
+
+          while (fileReader.hasNextLine()) {
+
+            downloadKontingent.add(fileReader.nextLine()+ "\n");
+
+          } //TODO Fiks mellemrum på første linje ved "Medlem" når man printer filen ovenpå
+          System.out.println(downloadKontingent.toString().replaceAll(".," , "").replaceAll("\\[", "").replaceAll("]", ""));
+        } catch (FileNotFoundException e) {
+          e.printStackTrace();
+        }
       }
-    }
+
+      public void udregnKontingent(){
+
+      }
+
 
 }
 
