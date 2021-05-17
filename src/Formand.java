@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Formand {
@@ -28,7 +29,7 @@ public class Formand {
     }
 
     //----Metoder----
-    public void run() throws IOException {
+    public void run(){
 
         registrerNavnOgAlder();
         registrerAktivitetsstatus();
@@ -37,11 +38,14 @@ public class Formand {
         opretMedlem();
         indlæsmedlemListe();
 
+       // seMedlemmer();
+
         new Konkurrencesvømmer().afgørKonkurrencesvømmer(medlem);
+
 
     }
 
-    public void opretMedlem() {
+    public void opretMedlem(){
 
         medlemmer.add(new Medlem(medlem.getNavn(), medlem.getAlder(), medlem.getAktivitetsStatus(),
             medlem.getAktivitetsForm(), medlem.getKontingent()));
@@ -55,7 +59,7 @@ public class Formand {
         medlem.setAlder(input.nextInt());
     }
 
-    public void registrerAktivitetsstatus() throws IOException {
+    public void registrerAktivitetsstatus(){
         System.out.println("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: ");
         svarPåAktivitetsStatus =  input.nextInt();
         if (svarPåAktivitetsStatus == 1){
@@ -68,7 +72,7 @@ public class Formand {
 
     }
 
-    public void registrerAktivitetsform() throws IOException {
+    public void registrerAktivitetsform(){
         if (medlem.getAktivitetsStatus().contains("Aktiv medlemskab")) {
             System.out.println("Hvad for en aktivitetsform er du interesseret i? \nTast 1 for konkurrencesvømmer, 2 for motionist: ");
             svarPåAktivitetsForm = input.nextInt();
@@ -83,7 +87,10 @@ public class Formand {
                 System.out.println("Velkommen til klubben!");
                 input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
             }
+        } else if (medlem.getAktivitetsStatus().contains("Passiv medlemskab")){
+            medlem.setAktivitetsForm("Passiv medlemskab");
         }
+
     }
 
     public void seMedlemmer() {
@@ -109,6 +116,43 @@ public class Formand {
         }
       //  menu.visMenu();
     }
+
+    /*public ArrayList<Medlem> udlæsmedlemListe(){
+        File file = new File("src/Medlemliste.txt");
+        ArrayList<Medlem> medlemListe = new ArrayList<>();
+        try{
+            Scanner fileReader = new Scanner(file);
+            if (fileReader.hasNextLine()) {
+                while (fileReader.hasNextLine()){
+            String temp;
+            String navn;
+            int alder;
+            String aktivitetsStatus;
+            String aktivitetsForm;
+            int kontingent;
+
+            temp = fileReader.nextLine().replaceAll("Medlem: ", "").replaceAll( " år", "").
+                replaceAll("  kontingent", "").replaceAll(" kr.", "");
+            if (!(temp.isEmpty()){
+                String[] navnArray = temp.split(",");
+                alder = Integer.parseInt(temp);
+                String [] statusArray = temp.split(",");
+                String [] formArray = temp.split(",");
+                String [] kontingentArray = temp.split(",");
+                Integer[] kontingentInteger = new Integer[kontingentArray.length];
+                    for (int i = 0; i < kontingentArray.length;i++){
+                        kontingentInteger[i] = Integer.parseInt(kontingentArray[i]);
+                    }
+                        Collections.addAll()
+
+
+                    }
+
+                }
+            }
+        }
+
+    }*/
 }
 
 

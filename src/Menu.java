@@ -16,6 +16,7 @@ public class Menu {
         "9. Afslut"};
 
     Formand formand = new Formand();
+    Kasserer kasserer = new Kasserer();
 
 
 
@@ -76,7 +77,7 @@ public class Menu {
     public void visMenu() throws IOException {
         Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
 
-        Kasserer kasserer = new Kasserer();
+     //   Kasserer kasserer = new Kasserer();
         Træner træner = new Træner();
 
 
@@ -97,7 +98,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 2:
-                  //  kasserer.seKontingentOversigt();
+                    kasserer.seKontingentOversigt(formand);
                     visMenu();
                      break;
                 case 3:

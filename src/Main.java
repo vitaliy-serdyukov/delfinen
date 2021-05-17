@@ -4,7 +4,7 @@ import java.util.function.ToDoubleBiFunction;
 public class Main {
   public static void main(String[] args) throws IOException {
 
-    Formand formand = new Formand();
+   // Formand formand = new Formand();
     Menu menu = new Menu();
     menu.visMenu();
 

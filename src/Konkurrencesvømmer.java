@@ -66,7 +66,7 @@ public class Konkurrencesvømmer {
     }
 
 
-    public void afgørKonkurrencesvømmer(Medlem medlem) throws IOException {
+    public void afgørKonkurrencesvømmer(Medlem medlem){
 
         if (medlem.getAktivitetsForm().contains("Konkurrencesvømmer")) {
             konkurrencesvømmerListe.add(new Konkurrencesvømmer(medlem.getNavn(), medlem.getAlder()));
@@ -85,7 +85,7 @@ public class Konkurrencesvømmer {
     }
 
 
-    public void afgørHoldEfterÅrgang() throws IOException {
+    public void afgørHoldEfterÅrgang(){
 
         for (int i = 0; i < konkurrencesvømmerListe.size(); i++) {
             if (konkurrencesvømmerListe.get(i).getAlder() < 18) {
@@ -103,7 +103,7 @@ public class Konkurrencesvømmer {
         }
     }
 
-    public void indlæsJuniorsvømmerListe() throws IOException {
+    public void indlæsJuniorsvømmerListe(){
 
         File file = new File("src/Juniorsvømmerlisten.txt");
         try {
@@ -120,7 +120,7 @@ public class Konkurrencesvømmer {
        // menu.visMenu();
     }
 
-    public void indlæsSeniorsvømmerListe() throws IOException {
+    public void indlæsSeniorsvømmerListe(){
 
         File file = new File("src/Seniorsvømmerlisten.txt");
         try {

@@ -1,0 +1,17 @@
+Medlem: Mister Test , 44 år, Aktiv medlemskab, Motionist,  kontingent 1600 kr.
+Medlem: Mister test 2, 67 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1200 kr.
+Medlem: Ung medlem, 12 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
+Medlem: Den gamle svommer, 67 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1200 kr.
+Medlem: Medlem, 33 år, Passiv medlemskab, null,  kontingent 500 kr.
+Medlem: Test medlem, 43 år, Passiv medlemskab, Passiv medlemskab,  kontingent 500 kr.
+Medlem: weweewwe, 10 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
+Medlem: dgdfdfd, 45 år, Passiv medlemskab, Passiv medlemskab,  kontingent 500 kr.
+Medlem: Medlem1, 16 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
+Medlem: Medlem2, 15 år, Aktiv medlemskab, Motionist,  kontingent 1000 kr.
+Medlem: Medlem3, 14 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
+Medlem: medlem 4, 23 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1600 kr.
+Medlem: Vitaliy, 37 år, Aktiv medlemskab, Motionist,  kontingent 1600 kr.
+Medlem: Test sv, 23 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1600 kr.
+Medlem: VVVV, 22 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1600 kr.
+Medlem: dfddfdf, 2 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
+Medlem: 1, 23 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1600 kr.
