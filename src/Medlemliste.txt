@@ -25,6 +25,7 @@ Medlem: VVVV, 22 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1600 kr
 Medlem: dfddfdf, 2 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
 Medlem: 1, 23 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1600 kr.
 Medlem: dfdf, 34 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1600 kr.
+<<<<<<< HEAD
 Medlem: Younes, 12 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
 Medlem: Younes, 12 år, Aktivt medlemskab, null, Kontingent 1000 kr.
 Medlem: Younes, 12 år, Aktivt medlemskab, null, Kontingent 1000 kr.
@@ -47,3 +48,11 @@ Medlem: fdfdg, 12 år, Aktivt medlemskab, Konkurrencesvømmer, Kontingent 1000 k
 Medlem: fsdfdfg, 14 år, Aktivt medlemskab, Konkurrencesvømmer, Kontingent 1000 kr.
 
 Medlem: 
+=======
+Medlem: Y, 12 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
+Medlem: Younes, 12 år, Aktiv medlemskab, Konkurrencesvømmer,  kontingent 1000 kr.
+Medlem: 
+Younes2, 13 år, Aktiv medlemskab, Konkurrencesvømmer, Kontingent 1000 kr.
+
+Medlem: Test, 12 år, Aktiv medlemskab, Konkurrencesvømmer, Kontingent 1000 kr.
+>>>>>>> e36bc1e3ed5414b2fdb1316ddd89223e499dc77d
