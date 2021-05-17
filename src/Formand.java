@@ -105,7 +105,7 @@ public class Formand {
         File file = new File("src/Medlemliste.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, true);
-            fileWriter.append("Medlem: ");
+            fileWriter.append("\nMedlem: ");
             for (int i = 0; i < medlemmer.size(); i++) {
                 fileWriter.write(medlemmer.get(i) + "\n");
             }
