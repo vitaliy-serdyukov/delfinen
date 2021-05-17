@@ -5,8 +5,5 @@ Seniorsvømmer: Test sv, 23 år
 Seniorsvømmer: VVVV, 22 år
 Seniorsvømmer: 1, 23 år
 Seniorsvømmer: dfdf, 34 år
-<<<<<<< HEAD
 Seniorsvømmer: Tine, 34 år
 Seniorsvømmer: jfhj, 45 år
-=======
->>>>>>> e36bc1e3ed5414b2fdb1316ddd89223e499dc77d
