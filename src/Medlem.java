@@ -66,8 +66,8 @@ public class Medlem {
 
     @Override
     public String toString() {
-        return navn + ", " +  alder + " år" +   ", " +  aktivitetsstatus   +  ", " + aktivitetsForm +
-        ", " + "Kontingent " + kontingent + " kr.";
+        return  "Medlem: "  + navn + ", " +  alder + " år" +   ", " +  aktivitetsstatus   +  ", " + aktivitetsForm +
+        ", " + "Kontingent " + kontingent + " kr.\n";
     }
 }
 
