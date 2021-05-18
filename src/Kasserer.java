@@ -4,47 +4,55 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Kasserer {
-
-   // Menu menu = new Menu();
-
-   // Formand formand = new Formand();
+  ArrayList<Integer> kontingenter = new ArrayList<>();
 
   public void beregnKontingent(Medlem medlem) { // equals, contains eller matches?
-    if (medlem.getAktivitetsstatus().contains("Aktivt medlemskab") && medlem.getAlder() < 18) {
+    if (medlem.getAktivitetsstatus().contains("Aktiv") && medlem.getAlder() < 18) {
       medlem.setKontingent(1000);
-    } else if (medlem.getAktivitetsstatus().contains("Aktivt medlemskab") && 18 <= medlem.getAlder() && medlem.getAlder() < 60) {
+    } else if (medlem.getAktivitetsstatus().contains("Aktiv") && 18 <= medlem.getAlder() && medlem.getAlder() < 60) {
       medlem.setKontingent(1600);
-    } else if (medlem.getAktivitetsstatus().contains("Aktivt medlemskab") && medlem.getAlder() >= 60) {
+    } else if (medlem.getAktivitetsstatus().contains("Aktiv") && medlem.getAlder() >= 60) {
       medlem.setKontingent(1200);
-    } else if (medlem.getAktivitetsstatus().contains("Passivt medlemskab")) {
+    } else if (medlem.getAktivitetsstatus().contains("Passiv")) {
       medlem.setKontingent(500);
     }
   }
 
-    public void seKontingentOversigt() {
-    //TODO Hent KUN kontingent fra filen og smid det ind i en int ArrayListe som vi kan bruge i næste metode og udregne årlig
-      ArrayList<String> downloadKontingent = new ArrayList<>();
-      System.out.println("Ser kontingentoversigt");
-        try {
-          File fileRead = new File("src/Medlemliste.txt");
+  //TODO Hent KUN kontingent fra filen og smid det ind i en int ArrayListe som vi kan bruge i næste metode og udregne årlig
+    public void findKontingenterFraMedlemsliste() {
+      try {
+        File fileRead = new File("src/Medlemliste.txt");
 
-          Scanner fileReader = new Scanner(fileRead);
+        Scanner fileReader = new Scanner(fileRead);
+        //String kontingenter = fileReader.nextLine();
+        kontingenter.clear();
+        while (fileReader.hasNextLine()) {
+          if (fileReader.nextLine().equals("Aktiv") || fileReader.nextLine().equals("Passiv")) {
 
-          while (fileReader.hasNextLine()) {
-
-            downloadKontingent.add(fileReader.nextLine()+ "\n");
-
-          } //TODO Fiks mellemrum på første linje ved "Medlem" når man printer filen ovenpå
-          System.out.println(downloadKontingent.toString().replaceAll(".," , "").replaceAll("\\[", "").replaceAll("]", ""));
-        } catch (FileNotFoundException e) {
-          e.printStackTrace();
+            kontingenter.add(Integer.parseInt(fileReader.nextLine()));
+          }
         }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
       }
+    }
 
-      public void udregnKontingent(){
+    public void printKontingenter(){
+    findKontingenterFraMedlemsliste();
+      System.out.println("Kontingenter: ");
+      for (int i = 0; i < kontingenter.size(); i++) {
+        System.out.println(kontingenter.get(i).toString().replaceAll("\\[", "").replaceAll("]", ""));
+      } kontingenter.clear();
+    }
 
+    public void udregnKontingent(){
+    findKontingenterFraMedlemsliste();
+    int sum = 0;
+    System.out.println("Samlet kontingentindkomst: ");
+    for (int i = 0; i < kontingenter.size(); i++){
+      sum += kontingenter.get(i);
+    }
+      System.out.println(sum);
       }
-
-
 }
 

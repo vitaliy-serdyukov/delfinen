@@ -7,7 +7,8 @@ public class Formand {
     //----Attributter
     private int svarPåAktivitetsStatus;
     private int svarPåAktivitetsForm;
-    private Scanner input = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
+
 
     //----Lister----
     private ArrayList<Medlem> medlemmer = new ArrayList<>();
@@ -15,6 +16,7 @@ public class Formand {
     //----Objekter----
     Medlem medlem = new Medlem();
     Kasserer kasserer = new Kasserer();
+    Træner træner = new Træner();
 
     //----Konstruktøren----
     public Formand() {
@@ -23,6 +25,10 @@ public class Formand {
     // ---------Gettere----------
     public ArrayList<Medlem> getMedlemmer() {
         return medlemmer;
+    }
+
+    public int getSvarPåAktivitetsStatus() {
+        return svarPåAktivitetsStatus;
     }
 
     //----Metoder----
@@ -36,7 +42,7 @@ public class Formand {
 
        // seMedlemmer();
 
-        new Konkurrencesvømmer().afgørKonkurrencesvømmer(medlem);
+       //new Konkurrencesvømmer().afgørKonkurrencesvømmer(medlem);
     }
 
     public void opretMedlem(){
@@ -55,39 +61,43 @@ public class Formand {
         System.out.println("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: ");
         svarPåAktivitetsStatus =  input.nextInt();
         if (svarPåAktivitetsStatus == 1){
-            medlem.setAktivitetsstatus("Aktivt medlemskab");
+            medlem.setAktivitetsstatus("Aktiv");
         }
         else if (svarPåAktivitetsStatus == 2)  {
-            medlem.setAktivitetsstatus("Passivt medlemskab");
+            medlem.setAktivitetsstatus("Passiv");
             System.out.println("Velkommen til klubben!");
         } // UI, input validering her
 
     }
 
     public void registrerAktivitetsform(){
-        if (medlem.getAktivitetsstatus().contains("Aktivt medlemskab")) {
+        if (medlem.getAktivitetsstatus().equals("Aktiv")) {
             System.out.println("Hvad for en aktivitetsform er du interesseret i? \nTast 1 for konkurrencesvømmer, 2 for motionist: ");
             svarPåAktivitetsForm = input.nextInt();
             if (svarPåAktivitetsForm == 1) {
                 medlem.setAktivitetsForm("Konkurrencesvømmer");
-                System.out.println("Ny konkurrencesvømmer registeret");
-                System.out.println("Velkommen til klubben!");
+                System.out.println("Ny konkurrencesvømmer registeret: " + medlem.getNavn());
+                træner.getKonkurrencesvømmerListe().add(new Konkurrencesvømmer(medlem.getNavn(), medlem.getAlder()));
+                System.out.println("Velkommen til klubben! " + medlem.getNavn());
+                træner.afgørHoldEfterÅrgang();
+
                 input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
             } else if (svarPåAktivitetsForm == 2) {
                 medlem.setAktivitetsForm("Motionist");
-                System.out.println("Ny motionist registreret:");
+                System.out.println("Ny motionist registreret: " + medlem.getNavn());
+                træner.getMotionistListe().add(new Motionist(medlem.getNavn(), medlem.getAlder()));
                 System.out.println("Velkommen til klubben!");
                 input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
             }
-        } else if (medlem.getAktivitetsstatus().contains("Passivt medlemskab")){
-            medlem.setAktivitetsForm("Passivt medlemskab");
+        } else if (medlem.getAktivitetsstatus().contains("Passiv")){
+            medlem.setAktivitetsForm("Passiv");
         }
 
     }
 
     public void seMedlemmer() {
         ArrayList<String> downloadMedlemmer = new ArrayList<>();
-        System.out.println("Ser kontingentoversigt");
+        System.out.println("Medlemmer");
         try {
             File fileRead = new File("src/Medlemliste.txt");
 
@@ -98,7 +108,7 @@ public class Formand {
                 downloadMedlemmer.add(fileReader.nextLine()+ "\n");
 
             } //TODO Fiks mellemrum på første linje ved "Medlem" når man printer filen ovenpå
-            System.out.println(downloadMedlemmer.toString().replaceAll(". , M" , " M").replaceAll("\\[", "").replaceAll("]", ""));
+            System.out.println(downloadMedlemmer.toString()/*.replaceAll(". , M" , " M").replaceAll("\\[", "").replaceAll("]", "")*/);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -109,9 +119,13 @@ public class Formand {
         File file = new File("src/Medlemliste.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, true);
-            fileWriter.append("\nMedlem: ");
+            fileWriter.write("\nMedlem: \n");
             for (int i = 0; i < medlemmer.size(); i++) {
-                fileWriter.write(medlemmer.get(i) + "\n");
+                fileWriter.write(medlemmer.get(i).getNavn() + "\n" +
+                        medlemmer.get(i).getAlder() + "\n" +
+                        medlemmer.get(i).getAktivitetsstatus() + "\n" +
+                        medlemmer.get(i).getKontingent() + "\n" +
+                        medlemmer.get(i).getAktivitetsForm() + "\n");
             }
             fileWriter.close();
             medlemmer.clear();

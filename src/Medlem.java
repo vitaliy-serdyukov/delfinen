@@ -7,11 +7,11 @@ public class Medlem {
     private String aktivitetsForm;
     private int kontingent;
 
-    public Medlem(String navn, int alder, String aktivitetsstatus, String aktivitetsForm, int kontingent){
+    public Medlem(String navn, int alder, String aktivitetsstatus, String aktivitetsform, int kontingent){
         this.navn = navn;
         this.alder = alder;
         this.aktivitetsstatus = aktivitetsstatus;
-        this.aktivitetsForm = aktivitetsForm;
+        this.aktivitetsForm = aktivitetsform;
         this.kontingent = kontingent;
     }
 
@@ -66,10 +66,7 @@ public class Medlem {
 
     @Override
     public String toString() {
-
-
         return navn + ", " +  alder + " år" +   ", " +  aktivitetsstatus   +  ", " + aktivitetsForm +
-
         ", " + "Kontingent " + kontingent + " kr.";
     }
 }

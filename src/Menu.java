@@ -8,12 +8,13 @@ public class Menu {
     private String menuOverskrift =  "Svømmeklubben Delfinen:" +  "\n" + "Vælg venligst: \n";
     private String brugerValg;
     private  String[] menuChoice = {
-        "1. Opret medlem",
-        "2. Kontingentbetalinger",
-        "3. Se medlemmer",
-        "4. Se juniorsvømmere",
-        "5. Se seniorsvømmere",
-        "9. Afslut"};
+            "1. Opret medlem",
+            "2. Se medlemmer",
+            "3. Se juniorsvømmere",
+            "4. Se seniorsvømmere",
+            "5. Se kontingentoversigt",
+            "6. Udregn kontingent",
+            "9. Afslut"};
 
     Formand formand = new Formand();
     Kasserer kasserer = new Kasserer();
@@ -98,21 +99,24 @@ public class Menu {
                     visMenu();
                     break;
                 case 2:
-                    kasserer.seKontingentOversigt();
+                    formand.seMedlemmer();
                     visMenu();
                      break;
                 case 3:
-                    formand.seMedlemmer();
-                    visMenu();
-                    break;
-                case 4:
                     træner.visJuniorsvømmerFil();
                     visMenu();
                     break;
-                case 5:
+                case 4:
                     træner.visSeniorsvømmerFil();
                     visMenu();
                     break;
+                case 5:
+                    kasserer.printKontingenter();
+                    visMenu();
+                    break;
+                case 6:
+                    kasserer.udregnKontingent();
+                    visMenu();
                 case 9:
                     isRunning = false;
                     visMenu();
