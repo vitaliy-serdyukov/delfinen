@@ -102,7 +102,7 @@ public class Formand {
 
     public void seMedlemmer() {
 
-        System.out.println(uploadMedlemListe().toString().replaceAll("\\[","").
+        System.out.printf("%-10s %n", uploadMedlemListe().toString().replaceAll("\\[","").
             replaceAll("]", "").replaceAll(" , "
             , ""));
 

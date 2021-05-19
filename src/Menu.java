@@ -112,11 +112,11 @@ public class Menu {
                     visMenu();
                     break;
                 case 5:
-                    kasserer.printKontingenter();
+                    kasserer.visKontingenter(formand);
                     visMenu();
                     break;
                 case 6:
-                    kasserer.udregnKontingent();
+                    kasserer.udregnKontingenter(formand);
                     visMenu();
                 case 9:
                     isRunning = false;

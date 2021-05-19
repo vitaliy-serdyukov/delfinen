@@ -13,3 +13,18 @@ Vitaliy
 Aktiv
 Konkurrencesvømmer
 1600
+Den unge medlem
+16
+Passiv
+Passiv
+500
+Medlem, der endnu yngre
+15
+Aktiv
+Konkurrencesvømmer
+1000
+Test
+12
+Aktiv
+Konkurrencesvømmer
+1000

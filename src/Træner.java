@@ -11,6 +11,10 @@ public class Træner {
     private ArrayList<Konkurrencesvømmer> juniorsvømmerListe = new ArrayList<>();
     private ArrayList<Konkurrencesvømmer> seniorsvømmerListe = new ArrayList<>();
 
+
+
+
+
     //----Gettere----
     public ArrayList<Konkurrencesvømmer> getKonkurrencesvømmerListe() {
         return konkurrencesvømmerListe;
