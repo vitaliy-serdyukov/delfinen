@@ -1,38 +1,10 @@
-dsdds
-16
-Aktiv
-Konkurrencesvømmer
-1000
-dfddfd
-56
-Aktiv
-Konkurrencesvømmer
-1600
-Vitaliy
-37
-Aktiv
-Konkurrencesvømmer
-1600
-Den unge medlem
-16
-Passiv
-Passiv
-500
-Medlem, der endnu yngre
-15
-Aktiv
-Konkurrencesvømmer
-1000
-<<<<<<< HEAD
-Test
+fsfss
 12
 Aktiv
 Konkurrencesvømmer
 1000
-=======
-Anders
-34
-Aktiv
-Konkurrencesvømmer
-1600
->>>>>>> 626c5fef8d96c07a2f630a3dd21d4c295726803a
+ffgdgd23
+23
+Passiv
+Passiv
+500

@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Kasserer {
   ArrayList<Integer> kontingenter = new ArrayList<>();
@@ -51,15 +48,15 @@ public class Kasserer {
   public void visKontingenter(Formand formand){
 
     //ArrayList<Medlem> medlemKontingent = formand.uploadMedlemListe();
-    for (int i = 0; i < formand.uploadMedlemListe().size();i++) {
-      System.out.println(formand.uploadMedlemListe().get(i).getKontingent());
+    for (int i = 0; i < formand.downloadMedlemsliste().size();i++) {
+      System.out.println(formand.downloadMedlemsliste().get(i).getKontingent());
     }
   }
 
   public void udregnKontingenter(Formand formand) {
     int kontingentSum = 0;
-    for (int i = 0; i < formand.uploadMedlemListe().size(); i++) {
-      kontingentSum = kontingentSum + formand.uploadMedlemListe().get(i).getKontingent();
+    for (int i = 0; i < formand.downloadMedlemsliste().size(); i++) {
+      kontingentSum = kontingentSum + formand.downloadMedlemsliste().get(i).getKontingent();
     }
     System.out.println("Den samlede kontinget for alle medlemer er " + kontingentSum + " kr.");
   }

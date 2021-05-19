@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Formand {
@@ -39,7 +38,7 @@ public class Formand {
         registrerAktivitetsform();
         kasserer.beregnKontingent(medlem);
         opretMedlem();
-        indlæsMedlemListe();
+        opdaterMedlemsFil();
 
 
 
@@ -100,59 +99,40 @@ public class Formand {
 
     }
 
+
     public void seMedlemmer() {
 
+        System.out.println(downloadMedlemsliste().toString().replaceAll("\\[","").
+            replaceAll("]", "").replaceAll(","
+            , " "));
 
-       /* System.out.printf("%-10s %n", uploadMedlemListe().toString().replaceAl*/l("\\[","").
-            replaceAll("]", "").replaceAll(" , ");
-
-        System.out.println(uploadMedlemListe().toString().replaceAll("\\[","").
-            replaceAll("]", "").replaceAll(", "
-
-            , ""));
     }
-        /*ArrayList<String> downloadMedlemmer = new ArrayList<>();
-        System.out.println("Medlemmer");
-        try {
-            File fileRead = new File("src/Medlemliste.txt");
-
-            Scanner fileReader = new Scanner(fileRead);
-
-            while (fileReader.hasNextLine()) {
-
-                downloadMedlemmer.add(fileReader.nextLine()+ "\n");
-
-            } //TODO Fiks mellemrum på første linje ved "Medlem" når man printer filen ovenpå
-            System.out.println(downloadMedlemmer.toString()*//*.replaceAll(". , M" , " M").replaceAll("\\[", "").replaceAll("]", "")*//*);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }*/
 
 
 
-    public void indlæsMedlemListe() {
+
+    public void opdaterMedlemsFil() {
         File file = new File("src/Medlemliste.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, true);
-          //  fileWriter.write("\nMedlem: \n");
+            //fileWriter.write("\nMedlem: \n");
             for (int i = 0; i < medlemmer.size(); i++) {
                 fileWriter.write(medlemmer.get(i).getNavn() + "\n" +
-                        medlemmer.get(i).getAlder() + "\n" +
-                        medlemmer.get(i).getAktivitetsstatus() + "\n" +
-                        medlemmer.get(i).getAktivitetsForm() + "\n" +
-                        medlemmer.get(i).getKontingent() + "\n");
+                    medlemmer.get(i).getAlder() + "\n" +
+                    medlemmer.get(i).getAktivitetsstatus() + "\n" +
+                    medlemmer.get(i).getAktivitetsForm() + "\n" +
+                    medlemmer.get(i).getKontingent() + "\n");
             }
             fileWriter.close();
             medlemmer.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }
-      //  menu.visMenu();
     }
 
-    public  ArrayList<Medlem>  uploadMedlemListe() {
+    public  ArrayList<Medlem> downloadMedlemsliste() {
 
-        ArrayList<Medlem> medlemList = new ArrayList<>();
+        ArrayList<Medlem> medlemsFilliste = new ArrayList<>();
         File file = new File("src/Medlemliste.txt");
         try {
             Scanner fileReader = new Scanner(file);
@@ -182,19 +162,16 @@ public class Formand {
                     temp = fileReader.nextLine();
                     kontingent = Integer.parseInt(temp);
 
-                    medlemList.add(new Medlem(navn,alder,aktivitetsStatus,aktivitetsForm,kontingent));
-
+                    medlemsFilliste.add(new Medlem(navn,alder,aktivitetsStatus,aktivitetsForm,kontingent));
                 }
             }
-
             fileReader.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return medlemList;
+        return medlemsFilliste;
     }
+
 }
 
 
