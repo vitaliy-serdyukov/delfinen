@@ -51,5 +51,8 @@ Juniorsvømmer: dsdds, 16 år
 Juniorsvømmer: dsdds, 16 år
 Juniorsvømmer: Medlem, der endnu yngre, 15 år
 Juniorsvømmer: Medlem, der endnu yngre, 15 år
+<<<<<<< HEAD
 Juniorsvømmer: Test, 12 år
 Juniorsvømmer: Test, 12 år
+=======
+>>>>>>> 626c5fef8d96c07a2f630a3dd21d4c295726803a
