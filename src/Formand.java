@@ -101,16 +101,16 @@ public class Formand {
     }
 
     public void seMedlemmer() {
-<<<<<<< HEAD
 
-        System.out.printf("%-10s %n", uploadMedlemListe().toString().replaceAll("\\[","").
-            replaceAll("]", "").replaceAll(" , "
-=======
+
+       /* System.out.printf("%-10s %n", uploadMedlemListe().toString().replaceAl*/l("\\[","").
+            replaceAll("]", "").replaceAll(" , ");
+
         System.out.println(uploadMedlemListe().toString().replaceAll("\\[","").
             replaceAll("]", "").replaceAll(", "
->>>>>>> 626c5fef8d96c07a2f630a3dd21d4c295726803a
-            , ""));
 
+            , ""));
+    }
         /*ArrayList<String> downloadMedlemmer = new ArrayList<>();
         System.out.println("Medlemmer");
         try {
@@ -128,7 +128,7 @@ public class Formand {
             e.printStackTrace();
         }*/
 
-    }
+
 
     public void indlæsMedlemListe() {
         File file = new File("src/Medlemliste.txt");
