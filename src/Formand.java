@@ -101,9 +101,8 @@ public class Formand {
     }
 
     public void seMedlemmer() {
-
         System.out.println(uploadMedlemListe().toString().replaceAll("\\[","").
-            replaceAll("]", "").replaceAll(" , "
+            replaceAll("]", "").replaceAll(", "
             , ""));
 
         /*ArrayList<String> downloadMedlemmer = new ArrayList<>();
