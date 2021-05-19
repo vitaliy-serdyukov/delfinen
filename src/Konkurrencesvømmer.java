@@ -57,35 +57,9 @@ public class Konkurrencesvømmer {
         this.seniorsvømmerListe = seniorsvømmerListe;
     }
 
-//TODO Samme metode som nedenstående er lavet i formand klassen
-    /*public void afgørKonkurrencesvømmer(Medlem medlem){
-
-        if (medlem.getAktivitetsForm().equals("Konkurrencesvømmer")) {
-            konkurrencesvømmerListe.add(new Konkurrencesvømmer(medlem.getNavn(), medlem.getAlder()));
-            System.out.println("Ny konkurrencesvømmer registeret " + medlem.getNavn());
-            afgørHoldEfterÅrgang();
-
-
-        } else if (medlem.getAktivitetsForm().contains("Motionist")) {
-            motionistListe.add(new Motionist(medlem.getNavn(), medlem.getAlder()));
-            System.out.println("Ny motionist registreret " + medlem.getNavn());
-
-            //menu.visMenu();
-        } else {
-            System.out.println("Velkommen til klubben.");
-        }
-
-
-    }
-
-     */
-
-
-
 
     @Override
     public String toString() {
-        return  navn + ", " + alder + " år";
+        return navn + " " + alder + " år\n";
     }
-
 }

@@ -9,7 +9,6 @@ public class Formand {
     private int svarPåAktivitetsForm;
     Scanner input = new Scanner(System.in);
 
-
     //----Lister----
     private ArrayList<Medlem> medlemmer = new ArrayList<>();
 
@@ -27,10 +26,6 @@ public class Formand {
         return medlemmer;
     }
 
-    public int getSvarPåAktivitetsStatus() {
-        return svarPåAktivitetsStatus;
-    }
-
     //----Metoder----
     public void run(){
         registrerStamoplysninger();
@@ -39,13 +34,7 @@ public class Formand {
         kasserer.beregnKontingent(medlem);
         opretMedlem();
         opdaterMedlemsFil();
-
-
-
-       //new Konkurrencesvømmer().afgørKonkurrencesvømmer(medlem);
-       // new Træner().afgørHoldEfterÅrgang(medlem);
     }
-
 
     public void opretMedlem(){
         medlemmer.add(new Medlem(medlem.getNavn(), medlem.getAlder(), medlem.getAktivitetsstatus(),
@@ -64,12 +53,10 @@ public class Formand {
         svarPåAktivitetsStatus =  input.nextInt();
         if (svarPåAktivitetsStatus == 1){
             medlem.setAktivitetsstatus("Aktiv");
-        }
-        else if (svarPåAktivitetsStatus == 2)  {
+        } else if (svarPåAktivitetsStatus == 2)  {
             medlem.setAktivitetsstatus("Passiv");
             System.out.println("Velkommen til klubben!");
         } // UI, input validering her
-
     }
 
     public void registrerAktivitetsform(){
@@ -82,7 +69,7 @@ public class Formand {
                 træner.getKonkurrencesvømmerListe().add(new Konkurrencesvømmer(medlem.getNavn(), medlem.getAlder()));
                 System.out.println("Velkommen til klubben! " + medlem.getNavn());
                 træner.afgørHoldEfterÅrgang();
-
+                træner.getKonkurrencesvømmerListe().clear();
 
                 input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
             } else if (svarPåAktivitetsForm == 2) {
@@ -96,32 +83,23 @@ public class Formand {
             medlem.setAktivitetsForm("Passiv");
             input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
         }
-
     }
-
 
     public void seMedlemmer() {
-
         System.out.println(downloadMedlemsliste().toString().replaceAll("\\[","").
-            replaceAll("]", "").replaceAll(","
-            , " "));
-
+            replaceAll("]", "").replaceAll(", ", ""));
     }
-
-
-
 
     public void opdaterMedlemsFil() {
         File file = new File("src/Medlemliste.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, true);
-            //fileWriter.write("\nMedlem: \n");
             for (int i = 0; i < medlemmer.size(); i++) {
                 fileWriter.write(medlemmer.get(i).getNavn() + "\n" +
-                    medlemmer.get(i).getAlder() + "\n" +
-                    medlemmer.get(i).getAktivitetsstatus() + "\n" +
-                    medlemmer.get(i).getAktivitetsForm() + "\n" +
-                    medlemmer.get(i).getKontingent() + "\n");
+                        medlemmer.get(i).getAlder() + "\n" +
+                        medlemmer.get(i).getAktivitetsstatus() + "\n" +
+                        medlemmer.get(i).getAktivitetsForm() + "\n" +
+                        medlemmer.get(i).getKontingent() + "\n");
             }
             fileWriter.close();
             medlemmer.clear();
@@ -130,8 +108,7 @@ public class Formand {
         }
     }
 
-    public  ArrayList<Medlem> downloadMedlemsliste() {
-
+    public ArrayList<Medlem> downloadMedlemsliste() {
         ArrayList<Medlem> medlemsFilliste = new ArrayList<>();
         File file = new File("src/Medlemliste.txt");
         try {
@@ -171,7 +148,6 @@ public class Formand {
         }
         return medlemsFilliste;
     }
-
 }
 
 

@@ -20,6 +20,6 @@ public class Seniorsvømmer {
 
     @Override
     public String toString() {
-        return navn + ", " + alder;
+        return navn + " " + alder;
     }
 }

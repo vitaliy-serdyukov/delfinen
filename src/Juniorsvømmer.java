@@ -17,6 +17,6 @@ public class Juniorsvømmer {
 
     @Override
     public String toString() {
-        return navn + ", " +  alder;
+        return navn + " " +  alder;
     }
 }

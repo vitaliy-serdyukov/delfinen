@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -104,11 +103,11 @@ public class Menu {
                     visMenu();
                      break;
                 case 3:
-                    træner.visJuniorsvømmerFil();
+                    træner.downloadJuniorsvømmerFil();
                     visMenu();
                     break;
                 case 4:
-                    træner.visSeniorsvømmerFil();
+                    træner.downloadSeniorsvømmerFil();
                     visMenu();
                     break;
                 case 5:
