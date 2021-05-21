@@ -1,161 +1,161 @@
-import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Træner {
 
+    // ----Variabler--------------
     private ArrayList<Konkurrencesvømmer> konkurrencesvømmerListe = new ArrayList<>();
+    private ArrayList<Konkurrencesvømmer> konkurrencesvømmerResultat = new ArrayList<>();  // Konkurrencesvømmere med resultat
 
-    private ArrayList<Motionist> motionistListe = new ArrayList<>();
-    private ArrayList<Konkurrencesvømmer> juniorsvømmerListe = new ArrayList<>();
-    private ArrayList<Konkurrencesvømmer> seniorsvømmerListe = new ArrayList<>();
+    // -----Objekter--------------
+    private Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
+    private Filhåndtering fh2 = new Filhåndtering();
+    //  private ArrayList<Motionist> motionistListe = new ArrayList<>();
+
 
     //----Gettere----
-    public ArrayList<Konkurrencesvømmer> getKonkurrencesvømmerListe() {
-        return konkurrencesvømmerListe;
-    }
-    public ArrayList<Motionist> getMotionistListe() {
-        return motionistListe;
-    }
+    public ArrayList<Konkurrencesvømmer> getKonkurrencesvømmerListe() {return konkurrencesvømmerListe;}
 
-    //----Settere----
-    public void setKonkurrencesvømmerListe(ArrayList<Konkurrencesvømmer> konkurrencesvømmerListe) {
-        this.konkurrencesvømmerListe = konkurrencesvømmerListe;
+    public ArrayList<Konkurrencesvømmer> getKonkurrencesvømmerResultat() {
+        return konkurrencesvømmerResultat;
     }
 
-    public void visJuniorsvømmerFil() {
-        ArrayList<String> downloadJuniorfil = new ArrayList<>();
-        try {
-            File fileRead = new File("src/Medlemliste.txt");
 
-            Scanner fileReader = new Scanner(fileRead);
-
-            while (fileReader.hasNextLine()) {
-
-                downloadJuniorfil.add(fileReader.nextLine() + "\n");
-
-            } //TODO Fiks mellemrum på første linje ved "Medlem" når man printer filen ovenpå
-            System.out.println(downloadJuniorfil.toString().replaceAll("\\[", "").replaceAll("]", ""));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    public void printKonkurrencesvømmer(Filhåndtering fh) {
+        // System.out.println("Konkurrencesvømmere: ");
+        for (int i = 0; i < fh.downloadKonkurrencesvømmerFil().size();i++){
+            System.out.println((fh.downloadKonkurrencesvømmerFil().get(i).getNavn() + " " +  fh.downloadKonkurrencesvømmerFil().
+                get(i).getAlder()).replaceAll("\\[","").replaceAll("]", "").
+                replaceAll(", ", ""));
         }
     }
 
-    public void afgørHoldEfterÅrgang() {
+    public void printResultatKonkurrencesvømmer(Filhåndtering fh){
+        ArrayList<Konkurrencesvømmer> alleKonkurrenceResultatPåSkærm   =  fh.downloadKonkurrencesvømmerResultatFil();
+        System.out.println("Konkurrencesvømmere med resultater:\n ");
+        System.out.println(alleKonkurrenceResultatPåSkærm.toString().replaceAll("\\[", "").
+            replaceAll("]", "").replaceAll(", ", ""));
+    }
+
+    public void registrerSvømmeresultat() {
+
+        String svarNavn;
+        int svarDisciplin;
+        Scanner scan = new Scanner(System.in);
+
+            System.out.println("Vi har følgende  konkurrencesvømmere i vores klub:\n");
+            printKonkurrencesvømmer(fh2);
+            System.out.println("\nIntast venligst navn fra overnævnte liste:");
+            svarNavn = scan.nextLine();
+
+            for (int i = 0; i < fh2.downloadKonkurrencesvømmerFil().size(); i++) {
+
+                if (fh2.downloadKonkurrencesvømmerFil().get(i).getNavn().equals(svarNavn)) {
+
+                    konkurrencesvømmer.setNavn(fh2.downloadKonkurrencesvømmerFil().get(i).getNavn());
+                    konkurrencesvømmer.setAlder(fh2.downloadKonkurrencesvømmerFil().get(i).getAlder());
+                    System.out.println("For hvilken svømmedisciplin skal registreres resultat:  ");
+                    System.out.println("\nVælg venligst mellem 1 eller 4");
+                    System.out.println("1. Butterfly" + "\n2. Crawl" + "\n3. Rygcrawl" + "\n4. Brystsvømning");
+
+                    svarDisciplin = scan.nextInt();
+
+                    switch (svarDisciplin) {
+                        case 1 -> konkurrencesvømmer.setSvømmedisciplin("Butterfly");
+                        case 2 -> konkurrencesvømmer.setSvømmedisciplin("Crawl");
+                        case 3 -> konkurrencesvømmer.setSvømmedisciplin("Rygcrawl");
+                        case 4 -> konkurrencesvømmer.setSvømmedisciplin("Brystsvømning");
+                    } // validering
+
+                    System.out.println("Indtast venligst resultat:");
+                    konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
+                    konkurrencesvømmer.setResultatsDato();
+
+                    konkurrencesvømmerResultat.add(new Konkurrencesvømmer(konkurrencesvømmer.
+                        getNavn(), konkurrencesvømmer.getAlder(), konkurrencesvømmer.getSvømmedisciplin(),
+                        konkurrencesvømmer.getSvømmeresultat(), konkurrencesvømmer.getResultatsDato()));
+
+                    fh2.uploadKonkurrencesvømmerResultatFil(konkurrencesvømmerResultat);
+
+                    System.out.println("Ny resultat er registreret for: \n");
+                    System.out.println(konkurrencesvømmerResultat.toString().
+                        replaceAll("\\[", "").replaceAll("]", "").
+                        replaceAll(", ", ""));
+
+                } else {
+                    /*do {
+                        System.out.println("Navnet er indtastet forkert eller ikke fundet i junior liste");
+                        svarNavn = scan.nextLine();
+
+                    } while (!(downloadJuniorsvømmerFil().get(i).getNavn().equals(svarNavn)));*/
+                    // TO DO VALIDERING
+                }
+            }
+        }
+
+
+        /*public void afgørHoldEfterÅrgang() {
         for (int i = 0; i < konkurrencesvømmerListe.size(); i++) {
             if (konkurrencesvømmerListe.get(i).getAlder() < 18) {
-                juniorsvømmerListe.add(konkurrencesvømmerListe.get(i));
+
                 System.out.println("Da det nye medlem er under 18, er der registreret en juniorsvømmer: \n" +
-                        konkurrencesvømmerListe.get(i));
-                uploadJuniorsvømmerFil();
-                juniorsvømmerListe.clear();
+                    konkurrencesvømmerListe.get(i));
+
 
             } else if (konkurrencesvømmerListe.get(i).getAlder() >= 18) {
-                seniorsvømmerListe.add(konkurrencesvømmerListe.get(i));
+
                 System.out.println("Da det nye medlem er 18+, er der registreret en seniorsvømmer: \n" +
-                        konkurrencesvømmerListe.get(i));
-                uploadSeniorsvømmerFil();
-                seniorsvømmerListe.clear();
+                    konkurrencesvømmerListe.get(i));
+
             }
         }
-    }
+    }*/
+
+    public void findTopFemBatterfly(){
+
+        ArrayList<Konkurrencesvømmer> butterfly = new ArrayList<>();
+
+        for (int i = 0; i < fh2.downloadKonkurrencesvømmerResultatFil().size(); i++) {
+            if (fh2.downloadKonkurrencesvømmerResultatFil().get(i).getSvømmedisciplin().equals("Butterfly")) {
+                butterfly.add(fh2.downloadKonkurrencesvømmerResultatFil().get(i));
 
 
-    public void uploadJuniorsvømmerFil(){
+                System.out.println();
+                Collections.sort(butterfly, konkurrencesvømmer.resultatEfterDouble);
+                System.out.println(butterfly);
 
-        File file = new File("src/Juniorsvømmerlisten.txt");
-        try {
-            FileWriter fileWriter = new FileWriter(file, true);
-            //fileWriter.append("Juniorsvømmer: ");
-            for (int i = 0; i < juniorsvømmerListe.size(); i++) {
-                fileWriter.write(juniorsvømmerListe.get(i).getNavn() + "\n" + juniorsvømmerListe.get(i).getAlder() + "\n");
+                Collections.sort(butterfly, new SammelignEfterNavnOgResultat());// sorterer efter resultat, med forbehold
+                // at den samme medlem har flere resultater
             }
-            fileWriter.close();
-            //juniorsvømmerListe.clear();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    }
+        System.out.println(butterfly);
 
-    public void uploadSeniorsvømmerFil(){
+        for (int i = 0; i < butterfly.size();i++){             // fjerner værste sesultat, hvis en medlem har flere
+            for (int j = i + 1; j < butterfly.size(); j++) {
 
-        File file = new File("src/Seniorsvømmerlisten.txt");
-        try {
-            FileWriter fileWriter = new FileWriter(file, true);
-            //fileWriter.append("Seniorsvømmer: ");
-            for (int i = 0; i < seniorsvømmerListe.size(); i++) {
-                fileWriter.write(seniorsvømmerListe.get(i).getNavn() + "\n" + seniorsvømmerListe.get(i).getAlder() + "\n");
-            }
-            fileWriter.close();
-            //seniorsvømmerListe.clear();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void downloadJuniorsvømmerFil(){
-        ArrayList<Konkurrencesvømmer> juniorsvømmerFil = new ArrayList<>();
-
-        File file = new File("src/Juniorsvømmerlisten.txt");
-        try {
-            Scanner fileReader = new Scanner(file);
-
-            if (fileReader.hasNextLine()) {
-                while (fileReader.hasNextLine()) {
-
-                    String temp;
-                    String navn;
-                    int alder;
-
-                    temp = fileReader.nextLine();
-                    navn = temp;
-
-                    temp = fileReader.nextLine();
-                    alder = Integer.parseInt(temp);
-
-                    juniorsvømmerFil.add(new Konkurrencesvømmer(navn,alder));
-
+                if (butterfly.get(i).getNavn().equals(butterfly.get(j).getNavn())) {
+                    System.out.println("Test");
+                    butterfly.remove(j);
+                    j--;
                 }
-                System.out.println("Juniorsvømmer: ");
-                System.out.println(juniorsvømmerFil.toString().replaceAll("\\[","").
-                        replaceAll("]", "").replaceAll(", ", ""));
-
             }
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+
         }
+        System.out.println(butterfly);
+
+        System.out.println("\nFinally vores top 5 i batterfly:\n");
+
+            for (int i = 0; i < 5; i++) {
+              System.out.println(butterfly.get(i)); // fejler hvis der færre end 5 medlemer i listen
+
+
+        }
+
     }
 
-    public void downloadSeniorsvømmerFil() {
-        ArrayList<Konkurrencesvømmer> seniorsvømmerFil = new ArrayList();
-
-        File file = new File("src/Seniorsvømmerlisten.txt");
-        try {
-            Scanner fileReader = new Scanner(file);
-            if (fileReader.hasNextLine()) {
-                while (fileReader.hasNextLine()) {
-
-                    String temp;
-                    String navn;
-                    int alder;
-
-                    temp = fileReader.nextLine();
-                    navn = temp;
-
-                    temp = fileReader.nextLine();
-                    alder = Integer.parseInt(temp);
-
-                    seniorsvømmerFil.add(new Konkurrencesvømmer(navn,alder));
-
-                }
-                System.out.println("Seniorsvømmer: ");
-                System.out.println(seniorsvømmerFil.toString().replaceAll("\\[","").
-                        replaceAll("]", "").replaceAll(", ", ""));
-            }
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
+
+/*
+&&
+    fh2.downloadKonkurrencesvømmerFil().get(i).getAlder() < 18){}*/

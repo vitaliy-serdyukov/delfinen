@@ -4,28 +4,29 @@ import java.util.Scanner;
 public class Menu {
 
     //----Attributter------
-
     private String menuOverskrift =  "Svømmeklubben Delfinen:" +  "\n" + "Vælg venligst: \n";
     private String brugerValg;
     private  String[] menuChoice = {
             "1. Opret medlem",
             "2. Se medlemmer",
-            "3. Se juniorsvømmere",
-            "4. Se seniorsvømmere",
-            "5. Se kontingentoversigt",
-            "6. Udregn kontingent",
-            "9. Afslut"};
+            "3. Se kontingentoversigt",
+            "4. Udregn kontingent",
+            "5. Medlemmer i restance",
+            "6. Se konkurrencesvømmere",
+            "7. Se konkurrencesvømmere med resultat",
+            "8. Registrer svømmeresultat",
+            "9. Find top 5",
+            "10. Afslut"};
 
     Formand formand = new Formand();
     Kasserer kasserer = new Kasserer();
-
-
-
-
+    Træner træner = new Træner();
+    Filhåndtering fh = new Filhåndtering();
     final UI ui = new UI();
 
-    //----Konstruktør----
 
+
+    //----Konstruktør----
     public Menu(String menuOverskrift, String brugerValg, String[] menuChoice) {
         this.menuOverskrift = menuOverskrift;
         this.brugerValg = brugerValg;
@@ -33,12 +34,7 @@ public class Menu {
     }
 
     //----Override konstrtuktør----
-    public Menu() {
-    }
-
-    //----Instantiering----
-    //Formand formand = new Formand();
-
+    public Menu() {}
 
 
     //----Metoder----
@@ -54,7 +50,6 @@ public class Menu {
             System.out.println(menuChoice[i]);
         }
     }
-
 
     public int readChoice() {
         Scanner scanner = new Scanner(System.in);
@@ -74,14 +69,7 @@ public class Menu {
         return choice;
     }
 
-
     public void visMenu() throws IOException {
-        Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
-
-     //   Kasserer kasserer = new Kasserer();
-        Træner træner = new Træner();
-
-
 
       //  Menu menu = new Menu("Svømmeklubben Delfinen:", "\nVælg: \n", menuChoice);
         System.out.println();
@@ -101,33 +89,44 @@ public class Menu {
                 case 2:
                     formand.seMedlemmer();
                     visMenu();
-                     break;
+                    break;
                 case 3:
-                    træner.downloadJuniorsvømmerFil();
+                    System.out.println("Konkurrencesvømmere:");
+                    kasserer.visKontingenter(formand, fh);
                     visMenu();
                     break;
                 case 4:
-                    træner.downloadSeniorsvømmerFil();
+                    kasserer.udregnKontingenter(formand, fh);
                     visMenu();
                     break;
                 case 5:
-                    kasserer.visKontingenter(formand);
+                    kasserer.findMedlemmerIRestance(formand);
                     visMenu();
                     break;
                 case 6:
-                    kasserer.udregnKontingenter(formand);
+                    træner.printKonkurrencesvømmer(fh);
                     visMenu();
+                    break;
+                case 7:
+                    træner.printResultatKonkurrencesvømmer(fh);
+                    visMenu();
+                    break;
+                case 8:
+                    træner.registrerSvømmeresultat();
+                    visMenu();
+                    break;
                 case 9:
+                    træner.findTopFemBatterfly();
+                    visMenu();
+                    break;
+                case 10:
                     isRunning = false;
                     visMenu();
                     break;
                 default:
                    ui.getInt("\nFejl.\nDet indtastede er ugyldigt ");
             }
-           /*for (int i = 0; i < pizzaMenuen.getPizzaMenu().size(); i++) {
 
-                if (pizzaMenuen.getPizzaMenu().get(i).equals(userChoice)) ;
-            }*/
         }
     }
 

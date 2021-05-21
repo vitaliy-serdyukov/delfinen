@@ -1,65 +1,79 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.Comparator;
 
-public class Konkurrencesvømmer {
+public class Konkurrencesvømmer extends Medlem {
 
     //----Attributter----
-    private String navn;
-    private int alder;
-    //private int svarPåAktivitetsstatus;
+    private String svømmedisciplin;
+    private double svømmeresultat;
+    private LocalDate resultatsDato = LocalDate.now();
 
-    private ArrayList<Konkurrencesvømmer> juniorsvømmerListe = new ArrayList<>();
-    private ArrayList<Konkurrencesvømmer> seniorsvømmerListe = new ArrayList<>();
-    Scanner input = new Scanner(System.in);
 
-    //----Gettere----
-    public ArrayList<Konkurrencesvømmer> getSeniorsvømmerListe() {
-        return seniorsvømmerListe;
-    }
-
-    public ArrayList<Konkurrencesvømmer> getJuniorsvømmerListe() {
-        return juniorsvømmerListe;
-    }
-
-    public String getNavn() {
-        return navn;
-    }
-
-    public int getAlder() {
-        return alder;
-    }
-
-    //----Konstruktør----
-    public Konkurrencesvømmer(String navn, int alder) {
-        this.navn = navn;
-        this.alder = alder;
+    //----Konstruktøren----
+    public Konkurrencesvømmer(String navn, int alder, String svømmedisciplin, double svømmeresultat,
+                              LocalDate resultatsDato) {
+        super(navn, alder);
+        this.svømmedisciplin = svømmedisciplin;
+        this.svømmeresultat = svømmeresultat;
+        this.resultatsDato = resultatsDato;
     }
 
     //----Overrrider konstruktøren----
+    public Konkurrencesvømmer(String navn, int alder) {
+        super(navn, alder);
+
+    }
+
     public Konkurrencesvømmer() {
     }
 
-    //----Objekter----
-    // Medlem medlem = new Medlem();
-    Motionist motionist = new Motionist();
-    Formand formand = new Formand();
-    Menu menu = new Menu();
-
-    // --------Gettere og settere --------------------
 
 
-    public void setJuniorsvømmerListe(ArrayList<Konkurrencesvømmer> juniorsvømmerListe) {
-        this.juniorsvømmerListe = juniorsvømmerListe;
+    public String getSvømmedisciplin() {
+        return svømmedisciplin;
     }
 
-    public void setSeniorsvømmerListe(ArrayList<Konkurrencesvømmer> seniorsvømmerListe) {
-        this.seniorsvømmerListe = seniorsvømmerListe;
+    public void setSvømmedisciplin(String svømmedisciplin) {
+        this.svømmedisciplin = svømmedisciplin;
     }
+
+    public double getSvømmeresultat() {
+        return svømmeresultat;
+    }
+
+    public void setSvømmeresultat(double svømmeresultat) {
+        this.svømmeresultat = svømmeresultat;
+    }
+
+    public LocalDate getResultatsDato() {
+        return resultatsDato;
+    }
+
+    public void setResultatsDato() {
+    }
+
+    public void setResultatsDato(LocalDate resultatsDato) {
+        this.resultatsDato = resultatsDato;
+    }
+
+
+    public static Comparator<Konkurrencesvømmer> resultatEfterDouble = new Comparator<Konkurrencesvømmer>() {
+        @Override
+        public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
+            return Double.compare(k1.getSvømmeresultat(), k2.getSvømmeresultat());
+        }
+    };
 
 
     @Override
     public String toString() {
-        return navn + " " + alder + " år\n";
+        return  super.getNavn() + " " + super.getAlder() + " " + svømmedisciplin + " " + svømmeresultat + " " +
+             resultatsDato + "\n";
+
     }
+
+
 }
+
+
+

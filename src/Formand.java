@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Formand {
 
     //----Attributter
+    ArrayList<String> medlemsFilliste = new ArrayList<>();
     private int svarPåAktivitetsStatus;
     private int svarPåAktivitetsForm;
     Scanner input = new Scanner(System.in);
@@ -16,6 +17,7 @@ public class Formand {
     Medlem medlem = new Medlem();
     Kasserer kasserer = new Kasserer();
     Træner træner = new Træner();
+    Filhåndtering fh = new Filhåndtering();
 
     //----Konstruktøren----
     public Formand() {
@@ -25,20 +27,25 @@ public class Formand {
     public ArrayList<Medlem> getMedlemmer() {
         return medlemmer;
     }
+    public ArrayList<String> getMedlemsFilliste() {
+        return medlemsFilliste;
+    }
 
     //----Metoder----
-    public void run(){
+    public void run() {
         registrerStamoplysninger();
         registrerAktivitetsstatus();
         registrerAktivitetsform();
         kasserer.beregnKontingent(medlem);
+        kasserer.harBetalt(medlem);
         opretMedlem();
-        opdaterMedlemsFil();
+        fh.uploadMedlemsFil(medlemmer);
     }
 
-    public void opretMedlem(){
+    public void opretMedlem() {
         medlemmer.add(new Medlem(medlem.getNavn(), medlem.getAlder(), medlem.getAktivitetsstatus(),
-            medlem.getAktivitetsForm(), medlem.getKontingent()));
+            medlem.getAktivitetsForm(), medlem.getKontingent(), medlem.getKontingentForRestenAfÅret(),
+            medlem.getBetalt()));
     }
 
     public void registrerStamoplysninger(){
@@ -67,87 +74,32 @@ public class Formand {
                 medlem.setAktivitetsForm("Konkurrencesvømmer");
                 System.out.println("Ny konkurrencesvømmer registeret: " + medlem.getNavn());
                 træner.getKonkurrencesvømmerListe().add(new Konkurrencesvømmer(medlem.getNavn(), medlem.getAlder()));
-                System.out.println("Velkommen til klubben! " + medlem.getNavn());
-                træner.afgørHoldEfterÅrgang();
-                træner.getKonkurrencesvømmerListe().clear();
+                System.out.println("Velkommen til klubben " + medlem.getNavn() + "!");
+              //  træner.afgørHoldEfterÅrgang();
+              //  træner.getKonkurrencesvømmerListe().clear();
+                fh.uploadKonkurrencesvømmerFil(træner.getKonkurrencesvømmerListe());
+                træner.getKonkurrencesvømmerListe().clear(); //
 
-                input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
+                input.nextLine(); //Scanner bug
             } else if (svarPåAktivitetsForm == 2) {
                 medlem.setAktivitetsForm("Motionist");
                 System.out.println("Ny motionist registreret: " + medlem.getNavn());
-                træner.getMotionistListe().add(new Motionist(medlem.getNavn(), medlem.getAlder()));
-                System.out.println("Velkommen til klubben!");
+               // træner.getMotionistListe().add(new Motionist(medlem.getNavn(), medlem.getAlder()));
+                System.out.println("Velkommen til klubben " + medlem.getNavn() + "!");
                 input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
             }
         } else if (medlem.getAktivitetsstatus().contains("Passiv")){
             medlem.setAktivitetsForm("Passiv");
-            input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
+            input.nextLine(); //Scanner bug
         }
     }
 
     public void seMedlemmer() {
-        System.out.println(downloadMedlemsliste().toString().replaceAll("\\[","").
+        System.out.println(fh.downloadMedlemsliste().toString().replaceAll("\\[","").
             replaceAll("]", "").replaceAll(", ", ""));
     }
 
-    public void opdaterMedlemsFil() {
-        File file = new File("src/Medlemliste.txt");
-        try {
-            FileWriter fileWriter = new FileWriter(file, true);
-            for (int i = 0; i < medlemmer.size(); i++) {
-                fileWriter.write(medlemmer.get(i).getNavn() + "\n" +
-                        medlemmer.get(i).getAlder() + "\n" +
-                        medlemmer.get(i).getAktivitetsstatus() + "\n" +
-                        medlemmer.get(i).getAktivitetsForm() + "\n" +
-                        medlemmer.get(i).getKontingent() + "\n");
-            }
-            fileWriter.close();
-            medlemmer.clear();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public ArrayList<Medlem> downloadMedlemsliste() {
-        ArrayList<Medlem> medlemsFilliste = new ArrayList<>();
-        File file = new File("src/Medlemliste.txt");
-        try {
-            Scanner fileReader = new Scanner(file);
-
-            if (fileReader.hasNextLine()) {
-                while (fileReader.hasNextLine()) {
-
-                    String temp;
-                    String navn;
-                    int alder;
-                    String aktivitetsStatus;
-                    String aktivitetsForm;
-                    int kontingent;
-
-                    temp = fileReader.nextLine();
-                    navn = temp;
-
-                    temp = fileReader.nextLine();
-                    alder = Integer.parseInt(temp);
-
-                    temp = fileReader.nextLine();
-                    aktivitetsStatus = temp;
-
-                    temp = fileReader.nextLine();
-                    aktivitetsForm = temp;
-
-                    temp = fileReader.nextLine();
-                    kontingent = Integer.parseInt(temp);
-
-                    medlemsFilliste.add(new Medlem(navn,alder,aktivitetsStatus,aktivitetsForm,kontingent));
-                }
-            }
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return medlemsFilliste;
-    }
 }
 
 
