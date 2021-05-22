@@ -8,12 +8,12 @@ public class Menu {
     private String brugerValg;
     private  String[] menuChoice = {
             "1. Opret medlem",
-            "2. Se medlemmer",
-            "3. Se kontingentoversigt",
-            "4. Udregn kontingent",
+            "2. Medlemmer",
+            "3. Kontingentoversigt",
+            "4. Forventede kontingentindkomst",
             "5. Medlemmer i restance",
-            "6. Se konkurrencesvømmere",
-            "7. Se konkurrencesvømmere med resultat",
+            "6. Konkurrencesvømmere",
+            "7. Konkurrencesvømmere med resultat",
             "8. Registrer svømmeresultat",
             "9. Find top 5",
             "10. Afslut"};
@@ -91,7 +91,6 @@ public class Menu {
                     visMenu();
                     break;
                 case 3:
-                    System.out.println("Konkurrencesvømmere:");
                     kasserer.visKontingenter(formand, fh);
                     visMenu();
                     break;
@@ -100,7 +99,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 5:
-                    kasserer.findMedlemmerIRestance(formand);
+                    kasserer.findMedlemmerIRestance(formand, fh);
                     visMenu();
                     break;
                 case 6:
@@ -116,7 +115,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 9:
-                    træner.findTopFemBatterfly();
+                    træner.findTopFem();
                     visMenu();
                     break;
                 case 10:

@@ -102,12 +102,11 @@ public class Kasserer {
     System.out.println("Den forventede årlige kontingentindkomst er " + forventedeKontingent + "kr.");
   }
 
-  public void findMedlemmerIRestance(Formand formand) {
+  public void findMedlemmerIRestance(Formand formand, Filhåndtering fh) {
     ArrayList<Medlem> medlemmerIRestance = new ArrayList<>();
-    for (int i = 0; i < formand.getMedlemmer().size(); i++) {
-      if (!formand.getMedlemmer().get(i).getBetalt()) {
-        System.out.println("Test");
-        medlemmerIRestance.add(formand.getMedlemmer().get(i));
+    for (int i = 0; i < fh.downloadMedlemsliste().size(); i++) {
+      if (!fh.downloadMedlemsliste().get(i).getBetalt()) {
+          medlemmerIRestance.add(fh.downloadMedlemsliste().get(i));
       }
     }
     System.out.println(medlemmerIRestance);
