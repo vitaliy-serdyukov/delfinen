@@ -42,7 +42,7 @@ public class Filhåndtering {
           String aktivitetsStatus;
           String aktivitetsForm;
           int kontingent;
-          int kontingentForIÅr;
+          double kontingentForIÅr;
           boolean betalt;
 
           temp = fileReader.nextLine();
@@ -61,7 +61,7 @@ public class Filhåndtering {
           kontingent = Integer.parseInt(temp);
 
           temp = fileReader.nextLine();
-          kontingentForIÅr = Integer.parseInt(temp);
+          kontingentForIÅr = Double.parseDouble(temp);
 
           temp = fileReader.nextLine();
           betalt = Boolean.parseBoolean(temp);

@@ -96,7 +96,7 @@ public class Medlem {
 
 
 
-    public static Comparator<Medlem> medlemrerEfterNavn = new Comparator<Medlem>() {
+    public static Comparator<Medlem> medlemmerEfterNavn = new Comparator<Medlem>() {
         @Override
         public int compare(Medlem m1, Medlem m2) {
             return m1.getNavn().compareTo(m2.getNavn());

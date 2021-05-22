@@ -16,7 +16,7 @@ public class Menu {
             "7. Konkurrencesvømmere med resultat",
             "8. Registrer svømmeresultat",
             "9. Find top 5",
-            "10. Afslut"};
+            "0. Afslut"};
 
     Formand formand = new Formand();
     Kasserer kasserer = new Kasserer();
@@ -91,12 +91,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 3:
-<<<<<<< HEAD
-                    System.out.println("Konkurrencesvømmere:");
                     kasserer.visKontingenter(formand, filhåndtering);
-=======
-                    kasserer.visKontingenter(formand, fh);
->>>>>>> cf12afb37a7f84f1c1cc6e76b2728ce80e48c070
                     visMenu();
                     break;
                 case 4:
@@ -104,7 +99,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 5:
-                    kasserer.findMedlemmerIRestance(formand, fh);
+                    kasserer.findMedlemmerIRestance(formand, filhåndtering);
                     visMenu();
                     break;
                 case 6:
@@ -123,7 +118,7 @@ public class Menu {
                     træner.findTopFem();
                     visMenu();
                     break;
-                case 10:
+                case 0:
                     isRunning = false;
                     visMenu();
                     break;

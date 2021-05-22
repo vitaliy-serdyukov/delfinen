@@ -96,27 +96,27 @@ public class Formand {
 
 
     public void seMedlemmer() {
-        ArrayList<Medlem> medlemerEfterNavn = filHåndtering.downloadMedlemsliste();
+        ArrayList<Medlem> medlemmerEfterNavn = filHåndtering.downloadMedlemsliste();
         String betaltStr;
 
-        Collections.sort(medlemerEfterNavn, medlem.medlemrerEfterNavn); // sorterer eksisterende medlemer efter navn
+        Collections.sort(medlemmerEfterNavn, medlem.medlemmerEfterNavn); // sorterer eksisterende medlemer efter navn
 
         System.out.printf(" %-3s %-15s %-10s %-10s %-30s %-20s %-20s %-15s \n", "Nr.",
             "Navn", "Alder", "Status", "Aktivitetsform", "Kontingent", "Kontingent", "Betalings-");
         System.out.printf("\033[4m %-3s %-15s %-10s %-10s %-30s %-20s %-20s %-15s \033[0m\n", "",
             "", "", "", "", "", "til 31.12", "status");
-        for (int i = 0; i < medlemerEfterNavn.size(); i++){
+        for (int i = 0; i < medlemmerEfterNavn.size(); i++){
 
-            if (medlemerEfterNavn.get(i).getBetalt()){
+            if (medlemmerEfterNavn.get(i).getBetalt()){
                 betaltStr = "Betalt";
             }
             else betaltStr = "Restance";
 
             System.out.printf("\033[4m %-3d %-15s %-10s %-10s %-30s %-20s %-20s %-15s \033[0m\n", (i + 1),
-                medlemerEfterNavn.get(i).getNavn(), medlemerEfterNavn.get(i).getAlder() + " år",
-                medlemerEfterNavn.get(i).getAktivitetsstatus(),
-                medlemerEfterNavn.get(i).getAktivitetsForm(), medlemerEfterNavn.get(i).getKontingent(),
-                medlemerEfterNavn.get(i).getKontingentForRestenAfÅret(), betaltStr);
+                medlemmerEfterNavn.get(i).getNavn(), medlemmerEfterNavn.get(i).getAlder() + " år",
+                medlemmerEfterNavn.get(i).getAktivitetsstatus(),
+                medlemmerEfterNavn.get(i).getAktivitetsForm(), medlemmerEfterNavn.get(i).getKontingent(),
+                medlemmerEfterNavn.get(i).getKontingentForRestenAfÅret(), betaltStr);
         }
     }
 
