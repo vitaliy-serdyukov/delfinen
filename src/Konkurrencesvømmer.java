@@ -57,7 +57,15 @@ public class Konkurrencesvømmer extends Medlem {
     }
 
 
-    public static Comparator<Konkurrencesvømmer> resultatEfterDouble = new Comparator<Konkurrencesvømmer>() {
+
+    public Comparator<Konkurrencesvømmer> konkurrencesvømmereEfterNavn = new Comparator<Konkurrencesvømmer>() {
+        @Override
+        public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
+            return k1.getNavn().compareTo(k2.getNavn());
+        }
+    };
+
+   public Comparator<Konkurrencesvømmer> resultatEfterDouble = new Comparator<Konkurrencesvømmer>() {
         @Override
         public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
             return Double.compare(k1.getSvømmeresultat(), k2.getSvømmeresultat());

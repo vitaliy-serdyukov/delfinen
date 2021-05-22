@@ -43,3 +43,13 @@ Test
 Crawl
 23.1
 2021-05-21
+Test 3
+27
+Brystsvømning
+23.4
+2021-05-21
+Medlem
+23
+Rygcrawl
+32.3
+2021-05-22

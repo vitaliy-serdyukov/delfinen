@@ -48,3 +48,8 @@ Test 3
 Brystsvømning
 23.4
 2021-05-21
+Medlem
+23
+Rygcrawl
+32.3
+2021-05-22

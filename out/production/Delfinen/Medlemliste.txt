@@ -68,3 +68,17 @@ Motionist
 1000
 448
 false
+Test 3
+27
+Aktiv
+Konkurrencesvømmer
+1600
+896
+false
+New
+11
+Aktiv
+Konkurrencesvømmer
+1000
+446
+false

@@ -22,21 +22,40 @@ public class Træner {
     }
 
 
+
     public void printKonkurrencesvømmer(Filhåndtering fh) {
-        // System.out.println("Konkurrencesvømmere: ");
-        for (int i = 0; i < fh.downloadKonkurrencesvømmerFil().size();i++){
-            System.out.println((fh.downloadKonkurrencesvømmerFil().get(i).getNavn() + " " +  fh.downloadKonkurrencesvømmerFil().
-                get(i).getAlder()).replaceAll("\\[","").replaceAll("]", "").
-                replaceAll(", ", ""));
+        System.out.println("Vi har følgende konkurrencesvømmere i vores klub:\n ");
+        ArrayList<Konkurrencesvømmer> konkurrencesvømmereSorteretNavn = fh.downloadKonkurrencesvømmerFil();
+        Collections.sort(konkurrencesvømmereSorteretNavn, konkurrencesvømmer.konkurrencesvømmereEfterNavn);
+
+        System.out.printf("\033[4m %-3s %-15s %-10s\033[0m\n", "Nr.",
+            "Navn", "Alder");
+
+        for (int i = 0; i < konkurrencesvømmereSorteretNavn.size(); i++){
+
+            System.out.printf("\033[4m %-3d %-15s %-10s\033[0m\n", (i + 1),
+                konkurrencesvømmereSorteretNavn.get(i).getNavn(),
+                konkurrencesvømmereSorteretNavn.get(i).getAlder() + " år");
         }
+
+
     }
 
     public void printResultatKonkurrencesvømmer(Filhåndtering fh){
-        ArrayList<Konkurrencesvømmer> alleKonkurrenceResultatPåSkærm   =  fh.downloadKonkurrencesvømmerResultatFil();
-        System.out.println("Konkurrencesvømmere med resultater:\n ");
-        System.out.println(alleKonkurrenceResultatPåSkærm.toString().replaceAll("\\[", "").
-            replaceAll("]", "").replaceAll(", ", ""));
+        ArrayList<Konkurrencesvømmer> resultaterPåSkærm = fh.downloadKonkurrencesvømmerResultatFil();
+        Collections.sort(resultaterPåSkærm, konkurrencesvømmer.konkurrencesvømmereEfterNavn);
+        System.out.printf("\033[4m %-3s %-15s %-10s %-15s %-30s %-20s\033[0m\n", "Nr.",
+        "Navn", "Alder", "Disciplin", "Resultat", "Dato");
+
+        for (int i = 0; i < resultaterPåSkærm.size(); i++){
+
+        System.out.printf("\033[4m %-3d %-15s %-10s %-15s %-30s %-20s\033[0m\n", (i + 1),
+            resultaterPåSkærm.get(i).getNavn(), resultaterPåSkærm.get(i).getAlder() + " år",
+            resultaterPåSkærm.get(i).getSvømmedisciplin(),resultaterPåSkærm.get(i).getSvømmeresultat(),
+            resultaterPåSkærm.get(i).getResultatsDato());
     }
+}
+
 
     public void registrerSvømmeresultat() {
 

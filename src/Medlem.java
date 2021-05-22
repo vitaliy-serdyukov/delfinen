@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public class Medlem {
 
     private String navn;
@@ -92,6 +94,16 @@ public class Medlem {
         this.betalt = betalt;
     }
 
+
+
+    public static Comparator<Medlem> medlemrerEfterNavn = new Comparator<Medlem>() {
+        @Override
+        public int compare(Medlem m1, Medlem m2) {
+            return m1.getNavn().compareTo(m2.getNavn());
+        }
+    };
+
+
     @Override
     public String toString() {
 
@@ -105,5 +117,7 @@ public class Medlem {
         return  "Medlem: "  + navn + " " +  alder + " år" +   " " +  aktivitetsstatus   +  " " + aktivitetsForm +
             " " + "Kontingent " + kontingent + " kr." + kontingentForRestenAfÅret + " kr. " + betaltStr + "\n";
     }
+
+
 }
 
