@@ -21,7 +21,7 @@ public class Menu {
     Formand formand = new Formand();
     Kasserer kasserer = new Kasserer();
     Træner træner = new Træner();
-    Filhåndtering fh = new Filhåndtering();
+    Filhåndtering filhåndtering = new Filhåndtering();
     final UI ui = new UI();
 
 
@@ -92,11 +92,11 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("Konkurrencesvømmere:");
-                    kasserer.visKontingenter(formand, fh);
+                    kasserer.visKontingenter(formand, filhåndtering);
                     visMenu();
                     break;
                 case 4:
-                    kasserer.udregnKontingenter(formand, fh);
+                    kasserer.udregnKontingenter(formand, filhåndtering);
                     visMenu();
                     break;
                 case 5:
@@ -104,11 +104,11 @@ public class Menu {
                     visMenu();
                     break;
                 case 6:
-                    træner.printKonkurrencesvømmer(fh);
+                    træner.printKonkurrencesvømmer(filhåndtering);
                     visMenu();
                     break;
                 case 7:
-                    træner.printResultatKonkurrencesvømmer(fh);
+                    træner.printResultatKonkurrencesvømmer(filhåndtering);
                     visMenu();
                     break;
                 case 8:

@@ -7,12 +7,12 @@ public class Medlem {
     private String aktivitetsstatus;
     private String aktivitetsForm;
     private int kontingent;
-    private int kontingentForRestenAfÅret;
+    private double kontingentForRestenAfÅret;
     private boolean betalt;
 
 
     public Medlem(String navn, int alder, String aktivitetsstatus, String aktivitetsform, int kontingent,
-                  int kontingentForRestenAfÅret, boolean betalt) {
+                  double kontingentForRestenAfÅret, boolean betalt) {
         this.navn = navn;
         this.alder = alder;
         this.aktivitetsstatus = aktivitetsstatus;
@@ -50,7 +50,7 @@ public class Medlem {
         return aktivitetsForm;
     }
 
-    public int getKontingentForRestenAfÅret() {
+    public double getKontingentForRestenAfÅret() {
         return kontingentForRestenAfÅret;
     }
 
@@ -86,7 +86,7 @@ public class Medlem {
         this.kontingent = kontingent;
     }
 
-    public void setKontingentForRestenAfÅret(int kontingentForRestenAfÅret) {
+    public void setKontingentForRestenAfÅret(double kontingentForRestenAfÅret) {
         this.kontingentForRestenAfÅret = kontingentForRestenAfÅret;
     }
 

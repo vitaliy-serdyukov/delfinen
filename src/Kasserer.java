@@ -10,35 +10,37 @@ public class Kasserer {
   //----Metoder----
 
   //Beregner hvor mange dage der er gået på en specifik dato
-  public int beregnDagsDatoIVærdi(){
-    int dagsDatoIVærdi = localDate.getDayOfMonth();
+  public double beregnResterendeDagePåÅret(){
+    int dagePåÅret = 365;
+    double dageTilbage = localDate.getDayOfMonth();
     if (localDate.getMonthValue() == 1){
-      dagsDatoIVærdi += 0;
+      dageTilbage += 0;
     } else if (localDate.getMonthValue() == 2){
-      dagsDatoIVærdi += 31; //passer ikke hvert år
+      dageTilbage += 31; //passer ikke hvert år
     } else if (localDate.getMonthValue() == 3){
-      dagsDatoIVærdi += 59;
+      dageTilbage += 59;
     } else if (localDate.getMonthValue() == 4){
-      dagsDatoIVærdi += 90;
+      dageTilbage += 90;
     } else if (localDate.getMonthValue() == 5){
-      dagsDatoIVærdi += 120;
+      dageTilbage += 120;
     } else if (localDate.getMonthValue() == 6) {
-      dagsDatoIVærdi += 151;
+      dageTilbage += 151;
     } else if (localDate.getMonthValue() == 7) {
-      dagsDatoIVærdi += 181;
+      dageTilbage += 181;
     } else if (localDate.getMonthValue() == 8) {
-      dagsDatoIVærdi += 212;
+      dageTilbage += 212;
     } else if (localDate.getMonthValue() == 9) {
-      dagsDatoIVærdi += 243;
+      dageTilbage += 243;
     } else if (localDate.getMonthValue() == 10) {
-      dagsDatoIVærdi += 273;
+      dageTilbage += 273;
     } else if (localDate.getMonthValue() == 11) {
-      dagsDatoIVærdi += 304;
+      dageTilbage += 304;
     } else if (localDate.getMonthValue() == 12) {
-      dagsDatoIVærdi += 334;
+      dageTilbage += 334;
     }
-    System.out.println("Tester dagsdato i værdi: " + dagsDatoIVærdi);
-    return dagsDatoIVærdi;
+    dageTilbage = dagePåÅret - dageTilbage;
+    System.out.println("Tester dagsdato i værdi: " + dageTilbage);
+    return dageTilbage;
   }
 
 
@@ -47,38 +49,34 @@ public class Kasserer {
     if (medlem.getAktivitetsstatus().contains("Aktiv") && medlem.getAlder() < 18) {
       medlem.setKontingent(1000);
       System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
-      int resterendeDagePåÅret = dagePåEtÅr - beregnDagsDatoIVærdi(); //224
-      int kontingentPrDag = medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * resterendeDagePåÅret); //2,7 * 224
+      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
       System.out.println("For resten af året skal du betale: " +
-          medlem.getKontingentForRestenAfÅret()); //Der er noget galt med udregningen
+          String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret()))); //Der er noget galt med udregningen
 
     } else if (medlem.getAktivitetsstatus().contains("Aktiv") && 18 <= medlem.getAlder() && medlem.getAlder() < 60) {
       medlem.setKontingent(1600);
       System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
-      int resterendeDagePåÅret = dagePåEtÅr - beregnDagsDatoIVærdi();
-      int kontingentPrDag = medlem.getKontingent() / dagePåEtÅr;
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * resterendeDagePåÅret);
+      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
       System.out.println("For resten af året skal du betale: " +
-          medlem.getKontingentForRestenAfÅret()); //Der er noget galt med udregningen
+              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
 
     } else if (medlem.getAktivitetsstatus().contains("Aktiv") && medlem.getAlder() >= 60) {
       medlem.setKontingent(1200);
       System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
-      int resterendeDagePåÅret = dagePåEtÅr - beregnDagsDatoIVærdi();
-      int kontingentPrDag = medlem.getKontingent() / dagePåEtÅr;
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * resterendeDagePåÅret);
+      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
       System.out.println("For resten af året skal du betale: " +
-          medlem.getKontingentForRestenAfÅret()); //Der er noget galt med udregningen
+              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
 
     } else if (medlem.getAktivitetsstatus().contains("Passiv")) {
       medlem.setKontingent(500);
       System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
-      int resterendeDagePåÅret = dagePåEtÅr - beregnDagsDatoIVærdi();
-      int kontingentPrDag = medlem.getKontingent() / dagePåEtÅr;
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * resterendeDagePåÅret);
+      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
       System.out.println("For resten af året skal du betale: " +
-          medlem.getKontingentForRestenAfÅret()); //Der er noget galt med udregningen
+              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
     }
   }
 

@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -18,7 +17,7 @@ public class Formand {
     Medlem medlem = new Medlem();
     Kasserer kasserer = new Kasserer();
     Træner træner = new Træner();
-    Filhåndtering fh = new Filhåndtering();
+    Filhåndtering filHåndtering = new Filhåndtering();
 
     //----Konstruktøren----
     public Formand() {
@@ -40,7 +39,7 @@ public class Formand {
         kasserer.beregnKontingent(medlem);
         kasserer.harBetalt(medlem);
         opretMedlem();
-        fh.uploadMedlemsFil(medlemmer);
+        filHåndtering.uploadMedlemsFil(medlemmer);
     }
 
     public void opretMedlem() {
@@ -78,7 +77,7 @@ public class Formand {
                 System.out.println("Velkommen til klubben " + medlem.getNavn() + "!");
               //  træner.afgørHoldEfterÅrgang();
               //  træner.getKonkurrencesvømmerListe().clear();
-                fh.uploadKonkurrencesvømmerFil(træner.getKonkurrencesvømmerListe());
+                filHåndtering.uploadKonkurrencesvømmerFil(træner.getKonkurrencesvømmerListe());
                 træner.getKonkurrencesvømmerListe().clear(); //
 
                 input.nextLine(); //Scanner bug
@@ -97,7 +96,7 @@ public class Formand {
 
 
     public void seMedlemmer() {
-        ArrayList<Medlem> medlemerEfterNavn = fh.downloadMedlemsliste();
+        ArrayList<Medlem> medlemerEfterNavn = filHåndtering.downloadMedlemsliste();
         String betaltStr;
 
         Collections.sort(medlemerEfterNavn, medlem.medlemrerEfterNavn); // sorterer eksisterende medlemer efter navn
