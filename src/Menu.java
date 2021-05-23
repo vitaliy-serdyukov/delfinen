@@ -23,7 +23,7 @@ public class Menu {
     Træner træner = new Træner();
     Filhåndtering filhåndtering = new Filhåndtering();
     final UI ui = new UI();
-
+    Medlem medlem = new Medlem();
 
 
     //----Konstruktør----
@@ -103,15 +103,15 @@ public class Menu {
                     visMenu();
                     break;
                 case 6:
-                    træner.printKonkurrencesvømmer(filhåndtering);
+                    træner.printKonkurrencesvømmer(medlem);
                     visMenu();
                     break;
                 case 7:
-                    træner.printResultatKonkurrencesvømmer(filhåndtering);
+                    træner.printResultatKonkurrencesvømmer();
                     visMenu();
                     break;
                 case 8:
-                    træner.registrerSvømmeresultat();
+                    træner.registrerSvømmeresultat(medlem);
                     visMenu();
                     break;
                 case 9:

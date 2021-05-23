@@ -10,17 +10,17 @@ public class Konkurrencesvømmer extends Medlem {
 
 
     //----Konstruktøren----
-    public Konkurrencesvømmer(String navn, int alder, String svømmedisciplin, double svømmeresultat,
+    public Konkurrencesvømmer(int medlemsnummer, String navn, int alder, String svømmedisciplin, double svømmeresultat,
                               LocalDate resultatsDato) {
-        super(navn, alder);
+        super(medlemsnummer,navn, alder);
         this.svømmedisciplin = svømmedisciplin;
         this.svømmeresultat = svømmeresultat;
         this.resultatsDato = resultatsDato;
     }
 
     //----Overrrider konstruktøren----
-    public Konkurrencesvømmer(String navn, int alder) {
-        super(navn, alder);
+    public Konkurrencesvømmer(int medlemsnummer, String navn, int alder) {
+        super(medlemsnummer, navn, alder);
 
     }
 
@@ -58,12 +58,12 @@ public class Konkurrencesvømmer extends Medlem {
 
 
 
-    public Comparator<Konkurrencesvømmer> konkurrencesvømmereEfterNavn = new Comparator<Konkurrencesvømmer>() {
+    /*public Comparator<Konkurrencesvømmer> konkurrencesvømmereEfterNavn = new Comparator<Konkurrencesvømmer>() {
         @Override
         public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
             return k1.getNavn().compareTo(k2.getNavn());
         }
-    };
+    };*/
 
    public Comparator<Konkurrencesvømmer> resultatEfterDouble = new Comparator<Konkurrencesvømmer>() {
         @Override
@@ -73,10 +73,33 @@ public class Konkurrencesvømmer extends Medlem {
     };
 
 
+    public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnAlder = new Comparator<Konkurrencesvømmer>() {
+        @Override
+        public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
+            int flag =  k1.getNavn().compareTo(k2.getNavn());
+            if (flag == 0) flag = Integer.compare(k1.getAlder(), k1.getAlder());
+            return flag;
+        }
+    };
+
+
+    public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnDisciplinResultat = new Comparator<Konkurrencesvømmer>() {
+        @Override
+        public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
+            int flag = k1.getNavn().compareTo(k2.getNavn());
+
+            if (flag == 0) flag = k1.getSvømmedisciplin().compareTo(k2.getSvømmedisciplin());
+
+            if (flag == 0) flag = Double.compare(k1.getSvømmeresultat(), k2.getSvømmeresultat());
+            return flag;
+
+        }
+    };
+
     @Override
     public String toString() {
-        return  super.getNavn() + " " + super.getAlder() + " " + svømmedisciplin + " " + svømmeresultat + " " +
-             resultatsDato + "\n";
+        return  super.getMedlemsnummer() +  super.getNavn() + " " + super.getAlder() + " " + svømmedisciplin + " " +
+            svømmeresultat + " " + resultatsDato + "\n";
 
     }
 

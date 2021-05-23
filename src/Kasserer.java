@@ -50,7 +50,7 @@ public class Kasserer {
       medlem.setKontingent(1000);
       System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
       double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      medlem.setKontingentForRestenAfÅret((int) kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
       System.out.println("For resten af året skal du betale: " +
           String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret()))); //Der er noget galt med udregningen
 
@@ -58,7 +58,7 @@ public class Kasserer {
       medlem.setKontingent(1600);
       System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
       double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      medlem.setKontingentForRestenAfÅret((int) kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
       System.out.println("For resten af året skal du betale: " +
               String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
 
@@ -66,7 +66,7 @@ public class Kasserer {
       medlem.setKontingent(1200);
       System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
       double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      medlem.setKontingentForRestenAfÅret((int) kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
       System.out.println("For resten af året skal du betale: " +
               String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
 
@@ -74,7 +74,7 @@ public class Kasserer {
       medlem.setKontingent(500);
       System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
       double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      medlem.setKontingentForRestenAfÅret((int) kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
       System.out.println("For resten af året skal du betale: " +
               String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
     }

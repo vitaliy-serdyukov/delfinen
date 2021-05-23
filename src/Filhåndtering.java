@@ -12,7 +12,9 @@ public class Filhåndtering {
     try {
       FileWriter fileWriter = new FileWriter(file, true);
       for (int i = 0; i < medlemmer.size(); i++) {
-        fileWriter.write(medlemmer.get(i).getNavn() +
+        fileWriter.write(
+               medlemmer.get(i).getMedlemsnummer() +
+            "\n" + medlemmer.get(i).getNavn() +
             "\n" + medlemmer.get(i).getAlder() +
             "\n" + medlemmer.get(i).getAktivitetsstatus() +
             "\n" + medlemmer.get(i).getAktivitetsForm() +
@@ -36,6 +38,7 @@ public class Filhåndtering {
       Scanner fileReader = new Scanner(file);
       if (fileReader.hasNextLine()) {
         while (fileReader.hasNextLine()) {
+          int medlemsnummer;
           String temp;
           String navn;
           int alder;
@@ -44,6 +47,9 @@ public class Filhåndtering {
           int kontingent;
           double kontingentForIÅr;
           boolean betalt;
+
+          temp = fileReader.nextLine();
+          medlemsnummer = Integer.parseInt(temp);
 
           temp = fileReader.nextLine();
           navn = temp;
@@ -67,7 +73,7 @@ public class Filhåndtering {
           betalt = Boolean.parseBoolean(temp);
 
 
-          medlemsFilliste.add(new Medlem(navn,alder,aktivitetsStatus,aktivitetsForm,kontingent,
+          medlemsFilliste.add(new Medlem(medlemsnummer,navn,alder,aktivitetsStatus,aktivitetsForm,kontingent,
               kontingentForIÅr, betalt));
         }
       }
@@ -78,52 +84,6 @@ public class Filhåndtering {
     return medlemsFilliste;
   }
 
-
-  public void uploadKonkurrencesvømmerFil(ArrayList<Konkurrencesvømmer> konkurrencesvømmerListe) {
-
-    File file = new File("src/Konkurrencesvømmerliste.txt");
-    try {
-      FileWriter fileWriter = new FileWriter(file, true);
-
-      for (int i = 0; i < konkurrencesvømmerListe.size(); i++) {
-        fileWriter.write(konkurrencesvømmerListe.get(i).getNavn() + "\n" +
-            konkurrencesvømmerListe.get(i).getAlder() + "\n");
-      }
-      fileWriter.close();
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public ArrayList<Konkurrencesvømmer> downloadKonkurrencesvømmerFil() {
-    ArrayList<Konkurrencesvømmer> konkurrencesvømmerFil = new ArrayList<>();
-    File file = new File("src/Konkurrencesvømmerliste.txt");
-    try {
-      Scanner fileReader = new Scanner(file);
-      if (fileReader.hasNextLine()) {
-        while (fileReader.hasNextLine()) {
-          String temp;
-          String navn;
-          int alder;
-
-          temp = fileReader.nextLine();
-          navn = temp;
-
-          temp = fileReader.nextLine();
-          alder = Integer.parseInt(temp);
-
-          konkurrencesvømmerFil.add(new Konkurrencesvømmer(navn, alder));
-        }
-      }
-      fileReader.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return konkurrencesvømmerFil;
-  }
-
-
   public void uploadKonkurrencesvømmerResultatFil(ArrayList<Konkurrencesvømmer> konkurrencesvømmerResultat) {
 
     File file = new File("src/KonkurrencesvømmerResultat.txt");
@@ -131,18 +91,20 @@ public class Filhåndtering {
       FileWriter fileWriter = new FileWriter(file, true);
       //fileWriter.append("Juniorsvømmer: ");
       for (int i = 0; i < konkurrencesvømmerResultat.size(); i++) {
-        fileWriter.write(konkurrencesvømmerResultat.get(i).getNavn() + "\n" +
-            konkurrencesvømmerResultat.get(i).
-            getAlder() + "\n" + konkurrencesvømmerResultat.get(i).getSvømmedisciplin() + "\n" +
-            konkurrencesvømmerResultat.get(i).getSvømmeresultat() +
-            "\n" + konkurrencesvømmerResultat.get(i).
-            getResultatsDato() + "\n");
+        fileWriter.write(konkurrencesvømmerResultat.get(i).getMedlemsnummer() +
+            "\n" + konkurrencesvømmerResultat.get(i).getNavn() +
+            "\n" + konkurrencesvømmerResultat.get(i).getAlder() +
+            "\n" + konkurrencesvømmerResultat.get(i).getSvømmedisciplin() +
+            "\n" + konkurrencesvømmerResultat.get(i).getSvømmeresultat() +
+            "\n" + konkurrencesvømmerResultat.get(i).getResultatsDato() +
+            "\n");
       }
       fileWriter.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
 
   public ArrayList<Konkurrencesvømmer> downloadKonkurrencesvømmerResultatFil() {
     ArrayList<Konkurrencesvømmer> juniorsvømmerResultFil = new ArrayList<>();
@@ -152,12 +114,16 @@ public class Filhåndtering {
 
       if (fileReader.hasNextLine()) {
         while (fileReader.hasNextLine()) {
+          int medlemsnummer;
           String temp;
           String navn;
           int alder;
           String svømmedisciplin;
           double resultat;
           LocalDate resultatsDato;
+
+          temp = fileReader.nextLine();
+          medlemsnummer = Integer.parseInt(temp);
 
           temp = fileReader.nextLine();
           navn = temp;
@@ -174,7 +140,8 @@ public class Filhåndtering {
           temp = fileReader.nextLine();
           resultatsDato = LocalDate.parse(temp);
 
-          juniorsvømmerResultFil.add(new Konkurrencesvømmer(navn, alder, svømmedisciplin, resultat, resultatsDato));
+          juniorsvømmerResultFil.add(new Konkurrencesvømmer(medlemsnummer, navn, alder, svømmedisciplin, resultat,
+              resultatsDato));
         }
       }
       fileReader.close();
@@ -184,3 +151,53 @@ public class Filhåndtering {
     return juniorsvømmerResultFil;
   }
 }
+
+/*public void uploadKonkurrencesvømmerFil(ArrayList<Konkurrencesvømmer> konkurrencesvømmerListe) {
+
+    File file = new File("src/Konkurrencesvømmerliste.txt");
+    try {
+      FileWriter fileWriter = new FileWriter(file, true);
+
+      for (int i = 0; i < konkurrencesvømmerListe.size(); i++) {
+        fileWriter.write(konkurrencesvømmerListe.get(i).getMedlemsnummer() +
+            "\n" + konkurrencesvømmerListe.get(i).getNavn() +
+            "\n" + konkurrencesvømmerListe.get(i).getAlder() +
+            "\n");
+      }
+      fileWriter.close();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public ArrayList<Konkurrencesvømmer> downloadKonkurrencesvømmerFil() {
+    ArrayList<Konkurrencesvømmer> konkurrencesvømmerFil = new ArrayList<>();
+    File file = new File("src/Konkurrencesvømmerliste.txt");
+    try {
+      Scanner fileReader = new Scanner(file);
+      if (fileReader.hasNextLine()) {
+        while (fileReader.hasNextLine()) {
+          int medlemsnummer;
+          String temp;
+          String navn;
+          int alder;
+
+          temp = fileReader.nextLine();
+          medlemsnummer = Integer.parseInt(temp);
+
+          temp = fileReader.nextLine();
+          navn = temp;
+
+          temp = fileReader.nextLine();
+          alder = Integer.parseInt(temp);
+
+          konkurrencesvømmerFil.add(new Konkurrencesvømmer(medlemsnummer, navn, alder));
+        }
+      }
+      fileReader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return konkurrencesvømmerFil;
+  }*/
