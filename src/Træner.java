@@ -7,12 +7,17 @@ import java.util.Scanner;
 public class Træner {
 
     // ----Variabler--------------
-      private ArrayList<Konkurrencesvømmer> KonkurrencesvømmerResultat = new ArrayList<>();  // Konkurrencesvømmere med resultat
+    private ArrayList<Konkurrencesvømmer> KonkurrencesvømmerResultat = new ArrayList<>();  // Konkurrencesvømmere med resultat
+    private ArrayList<Konkurrencesvømmer> junior = new ArrayList<>();
+    private ArrayList<Konkurrencesvømmer> senior = new ArrayList<>();
+    private ArrayList<Konkurrencesvømmer> disciplinArray = new ArrayList<Konkurrencesvømmer>();
+    private Scanner scan = new Scanner(System.in);
+    private String disciplin;
+
 
     // -----Objekter--------------
     private Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
     private Filhåndtering filhåndtering = new Filhåndtering();
-
 
 
     //----Gettere----
@@ -24,9 +29,9 @@ public class Træner {
 
     public void printKonkurrencesvømmer(Medlem medlem) {
 
-    ArrayList <Medlem> konkurrencesvømmere  = new ArrayList<>();
-        for (int i = 0; i < filhåndtering.downloadMedlemsliste().size();i++){
-            if (filhåndtering.downloadMedlemsliste().get(i).getAktivitetsForm().equals("Konkurrencesvømmer")){
+        ArrayList<Medlem> konkurrencesvømmere = new ArrayList<>();
+        for (int i = 0; i < filhåndtering.downloadMedlemsliste().size(); i++) {
+            if (filhåndtering.downloadMedlemsliste().get(i).getAktivitetsForm().equals("Konkurrencesvømmer")) {
                 konkurrencesvømmere.add(filhåndtering.downloadMedlemsliste().get(i));
             }
         }
@@ -36,7 +41,7 @@ public class Træner {
 
         System.out.printf(" %-10s %-15s %-10s\n", "Medlems-",
             "Navn", "Alder");
-        System.out.printf("\033[4m %-10s %-15s %-10s \033[0m\n", "nummer","","");
+        System.out.printf("\033[4m %-10s %-15s %-10s \033[0m\n", "nummer", "", "");
 
         for (int i = 0; i < konkurrencesvømmere.size(); i++) {
 
@@ -64,10 +69,8 @@ public class Træner {
 
 
     public void registrerSvømmeresultat(Medlem medlem) {
-
         int svarMedlemsnummer;
         int svarDisciplin;
-        Scanner scan = new Scanner(System.in);
 
         System.out.println("Vi har følgende  konkurrencesvømmere i vores klub:\n");
         printKonkurrencesvømmer(medlem);
@@ -93,7 +96,8 @@ public class Træner {
                     case 2 -> konkurrencesvømmer.setSvømmedisciplin("Crawl");
                     case 3 -> konkurrencesvømmer.setSvømmedisciplin("Rygcrawl");
                     case 4 -> konkurrencesvømmer.setSvømmedisciplin("Brystsvømning");
-                } // validering
+                    default -> registrerSvømmeresultat(medlem);
+                }
 
                 System.out.println("Indtast venligst resultat i format '00,0' sekunder:");
                 konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
@@ -112,21 +116,19 @@ public class Træner {
                     konkurrencesvømmer.getNavn() + "\nDisciplin: " + konkurrencesvømmer.getSvømmedisciplin() +
                     "\nTid: " + konkurrencesvømmer.getSvømmeresultat());
 
-              //  udskiftTilEnBedreResultat();
+                  udskiftTilEnBedreResultat();
             } else {
                     /*do {
                         System.out.println("Navnet er indtastet forkert eller ikke fundet i junior liste");
                         svarNavn = scan.nextLine();
 
                     } while (!(downloadJuniorsvømmerFil().get(i).getNavn().equals(svarNavn)));*//*
-                // TO DO VALIDERING
-*/
+                // TO DO VALIDERING*/
             }
         }
     }
 
-    /*public void udskiftTilEnBedreResultat(){
-
+    public void udskiftTilEnBedreResultat(){
         ArrayList<Konkurrencesvømmer> bedsteResultat = filhåndtering.downloadKonkurrencesvømmerResultatFil();
 
         System.out.println("Test1" + bedsteResultat);
@@ -136,152 +138,212 @@ public class Træner {
         System.out.println("Test2" + bedsteResultat);
 
             if (bedsteResultat.size() > 1) {
-                for (int j = 0; j < bedsteResultat.size(); j++) { // fjerner værste sesultat, hvis en medlem har flere
+                for (int j = 0; j < bedsteResultat.size(); j++) { // fjerner værste sesultat, hvis en medlem har flere?
                     for (int k = j + 1; j < bedsteResultat.size(); j++) {
 
-                        if (bedsteResultat.get(j).getMedlemsnummer() == bedsteResultat.get(k).
-                            getMedlemsnummer()) {
-                            if (bedsteResultat.get(j).getSvømmedisciplin().
-                                equals(bedsteResultat.get(k).getSvømmedisciplin())){
+                        if ((bedsteResultat.get(j).getMedlemsnummer() == bedsteResultat.get(k).
+                            getMedlemsnummer()) && bedsteResultat.get(j).getSvømmedisciplin().
+                            equals(bedsteResultat.get(k).getSvømmedisciplin())) {
+
                             bedsteResultat.remove(k);
                             System.out.println("JA");
                              k--;
-                         }
+
                         }
                     }
 
                 }
-                System.out.println("Test3" + bedsteResultat);
-
-                try {
-                    new FileWriter("src/KonkurrencesvømmerResultat.txt", false).close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                filhåndtering.uploadKonkurrencesvømmerResultatFil(bedsteResultat);
-                bedsteResultat.clear();
-
-            } else {
-
-                System.out.println("Test3" + bedsteResultat);
-
-                try {
-                    new FileWriter("src/KonkurrencesvømmerResultat.txt", false).close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                filhåndtering.uploadKonkurrencesvømmerResultatFil(bedsteResultat);
-                bedsteResultat.clear();
             }
-    }*/
+        System.out.println("Test3" + bedsteResultat);
+        try {
+            new FileWriter("src/KonkurrencesvømmerResultat.txt", false).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        filhåndtering.uploadKonkurrencesvømmerResultatFil(bedsteResultat);
+        bedsteResultat.clear();
+    }
 
 
+    public void registrerStævneresultat() {
+
+    String svarStævneNavn;
+    String svarStævneDato;
+    int svarMedlemsnummer;
+    String stævneDato;
+    int placeringSvar;
+
+    System.out.println("Vælg venligst en disciplin og Top-5 hold først:");
+        delKonkurrencesvømmere();
+        vælgSvømmedisciplinTop5();
+        vælgHoldTop5();
+
+    System.out.println("Her er vores konkurrencesvømmere, som skal have registreret deres stævneresultater ");
+    ArrayList <Konkurrencesvømmer> stævneResultater = sorterOgUdskrivTop5();
+    ArrayList <Konkurrencesvømmer> stævneResultatTemp = new ArrayList<>();
+
+    System.out.println("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:");
+    svarMedlemsnummer = scan.nextInt();
+    scan.nextLine();
+        for (int i = 0; i < stævneResultater.size(); i++) {
+
+            if (stævneResultater.get(i).getMedlemsnummer() == svarMedlemsnummer) {
+                konkurrencesvømmer.setMedlemsnummer(stævneResultater.get(i).getMedlemsnummer());
+                konkurrencesvømmer.setNavn(stævneResultater.get(i).getNavn());
+                konkurrencesvømmer.setAlder(stævneResultater.get(i).getAlder());
+
+                System.out.println("Indtast venligst stævnenavn :");
+                svarStævneNavn = scan.nextLine();
+                konkurrencesvømmer.setStævneNavn(svarStævneNavn);
+
+                konkurrencesvømmer.setStævneDato(stævneResultater. get(i).getResultatsDato());
+
+                konkurrencesvømmer.setSvømmedisciplin(stævneResultater.get(i).getSvømmedisciplin());
+
+                System.out.println("Indtast venligst placering: ");
+                placeringSvar = scan.nextInt();
+                konkurrencesvømmer.setPlacering(placeringSvar);
+
+                System.out.println("Indtast venligst resultat i format '00,0' sekunder:");
+                konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
 
 
-     /*public void afgørHoldEfterÅrgang() {
-        for (int i = 0; i < konkurrencesvømmerListe.size(); i++) {
-            if (konkurrencesvømmerListe.get(i).getAlder() < 18) {
-                System.out.println("Da det nye medlem er under 18, er der registreret en juniorsvømmer: \n" +
-                    konkurrencesvømmerListe.get(i));
-            } else if (konkurrencesvømmerListe.get(i).getAlder() >= 18) {
-                System.out.println("Da det nye medlem er 18+, er der registreret en seniorsvømmer: \n" +
-                    konkurrencesvømmerListe.get(i));
+                stævneResultatTemp.add(new Konkurrencesvømmer(konkurrencesvømmer.getMedlemsnummer(),
+                    konkurrencesvømmer.getNavn(), konkurrencesvømmer.getAlder(), konkurrencesvømmer.getStævneNavn(),
+                    konkurrencesvømmer.getStævneDato(), konkurrencesvømmer.getSvømmedisciplin(),
+                    konkurrencesvømmer.getPlacering(), konkurrencesvømmer.getSvømmeresultat()));
+
+                System.out.println(stævneResultatTemp);
+
+               /* System.out.println("Ny resultat er registreret for:  \n" +
+                    konkurrencesvømmer.getNavn() + "\nDisciplin: " + konkurrencesvømmer.getSvømmedisciplin() +
+                    "\nTid: " + konkurrencesvømmer.getSvømmeresultat());*/
             }
         }
-    }*/
 
-    ArrayList<Konkurrencesvømmer> junior = new ArrayList<>();
-    ArrayList<Konkurrencesvømmer> senior = new ArrayList<>();
-    String disciplin;
-
-    public void findTopFem() {
-
-        Scanner scan = new Scanner(System.in);
-        int svarHold;
-        int svarDisciplin;
+    filhåndtering.uploadStævneFil(stævneResultatTemp);
+    stævneResultater.clear();
 
 
+    }
+
+
+
+    public void runTop5(){
+        delKonkurrencesvømmere();
+        vælgSvømmedisciplinTop5();
+        vælgHoldTop5();
+        sorterOgUdskrivTop5();
+    }
+
+
+    public void delKonkurrencesvømmere(){
         for (int i = 0; i < filhåndtering.downloadKonkurrencesvømmerResultatFil().size(); i++) {
             if (filhåndtering.downloadKonkurrencesvømmerResultatFil().get(i).getAlder() < 18) {
                 junior.add(filhåndtering.downloadKonkurrencesvømmerResultatFil().get(i));
             } else if (filhåndtering.downloadKonkurrencesvømmerResultatFil().get(i).getAlder() >= 18) {
                 senior.add(filhåndtering.downloadKonkurrencesvømmerResultatFil().get(i));
             }
-
         }
+        filhåndtering.downloadKonkurrencesvømmerResultatFil().clear();
+
+    }
+
+
+    public void vælgSvømmedisciplinTop5() {
+        int svarDisciplin;
+
         System.out.println("For hvilken svømmedisciplin skal vises bedste 5 resultater (Top 5):  ");
         System.out.println("\nVælg venligst mellem 1 eller 4");
         System.out.println("1. Butterfly" + "\n2. Crawl" + "\n3. Rygcrawl" + "\n4. Brystsvømning");
 
         svarDisciplin = scan.nextInt();
-        ArrayList<Konkurrencesvømmer> disciplinArray = new ArrayList<>();
-
         switch (svarDisciplin) {
             case 1 -> disciplin = "Butterfly";
             case 2 -> disciplin = "Crawl";
             case 3 -> disciplin = "Rygcrawl";
             case 4 -> disciplin = "Brystsvømning";
-            default -> scan.nextLine(); // validering her
+            default ->  vælgSvømmedisciplinTop5(); //System.out.println("Intast venligst et rigtigt nummer");
         }
-        System.out.println("Hvilket hold skal vises resultaterne for?\n1. Junior (under 18 år)\n2. Senior (over 18 år)");
-        svarHold = scan.nextInt();
-
-        if (svarHold == 1) {
-            for (int i = 0; i < junior.size(); i++) {
-                if (junior.get(i).getSvømmedisciplin().equals(disciplin)) {
-                    disciplinArray.add(junior.get(i));
-
-                    // sorterSvømmereOgPrintTop5();
-                }
-            }
-            System.out.println(junior);
-
-        } else if (svarHold == 2) {
-
-        } else {
-        } // validate her*/
 
     }
-}
-        /*public void sorterSvømmereOgPrintTop5 () {
 
-            Collections.sort(disciplinArray, konkurrencesvømmer.resultatEfterDouble);
-            System.out.println(disciplinArray);
 
-            Collections.sort(disciplinArray, new SammelignEfterNavnOgResultat());// sorterer efter resultat, med forbehold
-            // at den samme medlem har flere resultater
+    public void vælgHoldTop5 () {
 
-        }
-        System.out.println(butterfly);
+        int svarHold;
+            System.out.println("Hvilket hold skal vises resultaterne for?\n1. Junior (under 18 år)\n2. Senior (over 18 år)");
+            svarHold = scan.nextInt();
+            disciplinArray.clear(); // virker dette her?
+            if (svarHold == 1) {
 
-        for (
-            int i = 0; i < butterfly.size(); i++) {             // fjerner værste sesultat, hvis en medlem har flere
-            for (int j = i + 1; j < butterfly.size(); j++) {
+                for (int i = 0; i < junior.size(); i++) {
+                    if (junior.get(i).getSvømmedisciplin().equals(disciplin)) {
+                        disciplinArray.add(junior.get(i));
+                    }
+                }
+                junior.clear();
+                senior.clear();
 
-                if (butterfly.get(i).getNavn().equals(butterfly.get(j).getNavn())) {
-                    System.out.println("Test");
-                    butterfly.remove(j);
-                    j--;
+                if (disciplinArray.size() == 0) {
+                System.out.println("Der er ingen konkurrencesvømmere i junior hold med denne disciplin");
+
+                } else {
+                    sorterOgUdskrivTop5();
+                }
+            } else if (svarHold == 2) {
+                for (int i = 0; i < senior.size(); i++) {
+                    if (senior.get(i).getSvømmedisciplin().equals(disciplin)) {
+                        disciplinArray.add(senior.get(i));
+                    }
+                }
+                junior.clear();
+                senior.clear();
+                if (disciplinArray.size() == 0) {
+                    System.out.println("Der er ingen konkurrencesvømmere i senior hold med denne disciplin");
+
+                } else {
+                   sorterOgUdskrivTop5();
                 }
             }
+    }
 
+
+    public ArrayList<Konkurrencesvømmer> sorterOgUdskrivTop5() {
+        String holdJunior = "junior";
+        String holdSenior = "senior";
+        Collections.sort(disciplinArray, konkurrencesvømmer.resultatEfterDouble);
+
+        int max;
+        if (disciplinArray.size() > 5) {
+            max = 5;
+        } else max = disciplinArray.size();
+
+        if(disciplinArray.size() > 0 && disciplinArray.get(0).getAlder() < 18) {
+            // fortæller os hvad for et hold vi har i vores ArrayList
+            System.out.println("\nHer er Top-5 " + holdJunior + "svømmere i disciplinen " + disciplin);
+        } else { System.out.println("\nHer er Top-5 " + holdSenior + "svømmere i disciplinen " + disciplin);
         }
-        System.out.println(butterfly);
 
-        System.out.println("\nFinally vores top 5 i batterfly:\n");
+        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s\n", "Nr.", "Navn", "Alder", "Disciplin",
+            "Tid", "Dato");
+        System.out.println("--------------------------------------------------------------------------------------");
 
-        for (
-            int i = 0;
-            i < 5; i++) {
-            System.out.println(butterfly.get(i)); // fejler hvis der færre end 5 medlemer i listen
+        for (int i = 0; i < max; i++) {
+            System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s\n",disciplinArray.get(i).getMedlemsnummer(),
+                disciplinArray.get(i).getNavn(), disciplinArray.get(i).getAlder(), disciplinArray.get(i).
+                    getSvømmedisciplin(), disciplinArray.get(i).getSvømmeresultat(),
+                disciplinArray.get(i).getResultatsDato());
+           }
+
+        return disciplinArray;
+    }
 
 
-        }
-    }*/
+}
 
-/*
-&&
-    fh2.downloadKonkurrencesvømmerFil().get(i).getAlder() < 18){}*/
+
 
 
 

@@ -150,19 +150,25 @@ public class Filhåndtering {
     }
     return juniorsvømmerResultFil;
   }
-}
 
-/*public void uploadKonkurrencesvømmerFil(ArrayList<Konkurrencesvømmer> konkurrencesvømmerListe) {
 
-    File file = new File("src/Konkurrencesvømmerliste.txt");
+public void uploadStævneFil(ArrayList<Konkurrencesvømmer>stævneResultatTemp) {
+
+    File file = new File("src/StævneResulater.txt");
     try {
       FileWriter fileWriter = new FileWriter(file, true);
 
-      for (int i = 0; i < konkurrencesvømmerListe.size(); i++) {
-        fileWriter.write(konkurrencesvømmerListe.get(i).getMedlemsnummer() +
-            "\n" + konkurrencesvømmerListe.get(i).getNavn() +
-            "\n" + konkurrencesvømmerListe.get(i).getAlder() +
+      for (int i = 0; i < stævneResultatTemp.size(); i++) {
+        fileWriter.write(stævneResultatTemp.get(i).getMedlemsnummer() +
+            "\n" + stævneResultatTemp.get(i).getNavn() +
+            "\n" + stævneResultatTemp.get(i).getAlder() +
+            "\n"+ stævneResultatTemp.get(i).getStævneNavn() +
+            "\n"+ stævneResultatTemp.get(i).getStævneDato() +
+            "\n"+ stævneResultatTemp.get(i).getSvømmedisciplin() +
+            "\n"+ stævneResultatTemp.get(i).getPlacering() +
+            "\n"+ stævneResultatTemp.get(i).getSvømmeresultat() +
             "\n");
+
       }
       fileWriter.close();
 
@@ -170,8 +176,8 @@ public class Filhåndtering {
       e.printStackTrace();
     }
   }
-
-  public ArrayList<Konkurrencesvømmer> downloadKonkurrencesvømmerFil() {
+}
+  /*public ArrayList<Konkurrencesvømmer> downloadKonkurrencesvømmerFil() {
     ArrayList<Konkurrencesvømmer> konkurrencesvømmerFil = new ArrayList<>();
     File file = new File("src/Konkurrencesvømmerliste.txt");
     try {

@@ -16,6 +16,8 @@ public class Menu {
             "7. Konkurrencesvømmere med resultat",
             "8. Registrer svømmeresultat",
             "9. Find top 5",
+           "10. Registrer stævneresultat",
+           "11. Vis stævneresultater",
             "0. Afslut"};
 
     Formand formand = new Formand();
@@ -115,7 +117,15 @@ public class Menu {
                     visMenu();
                     break;
                 case 9:
-                    træner.findTopFem();
+                    træner.runTop5();
+                    visMenu();
+                    break;
+                case 10:
+                    træner.registrerStævneresultat();
+                    visMenu();
+                    break;
+                case 11:
+                  //  træner.visStævneresultater(); "11. Vis stævneresultater",
                     visMenu();
                     break;
                 case 0:

@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.Date;
 
 public class Konkurrencesvømmer extends Medlem {
 
@@ -8,8 +9,50 @@ public class Konkurrencesvømmer extends Medlem {
     private double svømmeresultat;
     private LocalDate resultatsDato = LocalDate.now();
 
+  public String getStævneNavn() {
+    return stævneNavn;
+  }
+
+  public void setStævneNavn(String stævneNavn) {
+    this.stævneNavn = stævneNavn;
+  }
+
+  public int getPlacering() {
+    return placering;
+  }
+
+  public void setPlacering(int placering) {
+    this.placering = placering;
+  }
+
+  public LocalDate getStævneDato() {
+    return stævneDato;
+  }
+
+  public void setStævneDato(LocalDate stævneDato) {
+    this.stævneDato = stævneDato;
+  }
+
+  private String stævneNavn;
+    private int placering;
+    private LocalDate stævneDato;
+
+
+
 
     //----Konstruktøren----
+
+  public Konkurrencesvømmer(int medlemsnummer, String navn, int alder, String stævneNavn, LocalDate stævneDato,
+                            String svømmedisciplin,int placering, double svømmeresultat) {
+    super(medlemsnummer, navn, alder);
+    this.stævneNavn = stævneNavn;
+    this.stævneDato = stævneDato;
+    this.svømmedisciplin = svømmedisciplin;
+    this.placering  = placering;
+    this.svømmeresultat = svømmeresultat;
+
+  }
+
     public Konkurrencesvømmer(int medlemsnummer, String navn, int alder, String svømmedisciplin, double svømmeresultat,
                               LocalDate resultatsDato) {
         super(medlemsnummer,navn, alder);
@@ -19,10 +62,10 @@ public class Konkurrencesvømmer extends Medlem {
     }
 
     //----Overrrider konstruktøren----
-    public Konkurrencesvømmer(int medlemsnummer, String navn, int alder) {
+    /*public Konkurrencesvømmer(int medlemsnummer, String navn, int alder) {
         super(medlemsnummer, navn, alder);
 
-    }
+    }*/
 
     public Konkurrencesvømmer() {
     }
@@ -58,13 +101,17 @@ public class Konkurrencesvømmer extends Medlem {
 
 
 
-    /*public Comparator<Konkurrencesvømmer> konkurrencesvømmereEfterNavn = new Comparator<Konkurrencesvømmer>() {
-        @Override
-        public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
-            return k1.getNavn().compareTo(k2.getNavn());
-        }
-    };*/
+  // bruges for en brugervenlig visning af konkurrencesvømmere på skærm
+  public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnAlder = new Comparator<Konkurrencesvømmer>() {
+    @Override
+    public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
+      int flag =  k1.getNavn().compareTo(k2.getNavn());
+      if (flag == 0) flag = Integer.compare(k1.getAlder(), k1.getAlder());
+      return flag;
+    }
+  };
 
+    // bruges til at sammenligne efter resultat
    public Comparator<Konkurrencesvømmer> resultatEfterDouble = new Comparator<Konkurrencesvømmer>() {
         @Override
         public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
@@ -73,16 +120,8 @@ public class Konkurrencesvømmer extends Medlem {
     };
 
 
-    public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnAlder = new Comparator<Konkurrencesvømmer>() {
-        @Override
-        public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
-            int flag =  k1.getNavn().compareTo(k2.getNavn());
-            if (flag == 0) flag = Integer.compare(k1.getAlder(), k1.getAlder());
-            return flag;
-        }
-    };
-
-
+    // bruges i udskiftTilEnBedreResultat() til at sortere brugere med samme navn, svømmedisciplin, men forskellige
+    // resultater
     public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnDisciplinResultat = new Comparator<Konkurrencesvømmer>() {
         @Override
         public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
@@ -98,7 +137,7 @@ public class Konkurrencesvømmer extends Medlem {
 
     @Override
     public String toString() {
-        return  super.getMedlemsnummer() +  super.getNavn() + " " + super.getAlder() + " " + svømmedisciplin + " " +
+        return  super.getMedlemsnummer() + " " +  super.getNavn() + " " + super.getAlder() + " " + svømmedisciplin + " " +
             svømmeresultat + " " + resultatsDato + "\n";
 
     }
