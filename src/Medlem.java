@@ -103,7 +103,6 @@ public class Medlem {
 
 
 
-
     public static Comparator<Medlem> medlemmerEfterNavn = new Comparator<Medlem>() {
         @Override
         public int compare(Medlem m1, Medlem m2) {
@@ -112,7 +111,6 @@ public class Medlem {
            return flag;
         }
     };
-
 
 
     @Override

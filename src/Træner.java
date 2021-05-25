@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Træner {
 
+
+
     // ----Variabler--------------
     private ArrayList<Konkurrencesvømmer> KonkurrencesvømmerResultat = new ArrayList<>();  // Konkurrencesvømmere med resultat
     private ArrayList<Konkurrencesvømmer> junior = new ArrayList<>();
@@ -13,6 +15,7 @@ public class Træner {
     private ArrayList<Konkurrencesvømmer> disciplinArray = new ArrayList<Konkurrencesvømmer>();
     private Scanner scan = new Scanner(System.in);
     private String disciplin;
+
 
 
     // -----Objekter--------------
@@ -39,13 +42,13 @@ public class Træner {
 
         System.out.println("Vi har følgende konkurrencesvømmerePåSkærm i vores klub:\n ");
 
-        System.out.printf(" %-10s %-15s %-10s\n", "Medlems-",
+        System.out.printf(" %-10s %-15s %-6s\n", "Medlems-",
             "Navn", "Alder");
-        System.out.printf("\033[4m %-10s %-15s %-10s \033[0m\n", "nummer", "", "");
+        System.out.printf("\033[4m %-10s %-15s %-5s \033[0m\n", "nummer", "", "");
 
         for (int i = 0; i < konkurrencesvømmerePåSkærm.size(); i++) {
 
-            System.out.printf("\033[4m %-10s %-15s %-10s\033[0m\n", konkurrencesvømmerePåSkærm.get(i).getMedlemsnummer(),
+            System.out.printf("\033[4m %-10s %-15s %-6s\033[0m\n", konkurrencesvømmerePåSkærm.get(i).getMedlemsnummer(),
                 konkurrencesvømmerePåSkærm.get(i).getNavn(), konkurrencesvømmerePåSkærm.get(i).getAlder() + " år");
         }
 
@@ -55,19 +58,19 @@ public class Træner {
     public void printResultatKonkurrencesvømmer() {
         ArrayList<Konkurrencesvømmer> resultaterPåSkærm = filhåndtering.downloadKonkurrencesvømmerResultatFil();
         Collections.sort(resultaterPåSkærm, konkurrencesvømmer.konkurrencesvømmerEfterNavnAlder);
-        System.out.printf("\033[4m %-3s %-15s %-10s %-15s %-30s %-20s\033[0m\n", "Nr.",
+        System.out.printf("\033[4m %-3s %-15s %-10s %-15s %-10s %-12s\033[0m\n", "Nr.",
             "Navn", "Alder", "Disciplin", "Resultat", "Dato");
 
         for (int i = 0; i < resultaterPåSkærm.size(); i++) {
 
-            System.out.printf("\033[4m %-3d %-15s %-10s %-15s %-30s %-20s\033[0m\n", resultaterPåSkærm.get(i).
+            System.out.printf("\033[4m %-3s %-15s %-10s %-15s %-10s %-12s\033[0m\n", resultaterPåSkærm.get(i).
                     getMedlemsnummer(), resultaterPåSkærm.get(i).getNavn(), resultaterPåSkærm.get(i).getAlder() + " år",
                 resultaterPåSkærm.get(i).getSvømmedisciplin(), resultaterPåSkærm.get(i).getSvømmeresultat(),
                 resultaterPåSkærm.get(i).getResultatsDato());
         }
     }
 
-    public void printStævnePåSkærm() {
+    public void printStævne() {
         ArrayList<Konkurrencesvømmer> stævnePåSkærm = filhåndtering.downloadStævneFil();
         Collections.sort(stævnePåSkærm, konkurrencesvømmer.konkurrencesvømmerEfterNavnAlder);
         System.out.printf("\033[4m %-3s %-15s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", "Nr.",
@@ -197,7 +200,7 @@ public class Træner {
     System.out.println("Vælg venligst en disciplin og Top-5 hold først:");
         delKonkurrencesvømmere();
         vælgSvømmedisciplinTop5();
-        vælgHoldTop5();
+        vælgHoldTop5(new Menu());
 
     System.out.println("Her er vores konkurrencesvømmere, som skal have registreret deres stævneresultater ");
 
@@ -252,10 +255,10 @@ public class Træner {
 
 
 
-    public void runTop5(){
+    public void runTop5(Menu menu){
         delKonkurrencesvømmere();
         vælgSvømmedisciplinTop5();
-        vælgHoldTop5();
+        vælgHoldTop5(menu);
         sorterOgUdskrivTop5();
     }
 
@@ -292,7 +295,7 @@ public class Træner {
     }
 
 
-    public void vælgHoldTop5 () {
+    public void vælgHoldTop5 (Menu menu) {
 
         int svarHold;
             System.out.println("Hvilket hold skal vises resultaterne for?\n1. Junior (under 18 år)\n2. Senior (over 18 år)");
@@ -310,10 +313,14 @@ public class Træner {
 
                 if (disciplinArray.size() == 0) {
                 System.out.println("Der er ingen konkurrencesvømmere i junior hold med denne disciplin");
-
-                } else {
-                 //   sorterOgUdskrivTop5();
+                    try {
+                        menu.visMenu();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
+
             } else if (svarHold == 2) {
                 for (int i = 0; i < senior.size(); i++) {
                     if (senior.get(i).getSvømmedisciplin().equals(disciplin)) {
@@ -324,9 +331,11 @@ public class Træner {
                 senior.clear();
                 if (disciplinArray.size() == 0) {
                     System.out.println("Der er ingen konkurrencesvømmere i senior hold med denne disciplin");
-
-                } else {
-                  // sorterOgUdskrivTop5();
+                    try {
+                        menu.visMenu();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
     }
@@ -342,19 +351,20 @@ public class Træner {
             max = 5;
         } else max = disciplinArray.size();
 
+        // fortæller os hvad for et hold vi har i vores ArrayList
         if(disciplinArray.size() > 0 && disciplinArray.get(0).getAlder() < 18) {
-            // fortæller os hvad for et hold vi har i vores ArrayList
-            System.out.println("\nHer er Top-5 " + holdJunior + "svømmere i disciplinen " + disciplin);
-        } else { System.out.println("\nHer er Top-5 " + holdSenior + "svømmere i disciplinen " + disciplin);
+           System.out.println("\nHer er Top-5 " + holdJunior + "svømmere i disciplinen " + disciplin + "\n");
+        } else { System.out.println("\nHer er Top-5 " + holdSenior + "svømmere i disciplinen " + disciplin + "\n");
         }
 
-        System.out.println("--------------------------------------------------------------------------------------");
-        System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s\n", "Nr.", "Navn", "Alder", "Disciplin",
-            "Tid", "Dato");
-        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.printf(" %-10s %-15s %-8s %-15s %-12s %-8s \n", "Medlems-", "Navn", "Alder", "Disciplin",
+            "Tid", "Resultats-");
+        System.out.printf("\033[4m %-10s %-15s %-8s %-15s %-12s %-10s \033[0m\n", "nummer", "", "", "",
+            "", "dato");
+
 
         for (int i = 0; i < max; i++) {
-            System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s\n",disciplinArray.get(i).getMedlemsnummer(),
+            System.out.printf("\033[4m %-10s %-15s %-8s %-15s %-12s %-8s \033[0m\n",disciplinArray.get(i).getMedlemsnummer(),
                 disciplinArray.get(i).getNavn(), disciplinArray.get(i).getAlder(), disciplinArray.get(i).
                     getSvømmedisciplin(), disciplinArray.get(i).getSvømmeresultat(),
                 disciplinArray.get(i).getResultatsDato());
@@ -362,6 +372,7 @@ public class Træner {
 
         return disciplinArray;
     }
+
 
 
 }

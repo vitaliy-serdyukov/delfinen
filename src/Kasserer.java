@@ -82,13 +82,33 @@ public class Kasserer {
   }
 
 
-  public void visKontingenter(Formand formand, Filhåndtering fh) {
-    fh.downloadMedlemsliste();
+  public void visKontingenter(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
 
-    for (int i = 0; i < fh.downloadMedlemsliste().size(); i++) {
-      System.out.println(fh.downloadMedlemsliste().get(i).getKontingent());
+    ArrayList<Medlem> kontingenterPåSkærm = new ArrayList<>();
+      for (int i = 0; i < filhåndtering.downloadMedlemsliste().size(); i++) {
+        if (filhåndtering.downloadMedlemsliste().get(i).getKontingent() > 0) {
+          kontingenterPåSkærm.add(filhåndtering.downloadMedlemsliste().get(i));
+        }
+      }
+      Collections.sort(kontingenterPåSkærm, medlem.medlemmerEfterNavn);
+
+      System.out.println("Vi har følgende medlemmer med følgende kontingentsats i vores klub:\n ");
+
+      System.out.printf("%-10s %-20s %-10s %-10s %-10s\n", "Medlems-",
+          "Navn", "Alder", "Kontigent- ", "Kontingent");
+      System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-8s \033[0m\n", "nummer", "", "", "sats", "i år");
+
+      for (int i = 0; i < kontingenterPåSkærm.size(); i++) {
+
+
+        System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-9s\033[0m\n", kontingenterPåSkærm.get(i).getMedlemsnummer(),
+            kontingenterPåSkærm.get(i).getNavn(), kontingenterPåSkærm.get(i).getAlder() + " år",
+            kontingenterPåSkærm.get(i).getKontingent(), kontingenterPåSkærm.get(i).getKontingentForRestenAfÅret());
+      }
+
     }
-  }
+
+
 
   public void udregnKontingenter(Formand formand, Filhåndtering fh) {
 
@@ -98,8 +118,11 @@ public class Kasserer {
     for (int i = 0; i < fh.downloadMedlemsliste().size(); i++) {
       forventedeKontingent += fh.downloadMedlemsliste().get(i).getKontingentForRestenAfÅret();
     }
-    System.out.println("Den forventede årlige kontingentindkomst er " + forventedeKontingent + "kr.");
+
+    System.out.printf("\033[4m %-40s %-5s %-5s\033[0m\n", "Den forventede årlige kontingentindkomst er ",
+        forventedeKontingent, "kr." );
   }
+
 
   public void findMedlemmerIRestance(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
 
@@ -116,7 +139,7 @@ public class Kasserer {
 
     System.out.printf("%-10s %-20s %-10s %-10s %-10s\n", "Medlems-",
         "Navn", "Alder", "Beløb i", "Restance");
-    System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-10s \033[0m\n", "nummer", "", "", "restance", "Status");
+    System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-8s \033[0m\n", "nummer", "", "", "restance", "Status");
 
     for (int i = 0; i < restanvePåSkærm.size(); i++) {
 
@@ -126,7 +149,7 @@ public class Kasserer {
       }
       else betaltStr = "Restance";
 
-      System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-10s\033[0m\n", restanvePåSkærm.get(i).getMedlemsnummer(),
+      System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-9s\033[0m\n", restanvePåSkærm.get(i).getMedlemsnummer(),
           restanvePåSkærm.get(i).getNavn(), restanvePåSkærm.get(i).getAlder() + " år",
           restanvePåSkærm.get(i).getKontingentForRestenAfÅret(), betaltStr);
     }

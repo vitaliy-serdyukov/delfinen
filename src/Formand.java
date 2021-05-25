@@ -5,19 +5,20 @@ import java.util.Scanner;
 public class Formand {
 
     //----Attributter
-    ArrayList<String> medlemsFilliste = new ArrayList<>();
+
     private int svarPåAktivitetsStatus;
     private int svarPåAktivitetsForm;
-    Scanner input = new Scanner(System.in);
-   // private int nummerTæller = 1;
+    private Scanner input = new Scanner(System.in);
+
     //----Lister----
     private ArrayList<Medlem> medlemmer = new ArrayList<>();
 
+
     //----Objekter----
-    Medlem medlem = new Medlem();
-    Kasserer kasserer = new Kasserer();
-    Træner træner = new Træner();
-    Filhåndtering filHåndtering = new Filhåndtering();
+    private Medlem medlem = new Medlem();
+    private Kasserer kasserer = new Kasserer();
+    private Træner træner = new Træner();
+    private Filhåndtering filHåndtering = new Filhåndtering();
 
     //----Konstruktøren----
     public Formand() {
@@ -27,9 +28,7 @@ public class Formand {
     public ArrayList<Medlem> getMedlemmer() {
         return medlemmer;
     }
-    public ArrayList<String> getMedlemsFilliste() {
-        return medlemsFilliste;
-    }
+
 
 
     //----Metoder----
@@ -53,8 +52,6 @@ public class Formand {
     }
 
 
-
-
     public void findOgSetMedlemsnummer() {
         int nummerTæller;
         if (filHåndtering.downloadMedlemsliste().size() == 0) {
@@ -72,7 +69,6 @@ public class Formand {
 
 
     public void registrerStamoplysninger(){
-
         System.out.println("Hvad er dit navn?: ");
         medlem.setNavn(input.nextLine());
         System.out.println("Hvad er din alder?: ");
@@ -97,13 +93,9 @@ public class Formand {
             if (svarPåAktivitetsForm == 1) {
                 medlem.setAktivitetsForm("Konkurrencesvømmer");
                 System.out.println("Ny konkurrencesvømmer registeret: " + medlem.getNavn());
-             //   træner.getKonkurrencesvømmerListe().add(new Konkurrencesvømmer(medlem. getMedlemsnummer(),
-             //       medlem.getNavn(), medlem.getAlder()));
                 System.out.println("Velkommen til klubben " + medlem.getNavn() + "!");
-              //  træner.afgørHoldEfterÅrgang();
-              //  træner.getKonkurrencesvømmerListe().clear();
-             //   filHåndtering.uploadKonkurrencesvømmerFil(træner.getKonkurrencesvømmerListe());
-             //   træner.getKonkurrencesvømmerListe().clear(); //
+
+
 
                 input.nextLine(); //Scanner bug
             } else if (svarPåAktivitetsForm == 2) {
@@ -126,10 +118,10 @@ public class Formand {
 
         Collections.sort(medlemmerEfterNavn, medlem.medlemmerEfterNavn); // sorterer eksisterende medlemer efter navn
 
-        System.out.printf(" %-3s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \n", "Nr.",
+        System.out.printf(" %-10s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \n", "Medlems-",
             "Navn", "Alder", "Status", "Aktivitetsform", "Kontingent", "Kontingent", "Betalings-");
-        System.out.printf("\033[4m %-3s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n", "",
-            "", "", "", "", "", "i år", "status");
+        System.out.printf("\033[4m %-10s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n", "nummer",
+            "", "", "", "", "om året", "i år", "status");
         for (int i = 0; i < medlemmerEfterNavn.size(); i++){
 
             if (medlemmerEfterNavn.get(i).getBetalt()){
@@ -137,7 +129,7 @@ public class Formand {
             }
             else betaltStr = "Restance";
 
-            System.out.printf("\033[4m %-3d %-15s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n",
+            System.out.printf("\033[4m %-10s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n",
                 medlemmerEfterNavn.get(i).getMedlemsnummer(),medlemmerEfterNavn.get(i).getNavn(),
                 medlemmerEfterNavn.get(i).getAlder() + " år", medlemmerEfterNavn.get(i).getAktivitetsstatus(),
                 medlemmerEfterNavn.get(i).getAktivitetsForm(), medlemmerEfterNavn.get(i).getKontingent(),

@@ -73,7 +73,6 @@ public class Menu {
 
     public void visMenu() throws IOException {
 
-      //  Menu menu = new Menu("Svømmeklubben Delfinen:", "\nVælg: \n", menuChoice);
         System.out.println();
         System.out.println(menuOverskrift);
         printMenu();
@@ -93,7 +92,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 3:
-                    kasserer.visKontingenter(formand, filhåndtering);
+                    kasserer.visKontingenter(formand, filhåndtering, medlem);
                     visMenu();
                     break;
                 case 4:
@@ -117,7 +116,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 9:
-                    træner.runTop5();
+                    træner.runTop5(new Menu());
                     visMenu();
                     break;
                 case 10:
@@ -125,7 +124,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 11:
-                    træner.printStævnePåSkærm();
+                    træner.printStævne();
                     visMenu();
                     break;
                 case 0:

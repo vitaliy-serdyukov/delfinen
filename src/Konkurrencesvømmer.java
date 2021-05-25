@@ -61,12 +61,8 @@ public class Konkurrencesvømmer extends Medlem {
         this.resultatsDato = resultatsDato;
     }
 
+
     //----Overrrider konstruktøren----
-    /*public Konkurrencesvømmer(int medlemsnummer, String navn, int alder) {
-        super(medlemsnummer, navn, alder);
-
-    }*/
-
     public Konkurrencesvømmer() {
     }
 
