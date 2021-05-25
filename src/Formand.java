@@ -46,8 +46,9 @@ public class Formand {
     }
 
     public void opretMedlem() {
-        medlemmer.add(new Medlem(medlem.getMedlemsnummer(), medlem.getNavn(), medlem.getAlder(), medlem.getAktivitetsstatus(),
-            medlem.getAktivitetsForm(), medlem.getKontingent(), medlem.getKontingentForRestenAfÅret(),
+        medlemmer.add(new Medlem(medlem.getMedlemsnummer(), medlem.getNavn(), medlem.getAlder(),
+            medlem.getAktivitetsstatus(), medlem.getAktivitetsForm(), medlem.getKontingent(),
+            medlem.getKontingentForRestenAfÅret(),
             medlem.getBetalt()));
     }
 
@@ -125,9 +126,9 @@ public class Formand {
 
         Collections.sort(medlemmerEfterNavn, medlem.medlemmerEfterNavn); // sorterer eksisterende medlemer efter navn
 
-        System.out.printf(" %-3s %-15s %-10s %-10s %-30s %-20s %-20s %-15s \n", "Nr.",
+        System.out.printf(" %-3s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \n", "Nr.",
             "Navn", "Alder", "Status", "Aktivitetsform", "Kontingent", "Kontingent", "Betalings-");
-        System.out.printf("\033[4m %-3s %-15s %-10s %-10s %-30s %-20s %-20s %-15s \033[0m\n", "",
+        System.out.printf("\033[4m %-3s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n", "",
             "", "", "", "", "", "i år", "status");
         for (int i = 0; i < medlemmerEfterNavn.size(); i++){
 
@@ -136,7 +137,7 @@ public class Formand {
             }
             else betaltStr = "Restance";
 
-            System.out.printf("\033[4m %-3d %-15s %-10s %-10s %-30s %-20s %-20s %-15s \033[0m\n",
+            System.out.printf("\033[4m %-3d %-15s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n",
                 medlemmerEfterNavn.get(i).getMedlemsnummer(),medlemmerEfterNavn.get(i).getNavn(),
                 medlemmerEfterNavn.get(i).getAlder() + " år", medlemmerEfterNavn.get(i).getAktivitetsstatus(),
                 medlemmerEfterNavn.get(i).getAktivitetsForm(), medlemmerEfterNavn.get(i).getKontingent(),

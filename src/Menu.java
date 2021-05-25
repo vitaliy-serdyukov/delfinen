@@ -101,7 +101,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 5:
-                    kasserer.findMedlemmerIRestance(formand, filhåndtering);
+                    kasserer.findMedlemmerIRestance(formand, filhåndtering, medlem);
                     visMenu();
                     break;
                 case 6:
@@ -125,7 +125,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 11:
-                  //  træner.visStævneresultater(); "11. Vis stævneresultater",
+                    træner.printStævnePåSkærm();
                     visMenu();
                     break;
                 case 0:

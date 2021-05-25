@@ -134,3 +134,11 @@ Konkurrencesvømmer
 1000
 442.0
 false
+17
+Medlem
+12
+Aktiv
+Konkurrencesvømmer
+1000
+440.0
+true

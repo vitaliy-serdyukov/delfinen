@@ -13,15 +13,15 @@ public class Filhåndtering {
       FileWriter fileWriter = new FileWriter(file, true);
       for (int i = 0; i < medlemmer.size(); i++) {
         fileWriter.write(
-               medlemmer.get(i).getMedlemsnummer() +
-            "\n" + medlemmer.get(i).getNavn() +
-            "\n" + medlemmer.get(i).getAlder() +
-            "\n" + medlemmer.get(i).getAktivitetsstatus() +
-            "\n" + medlemmer.get(i).getAktivitetsForm() +
-            "\n" + medlemmer.get(i).getKontingent() +
-            "\n" + medlemmer.get(i).getKontingentForRestenAfÅret() +
-            "\n" + medlemmer.get(i).getBetalt() +
-            "\n");
+            medlemmer.get(i).getMedlemsnummer() +
+                "\n" + medlemmer.get(i).getNavn() +
+                "\n" + medlemmer.get(i).getAlder() +
+                "\n" + medlemmer.get(i).getAktivitetsstatus() +
+                "\n" + medlemmer.get(i).getAktivitetsForm() +
+                "\n" + medlemmer.get(i).getKontingent() +
+                "\n" + medlemmer.get(i).getKontingentForRestenAfÅret() +
+                "\n" + medlemmer.get(i).getBetalt() +
+                "\n");
 
       }
       fileWriter.close();
@@ -38,8 +38,8 @@ public class Filhåndtering {
       Scanner fileReader = new Scanner(file);
       if (fileReader.hasNextLine()) {
         while (fileReader.hasNextLine()) {
-          int medlemsnummer;
           String temp;
+          int medlemsnummer;
           String navn;
           int alder;
           String aktivitetsStatus;
@@ -73,12 +73,12 @@ public class Filhåndtering {
           betalt = Boolean.parseBoolean(temp);
 
 
-          medlemsFilliste.add(new Medlem(medlemsnummer,navn,alder,aktivitetsStatus,aktivitetsForm,kontingent,
+          medlemsFilliste.add(new Medlem(medlemsnummer, navn, alder, aktivitetsStatus, aktivitetsForm, kontingent,
               kontingentForIÅr, betalt));
         }
       }
       fileReader.close();
-    }catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
     return medlemsFilliste;
@@ -114,8 +114,8 @@ public class Filhåndtering {
 
       if (fileReader.hasNextLine()) {
         while (fileReader.hasNextLine()) {
-          int medlemsnummer;
           String temp;
+          int medlemsnummer;
           String navn;
           int alder;
           String svømmedisciplin;
@@ -152,7 +152,7 @@ public class Filhåndtering {
   }
 
 
-public void uploadStævneFil(ArrayList<Konkurrencesvømmer>stævneResultatTemp) {
+  public void uploadStævneFil(ArrayList<Konkurrencesvømmer> stævneResultatTemp) {
 
     File file = new File("src/StævneResulater.txt");
     try {
@@ -162,11 +162,11 @@ public void uploadStævneFil(ArrayList<Konkurrencesvømmer>stævneResultatTemp) 
         fileWriter.write(stævneResultatTemp.get(i).getMedlemsnummer() +
             "\n" + stævneResultatTemp.get(i).getNavn() +
             "\n" + stævneResultatTemp.get(i).getAlder() +
-            "\n"+ stævneResultatTemp.get(i).getStævneNavn() +
-            "\n"+ stævneResultatTemp.get(i).getStævneDato() +
-            "\n"+ stævneResultatTemp.get(i).getSvømmedisciplin() +
-            "\n"+ stævneResultatTemp.get(i).getPlacering() +
-            "\n"+ stævneResultatTemp.get(i).getSvømmeresultat() +
+            "\n" + stævneResultatTemp.get(i).getStævneNavn() +
+            "\n" + stævneResultatTemp.get(i).getStævneDato() +
+            "\n" + stævneResultatTemp.get(i).getSvømmedisciplin() +
+            "\n" + stævneResultatTemp.get(i).getPlacering() +
+            "\n" + stævneResultatTemp.get(i).getSvømmeresultat() +
             "\n");
 
       }
@@ -176,18 +176,23 @@ public void uploadStævneFil(ArrayList<Konkurrencesvømmer>stævneResultatTemp) 
       e.printStackTrace();
     }
   }
-}
-  /*public ArrayList<Konkurrencesvømmer> downloadKonkurrencesvømmerFil() {
-    ArrayList<Konkurrencesvømmer> konkurrencesvømmerFil = new ArrayList<>();
-    File file = new File("src/Konkurrencesvømmerliste.txt");
+
+  public ArrayList<Konkurrencesvømmer> downloadStævneFil() {
+    ArrayList<Konkurrencesvømmer> stævneFil = new ArrayList<>();
+    File file = new File("src/StævneResulater.txt");
     try {
       Scanner fileReader = new Scanner(file);
       if (fileReader.hasNextLine()) {
         while (fileReader.hasNextLine()) {
-          int medlemsnummer;
           String temp;
+          int medlemsnummer;
           String navn;
           int alder;
+          String stævnenavn;
+          LocalDate stævnedato;
+          String svømmedisciplin;
+          int placering;
+          double svømmeresultat;
 
           temp = fileReader.nextLine();
           medlemsnummer = Integer.parseInt(temp);
@@ -198,12 +203,29 @@ public void uploadStævneFil(ArrayList<Konkurrencesvømmer>stævneResultatTemp) 
           temp = fileReader.nextLine();
           alder = Integer.parseInt(temp);
 
-          konkurrencesvømmerFil.add(new Konkurrencesvømmer(medlemsnummer, navn, alder));
+          temp = fileReader.nextLine();
+          stævnenavn = temp;
+
+          temp = fileReader.nextLine();
+          stævnedato = LocalDate.parse(temp);
+
+          temp = fileReader.nextLine();
+          svømmedisciplin = temp;
+
+          temp = fileReader.nextLine();
+          placering = Integer.parseInt(temp);
+
+          temp = fileReader.nextLine();
+          svømmeresultat = Double.parseDouble(temp);
+
+          stævneFil.add(new Konkurrencesvømmer(medlemsnummer, navn, alder, stævnenavn, stævnedato, svømmedisciplin,
+              placering, svømmeresultat));
         }
       }
       fileReader.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return konkurrencesvømmerFil;
-  }*/
+    return stævneFil;
+  }
+}

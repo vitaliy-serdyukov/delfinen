@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Kasserer {
@@ -100,14 +101,37 @@ public class Kasserer {
     System.out.println("Den forventede årlige kontingentindkomst er " + forventedeKontingent + "kr.");
   }
 
-  public void findMedlemmerIRestance(Formand formand, Filhåndtering fh) {
-    ArrayList<Medlem> medlemmerIRestance = new ArrayList<>();
-    for (int i = 0; i < fh.downloadMedlemsliste().size(); i++) {
-      if (!fh.downloadMedlemsliste().get(i).getBetalt()) {
-          medlemmerIRestance.add(fh.downloadMedlemsliste().get(i));
+  public void findMedlemmerIRestance(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
+
+    String betaltStr;
+    ArrayList<Medlem> restanvePåSkærm = new ArrayList<>();
+    for (int i = 0; i < filhåndtering.downloadMedlemsliste().size(); i++) {
+      if (!filhåndtering.downloadMedlemsliste().get(i).getBetalt()) {
+        restanvePåSkærm.add(filhåndtering.downloadMedlemsliste().get(i));
       }
     }
-    System.out.println(medlemmerIRestance);
+    Collections.sort(restanvePåSkærm, medlem.medlemmerEfterNavn);
+
+    System.out.println("Vi har følgende medlemmer med restance i vores klub:\n ");
+
+    System.out.printf("%-10s %-20s %-10s %-10s %-10s\n", "Medlems-",
+        "Navn", "Alder", "Beløb i", "Restance");
+    System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-10s \033[0m\n", "nummer", "", "", "restance", "Status");
+
+    for (int i = 0; i < restanvePåSkærm.size(); i++) {
+
+
+      if (restanvePåSkærm.get(i).getBetalt()){
+        betaltStr = "Betalt";
+      }
+      else betaltStr = "Restance";
+
+      System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-10s\033[0m\n", restanvePåSkærm.get(i).getMedlemsnummer(),
+          restanvePåSkærm.get(i).getNavn(), restanvePåSkærm.get(i).getAlder() + " år",
+          restanvePåSkærm.get(i).getKontingentForRestenAfÅret(), betaltStr);
+    }
+
+
   }
 
   public void harBetalt(Medlem medlem) {

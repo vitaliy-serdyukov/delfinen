@@ -29,24 +29,24 @@ public class Træner {
 
     public void printKonkurrencesvømmer(Medlem medlem) {
 
-        ArrayList<Medlem> konkurrencesvømmere = new ArrayList<>();
+        ArrayList<Medlem> konkurrencesvømmerePåSkærm = new ArrayList<>();
         for (int i = 0; i < filhåndtering.downloadMedlemsliste().size(); i++) {
             if (filhåndtering.downloadMedlemsliste().get(i).getAktivitetsForm().equals("Konkurrencesvømmer")) {
-                konkurrencesvømmere.add(filhåndtering.downloadMedlemsliste().get(i));
+                konkurrencesvømmerePåSkærm.add(filhåndtering.downloadMedlemsliste().get(i));
             }
         }
-        Collections.sort(konkurrencesvømmere, medlem.medlemmerEfterNavn);
+        Collections.sort(konkurrencesvømmerePåSkærm, medlem.medlemmerEfterNavn);
 
-        System.out.println("Vi har følgende konkurrencesvømmere i vores klub:\n ");
+        System.out.println("Vi har følgende konkurrencesvømmerePåSkærm i vores klub:\n ");
 
         System.out.printf(" %-10s %-15s %-10s\n", "Medlems-",
             "Navn", "Alder");
         System.out.printf("\033[4m %-10s %-15s %-10s \033[0m\n", "nummer", "", "");
 
-        for (int i = 0; i < konkurrencesvømmere.size(); i++) {
+        for (int i = 0; i < konkurrencesvømmerePåSkærm.size(); i++) {
 
-            System.out.printf("\033[4m %-10s %-15s %-10s\033[0m\n", konkurrencesvømmere.get(i).getMedlemsnummer(),
-                konkurrencesvømmere.get(i).getNavn(), konkurrencesvømmere.get(i).getAlder() + " år");
+            System.out.printf("\033[4m %-10s %-15s %-10s\033[0m\n", konkurrencesvømmerePåSkærm.get(i).getMedlemsnummer(),
+                konkurrencesvømmerePåSkærm.get(i).getNavn(), konkurrencesvømmerePåSkærm.get(i).getAlder() + " år");
         }
 
 
@@ -64,6 +64,22 @@ public class Træner {
                     getMedlemsnummer(), resultaterPåSkærm.get(i).getNavn(), resultaterPåSkærm.get(i).getAlder() + " år",
                 resultaterPåSkærm.get(i).getSvømmedisciplin(), resultaterPåSkærm.get(i).getSvømmeresultat(),
                 resultaterPåSkærm.get(i).getResultatsDato());
+        }
+    }
+
+    public void printStævnePåSkærm() {
+        ArrayList<Konkurrencesvømmer> stævnePåSkærm = filhåndtering.downloadStævneFil();
+        Collections.sort(stævnePåSkærm, konkurrencesvømmer.konkurrencesvømmerEfterNavnAlder);
+        System.out.printf("\033[4m %-3s %-15s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", "Nr.",
+            "Navn", "Alder", " Stævnenavn", "Stævnedato", "Disciplin","Placering", "Resultat");
+
+        for (int i = 0; i < stævnePåSkærm.size(); i++) {
+
+            System.out.printf("\033[4m %-3s %-15s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", stævnePåSkærm.get(i).
+                    getMedlemsnummer(), stævnePåSkærm.get(i).getNavn(), stævnePåSkærm.get(i).getAlder() + " år",
+                stævnePåSkærm.get(i).getStævneNavn(), stævnePåSkærm.get(i).getStævneDato(),
+                stævnePåSkærm.get(i).getSvømmedisciplin(),stævnePåSkærm.get(i).getPlacering(),
+                stævnePåSkærm.get(i).getSvømmeresultat());
         }
     }
 
@@ -116,7 +132,7 @@ public class Træner {
                     konkurrencesvømmer.getNavn() + "\nDisciplin: " + konkurrencesvømmer.getSvømmedisciplin() +
                     "\nTid: " + konkurrencesvømmer.getSvømmeresultat());
 
-                  udskiftTilEnBedreResultat();
+                  udskiftResultat();
             } else {
                     /*do {
                         System.out.println("Navnet er indtastet forkert eller ikke fundet i junior liste");
@@ -128,7 +144,7 @@ public class Træner {
         }
     }
 
-    public void udskiftTilEnBedreResultat(){
+    public void udskiftResultat(){
         ArrayList<Konkurrencesvømmer> bedsteResultat = filhåndtering.downloadKonkurrencesvømmerResultatFil();
 
         System.out.println("Test1" + bedsteResultat);
@@ -139,15 +155,20 @@ public class Træner {
 
             if (bedsteResultat.size() > 1) {
                 for (int j = 0; j < bedsteResultat.size(); j++) { // fjerner værste sesultat, hvis en medlem har flere?
-                    for (int k = j + 1; j < bedsteResultat.size(); j++) {
+                    for (int k = j + 1; j < bedsteResultat.size(); k--) {
 
                         if ((bedsteResultat.get(j).getMedlemsnummer() == bedsteResultat.get(k).
                             getMedlemsnummer()) && bedsteResultat.get(j).getSvømmedisciplin().
                             equals(bedsteResultat.get(k).getSvømmedisciplin())) {
 
+                            System.out.println("JA, test" + j);
+                            System.out.println(k);
+
                             bedsteResultat.remove(k);
-                            System.out.println("JA");
-                             k--;
+
+                            System.out.println(k);
+                            System.out.println(j);
+                            k--;
 
                         }
                     }
@@ -179,7 +200,8 @@ public class Træner {
         vælgHoldTop5();
 
     System.out.println("Her er vores konkurrencesvømmere, som skal have registreret deres stævneresultater ");
-    ArrayList <Konkurrencesvømmer> stævneResultater = sorterOgUdskrivTop5();
+
+    ArrayList <Konkurrencesvømmer> stævneResultater = sorterOgUdskrivTop5();// kalder rigtigt her
     ArrayList <Konkurrencesvømmer> stævneResultatTemp = new ArrayList<>();
 
     System.out.println("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:");
@@ -223,6 +245,7 @@ public class Træner {
 
     filhåndtering.uploadStævneFil(stævneResultatTemp);
     stævneResultater.clear();
+    stævneResultatTemp.clear();
 
 
     }
@@ -289,7 +312,7 @@ public class Træner {
                 System.out.println("Der er ingen konkurrencesvømmere i junior hold med denne disciplin");
 
                 } else {
-                    sorterOgUdskrivTop5();
+                 //   sorterOgUdskrivTop5();
                 }
             } else if (svarHold == 2) {
                 for (int i = 0; i < senior.size(); i++) {
@@ -303,7 +326,7 @@ public class Træner {
                     System.out.println("Der er ingen konkurrencesvømmere i senior hold med denne disciplin");
 
                 } else {
-                   sorterOgUdskrivTop5();
+                  // sorterOgUdskrivTop5();
                 }
             }
     }
