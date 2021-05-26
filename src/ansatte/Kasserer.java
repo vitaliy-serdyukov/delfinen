@@ -1,9 +1,8 @@
 package ansatte;
 
-
-
 import medlemmer.Medlem;
 import ui.Filhåndtering;
+import ui.UI;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,9 +13,9 @@ public class Kasserer {
 
   //----Attributter----
   private LocalDate localDate = LocalDate.now();
+  private UI ui = new UI();
 
   //----Metoder----
-
   //Beregner hvor mange dage der er gået på en specifik dato
   public double beregnResterendeDagePåÅret(){
     int dagePåÅret = 365;
@@ -47,89 +46,55 @@ public class Kasserer {
       dageTilbage += 334;
     }
     dageTilbage = dagePåÅret - dageTilbage;
-    System.out.println("Tester dagsdato i værdi: " + dageTilbage);
     return dageTilbage;
   }
-
 
   public void beregnKontingent(Medlem medlem) {
     int dagePåEtÅr = 365;
     if (medlem.getAktivitetsstatus().contains("Aktiv") && medlem.getAlder() < 18) {
       medlem.setKontingent(1000);
-      System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
+      ui.returnMessage("\nDin årlige kontingent er: " + medlem.getKontingent() + "\n");
       double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret((int) kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
-      System.out.println("For resten af året skal du betale: " +
-          String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret()))); //Der er noget galt med udregningen
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      ui.returnMessage("For resten af året skal du betale: " +
+          String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n"); //Der er noget galt med udregningen
 
     } else if (medlem.getAktivitetsstatus().contains("Aktiv") && 18 <= medlem.getAlder() && medlem.getAlder() < 60) {
       medlem.setKontingent(1600);
-      System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
+      ui.returnMessage("\nDin årlige kontingent er: " + medlem.getKontingent() +  "\n");
       double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret((int) kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
-      System.out.println("For resten af året skal du betale: " +
-              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      ui.returnMessage("For resten af året skal du betale: " +
+              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
 
     } else if (medlem.getAktivitetsstatus().contains("Aktiv") && medlem.getAlder() >= 60) {
       medlem.setKontingent(1200);
-      System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
+      ui.returnMessage("\nDin årlige kontingent er: " + medlem.getKontingent() + "\n");
       double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret((int) kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
-      System.out.println("For resten af året skal du betale: " +
-              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      ui.returnMessage("For resten af året skal du betale: " +
+              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
 
     } else if (medlem.getAktivitetsstatus().contains("Passiv")) {
       medlem.setKontingent(500);
-      System.out.println("\nDin årlige kontingent er: " + medlem.getKontingent());
+      ui.returnMessage("\nDin årlige kontingent er: " + medlem.getKontingent() + "\n");
       double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret((int) kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
-      System.out.println("For resten af året skal du betale: " +
-              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())));
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      ui.returnMessage("For resten af året skal du betale: " +
+              String.format(String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
     }
   }
 
-
-  public void visKontingenter(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
-
-    ArrayList<Medlem> kontingenterPåSkærm = new ArrayList<>();
-      for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
-        if (filhåndtering.downloadMedlemsFil().get(i).getKontingent() > 0) {
-          kontingenterPåSkærm.add(filhåndtering.downloadMedlemsFil().get(i));
-        }
-      }
-      Collections.sort(kontingenterPåSkærm, medlem.medlemmerEfterNavn);
-
-      System.out.println("Vi har følgende medlemmer med følgende kontingentsats i vores klub:\n ");
-
-      System.out.printf("%-10s %-20s %-10s %-10s %-10s\n", "Medlems-",
-          "Navn", "Alder", "Kontigent- ", "Kontingent");
-      System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-8s \033[0m\n", "nummer", "", "", "sats", "i år");
-
-      for (int i = 0; i < kontingenterPåSkærm.size(); i++) {
-
-
-        System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-9s\033[0m\n", kontingenterPåSkærm.get(i).getMedlemsnummer(),
-            kontingenterPåSkærm.get(i).getNavn(), kontingenterPåSkærm.get(i).getAlder() + " år",
-            kontingenterPåSkærm.get(i).getKontingent(), kontingenterPåSkærm.get(i).getKontingentForRestenAfÅret());
-      }
-
-    }
-
-
-
   public void udregnKontingenter(Formand formand, Filhåndtering fh) {
-
     ArrayList<String> forventedeKontingentListe = new ArrayList<>();
     int forventedeKontingent = 0;
 
     for (int i = 0; i < fh.downloadMedlemsFil().size(); i++) {
       forventedeKontingent += fh.downloadMedlemsFil().get(i).getKontingentForRestenAfÅret();
     }
-
     System.out.printf("\033[4m %-40s %-5s %-5s\033[0m\n", "Den forventede årlige kontingentindkomst er ",
         forventedeKontingent, "kr." );
   }
-
 
   public void findMedlemmerIRestance(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
 
@@ -142,15 +107,13 @@ public class Kasserer {
     }
     Collections.sort(restanvePåSkærm, medlem.medlemmerEfterNavn);
 
-    System.out.println("Vi har følgende medlemmer med restance i vores klub:\n ");
+    ui.returnMessage("Vi har følgende medlemmer med restance i vores klub:\n ");
 
     System.out.printf("%-10s %-20s %-10s %-10s %-10s\n", "Medlems-",
         "Navn", "Alder", "Beløb i", "Restance");
     System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-8s \033[0m\n", "nummer", "", "", "restance", "Status");
 
     for (int i = 0; i < restanvePåSkærm.size(); i++) {
-
-
       if (restanvePåSkærm.get(i).getBetalt()){
         betaltStr = "Betalt";
       }
@@ -160,33 +123,31 @@ public class Kasserer {
           restanvePåSkærm.get(i).getNavn(), restanvePåSkærm.get(i).getAlder() + " år",
           restanvePåSkærm.get(i).getKontingentForRestenAfÅret(), betaltStr);
     }
-
-
   }
 
   public void harBetalt(Medlem medlem) {
     Scanner input = new Scanner(System.in);
     ArrayList<String> kortoplysninger = new ArrayList();
-    System.out.println("Vil medlemmet betale med det samme? (ja/nej) ");
+    ui.returnMessage("Vil medlemmet betale med det samme? (ja/nej) ");
     String betalingNu = input.nextLine();
 
     if (betalingNu.equals("ja")) {
-      System.out.println("Indtast kontonummer: (10 cifre) ");
+      ui.returnMessage("Indtast kontonummer: (10 cifre) ");
       String kontoNr = input.nextLine();
       kortoplysninger.add(kontoNr);
-      System.out.println("Indtast registreringsnummer: (4 cifre)");
+      ui.returnMessage("Indtast registreringsnummer: (4 cifre)");
       String regNr = input.nextLine();
       kortoplysninger.add(regNr);
       if (kortoplysninger.get(0).length() == 10 && kortoplysninger.get(1).length() == 4) {
-        System.out.println("Tjekker betalingskort...");
-        System.out.println("Godkendt.");
+        ui.returnMessage("Tjekker betalingskort...");
+        ui.returnMessage("Godkendt.");
         medlem.setBetalt(true);
       } else {
-        System.out.println("Noget gik galt. Husk mellemrummet. Prøv igen.");
+        ui.returnMessage("Noget gik galt. Husk mellemrummet. Prøv igen.");
         harBetalt(medlem);
       }
     } else {
-      System.out.println(medlem.getNavn() + " står i restance.");
+      ui.returnMessage(medlem.getNavn() + " står i restance.");
       medlem.setBetalt(false);
     }
 

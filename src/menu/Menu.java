@@ -15,6 +15,12 @@ public class Menu {
     //----Attributter------
     private String menuOverskrift =  "Svømmeklubben Delfinen:" +  "\n" + "Vælg venligst: \n";
     private String brugerValg;
+    private Formand formand = new Formand();
+    private Kasserer kasserer = new Kasserer();
+    private Træner træner = new Træner();
+    private Filhåndtering filhåndtering = new Filhåndtering();
+    private final UI ui = new UI();
+    private Medlem medlem = new Medlem();
     private  String[] menuChoice = {
             "1. Opret medlem",
             "2. Medlemmer",
@@ -30,13 +36,6 @@ public class Menu {
            "12. Slet medlem",
             "0. Afslut"};
 
-    Formand formand = new Formand();
-    Kasserer kasserer = new Kasserer();
-    Træner træner = new Træner();
-    Filhåndtering filhåndtering = new Filhåndtering();
-    final UI ui = new UI();
-    Medlem medlem = new Medlem();
-
 
     //----Konstruktør----
     public Menu(String menuOverskrift, String brugerValg, String[] menuChoice) {
@@ -48,15 +47,7 @@ public class Menu {
     //----Override konstrtuktør----
     public Menu() {}
 
-
     //----Metoder----
-   /* public void printMenu() {
-       String printString = menuOverskrift + "\n";
-        for (int i = 0; i < menuChoice.length; i++)
-            printString += menuChoice[i] + "\n";
-        //ui.getString("\n" + printString);*//*
-    }*/
-
     public void printMenu(){
         for (int i = 0; i < menuChoice.length; i++){
             System.out.println(menuChoice[i]);
@@ -74,7 +65,6 @@ public class Menu {
                 validChoice = true;
             } else {
                 ui.udskrivMedRød("Fejl, indtast et tal fra menuen");
-              //  System.out.println("Fejl, indtast et tal fra menuen");
                 scanner.nextLine();
             }
         }
@@ -82,9 +72,8 @@ public class Menu {
     }
 
     public void visMenu() throws IOException {
-
-        System.out.println();
-        System.out.println(menuOverskrift);
+        ui.returnMessage("");
+        ui.returnMessage(menuOverskrift);
         printMenu();
 
         boolean isRunning;
@@ -98,11 +87,11 @@ public class Menu {
                     visMenu();
                     break;
                 case 2:
-                    formand.seMedlemmer();
+                    ui.seMedlemmer();
                     visMenu();
                     break;
                 case 3:
-                    kasserer.visKontingenter(formand, filhåndtering, medlem);
+                    ui.visKontingenter(formand, filhåndtering, medlem);
                     visMenu();
                     break;
                 case 4:
@@ -138,7 +127,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 12:
-                    formand.sletMedlem(new Menu());
+                    //formand.sletMedlem(new Menu());
                     break;
                 case 0:
                     isRunning = false;

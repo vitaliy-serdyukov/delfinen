@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 public class Medlem {
 
+    //----Attributter----
     private int medlemsnummer;
     private String navn;
     private int alder;
@@ -13,7 +14,7 @@ public class Medlem {
     private double kontingentForRestenAfÅret;
     private boolean betalt;
 
-
+    //----Konstruktør----
     public Medlem(int medlemsnummer,String navn, int alder, String aktivitetsstatus, String aktivitetsform,
                   int kontingent, double kontingentForRestenAfÅret, boolean betalt) {
         this.medlemsnummer = medlemsnummer;
@@ -24,21 +25,20 @@ public class Medlem {
         this.kontingent = kontingent;
         this.kontingentForRestenAfÅret = kontingentForRestenAfÅret;
         this.betalt = betalt;
-       // harBetalt();
     }
 
+    //----Overrrider konstruktør
     public Medlem(){
     }
 
+    //----Overrider konstruktør----
     public Medlem(int medlemsnummer, String navn, int alder){ // konstruktør, som bliver brugt i Medlemmer.Konkurrencesvømmer
         this.medlemsnummer = medlemsnummer;
         this.navn = navn;
         this.alder = alder;
     }
 
-
     // ------Gettere----------
-
     public int getMedlemsnummer() {return medlemsnummer;}
 
     public String getNavn(){
@@ -70,9 +70,7 @@ public class Medlem {
     }
 
 
-
     // -------Settere----------
-
     public void setMedlemsnummer(int medlemsnummer) {this.medlemsnummer = medlemsnummer;}
 
     public void setNavn(String navn) {
@@ -103,8 +101,7 @@ public class Medlem {
         this.betalt = betalt;
     }
 
-
-
+    //----Comparator----
     public static Comparator<Medlem> medlemmerEfterNavn = new Comparator<Medlem>() {
         @Override
         public int compare(Medlem m1, Medlem m2) {
@@ -114,7 +111,7 @@ public class Medlem {
         }
     };
 
-
+    //----toString----
     @Override
     public String toString() {
 
@@ -123,7 +120,6 @@ public class Medlem {
             betaltStr = "Betalt"; // sådan, så er der ikke mere true eller false :)
         }
         else betaltStr = "Restance";
-
 
         return  "Medlemmer.Medlem: "  + navn + " " +  alder + " år" +   " " +  aktivitetsstatus   +  " " + aktivitetsForm +
             " " + "Kontingent " + kontingent + " kr." + kontingentForRestenAfÅret + " kr. " + betaltStr + "\n";

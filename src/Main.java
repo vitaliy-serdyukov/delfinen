@@ -5,9 +5,11 @@ import java.io.IOException;
 public class Main {
   public static void main(String[] args) throws IOException {
 
+    //----Objekt/Attribut----
     Menu menu = new Menu();
-    menu.visMenu();
 
+    //----Metodekald----
+    menu.visMenu();
 
   }
 

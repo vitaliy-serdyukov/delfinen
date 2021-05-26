@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class Filhåndtering {
 
+  //----Metoder----
   public void uploadMedlemsFil(ArrayList<Medlem> medlemmer) {
     File file = new File("src/txt/Medlemliste.txt");
     try {
@@ -109,7 +110,6 @@ public class Filhåndtering {
     }
   }
 
-
   public ArrayList<Konkurrencesvømmer> downloadKonkurrencesvømmerResultatFil() {
     ArrayList<Konkurrencesvømmer> juniorsvømmerResultFil = new ArrayList<>();
     File file = new File("src/txt/KonkurrencesvømmerResultat.txt");
@@ -154,7 +154,6 @@ public class Filhåndtering {
     }
     return juniorsvømmerResultFil;
   }
-
 
   public void uploadStævneFil(ArrayList<Konkurrencesvømmer> stævneResultatTemp) {
 
