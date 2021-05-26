@@ -40,9 +40,9 @@ public class Træner {
     public void printKonkurrencesvømmer(Medlem medlem) {
 
         ArrayList<Medlem> konkurrencesvømmerePåSkærm = new ArrayList<>();
-        for (int i = 0; i < filhåndtering.downloadMedlemsliste().size(); i++) {
-            if (filhåndtering.downloadMedlemsliste().get(i).getAktivitetsForm().equals("Konkurrencesvømmer")) {
-                konkurrencesvømmerePåSkærm.add(filhåndtering.downloadMedlemsliste().get(i));
+        for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
+            if (filhåndtering.downloadMedlemsFil().get(i).getAktivitetsForm().equals("Konkurrencesvømmer")) {
+                konkurrencesvømmerePåSkærm.add(filhåndtering.downloadMedlemsFil().get(i));
             }
         }
         Collections.sort(konkurrencesvømmerePåSkærm, medlem.medlemmerEfterNavn);
@@ -103,13 +103,13 @@ public class Træner {
         System.out.println("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:");
         svarMedlemsnummer = scan.nextInt();
 
-        for (int i = 0; i < filhåndtering.downloadMedlemsliste().size(); i++) {
+        for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
 
-            if (filhåndtering.downloadMedlemsliste().get(i).getMedlemsnummer() == svarMedlemsnummer) {
+            if (filhåndtering.downloadMedlemsFil().get(i).getMedlemsnummer() == svarMedlemsnummer) {
 
-                konkurrencesvømmer.setMedlemsnummer(filhåndtering.downloadMedlemsliste().get(i).getMedlemsnummer());
-                konkurrencesvømmer.setNavn(filhåndtering.downloadMedlemsliste().get(i).getNavn());
-                konkurrencesvømmer.setAlder(filhåndtering.downloadMedlemsliste().get(i).getAlder());
+                konkurrencesvømmer.setMedlemsnummer(filhåndtering.downloadMedlemsFil().get(i).getMedlemsnummer());
+                konkurrencesvømmer.setNavn(filhåndtering.downloadMedlemsFil().get(i).getNavn());
+                konkurrencesvømmer.setAlder(filhåndtering.downloadMedlemsFil().get(i).getAlder());
 
                 System.out.println("For hvilken svømmedisciplin skal registreres resultat:  ");
                 System.out.println("\nVælg venligst mellem 1 eller 4");

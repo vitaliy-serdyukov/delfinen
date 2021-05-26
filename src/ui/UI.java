@@ -77,7 +77,7 @@ public class UI {
   }*/
 
   String vælg;
-  public String validerMulighed(){
+  public String valider1Eller2(){
     vælg =  input.nextLine();
     while (!vælg.equals("1")
         && !vælg.equals("2"))
@@ -92,11 +92,11 @@ public class UI {
 
 
 
-  public String insertName(){
+ /* public String insertName(){
     Scanner scan2 = new Scanner(System.in);
     System.out.println("\nPlease insert the name for Student: ");
     return scan2.nextLine();
-  }
+  }*/
 
 
 

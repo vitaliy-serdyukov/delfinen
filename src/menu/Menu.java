@@ -27,6 +27,7 @@ public class Menu {
             "9. Find top 5",
            "10. Registrer stævneresultat",
            "11. Vis stævneresultater",
+           "12. Slet medlem",
             "0. Afslut"};
 
     Formand formand = new Formand();
@@ -135,6 +136,9 @@ public class Menu {
                 case 11:
                     træner.printStævne();
                     visMenu();
+                    break;
+                case 12:
+                    formand.sletMedlem(new Menu());
                     break;
                 case 0:
                     isRunning = false;

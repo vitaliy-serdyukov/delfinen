@@ -92,9 +92,9 @@ public class Kasserer {
   public void visKontingenter(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
 
     ArrayList<Medlem> kontingenterPåSkærm = new ArrayList<>();
-      for (int i = 0; i < filhåndtering.downloadMedlemsliste().size(); i++) {
-        if (filhåndtering.downloadMedlemsliste().get(i).getKontingent() > 0) {
-          kontingenterPåSkærm.add(filhåndtering.downloadMedlemsliste().get(i));
+      for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
+        if (filhåndtering.downloadMedlemsFil().get(i).getKontingent() > 0) {
+          kontingenterPåSkærm.add(filhåndtering.downloadMedlemsFil().get(i));
         }
       }
       Collections.sort(kontingenterPåSkærm, medlem.medlemmerEfterNavn);
@@ -122,8 +122,8 @@ public class Kasserer {
     ArrayList<String> forventedeKontingentListe = new ArrayList<>();
     int forventedeKontingent = 0;
 
-    for (int i = 0; i < fh.downloadMedlemsliste().size(); i++) {
-      forventedeKontingent += fh.downloadMedlemsliste().get(i).getKontingentForRestenAfÅret();
+    for (int i = 0; i < fh.downloadMedlemsFil().size(); i++) {
+      forventedeKontingent += fh.downloadMedlemsFil().get(i).getKontingentForRestenAfÅret();
     }
 
     System.out.printf("\033[4m %-40s %-5s %-5s\033[0m\n", "Den forventede årlige kontingentindkomst er ",
@@ -135,9 +135,9 @@ public class Kasserer {
 
     String betaltStr;
     ArrayList<Medlem> restanvePåSkærm = new ArrayList<>();
-    for (int i = 0; i < filhåndtering.downloadMedlemsliste().size(); i++) {
-      if (!filhåndtering.downloadMedlemsliste().get(i).getBetalt()) {
-        restanvePåSkærm.add(filhåndtering.downloadMedlemsliste().get(i));
+    for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
+      if (!filhåndtering.downloadMedlemsFil().get(i).getBetalt()) {
+        restanvePåSkærm.add(filhåndtering.downloadMedlemsFil().get(i));
       }
     }
     Collections.sort(restanvePåSkærm, medlem.medlemmerEfterNavn);

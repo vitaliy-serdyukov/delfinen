@@ -1,9 +1,12 @@
 package ansatte;
 
 import medlemmer.Medlem;
+import menu.Menu;
 import ui.Filhåndtering;
 import ui.UI;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -25,6 +28,7 @@ public class Formand {
     private Træner træner = new Træner();
     private Filhåndtering filHåndtering = new Filhåndtering();
     private UI ui = new UI();
+
 
     //----Konstruktøren----
     public Formand() {
@@ -60,13 +64,13 @@ public class Formand {
 
     public void findOgSetMedlemsnummer() {
         int nummerTæller;
-        if (filHåndtering.downloadMedlemsliste().size() == 0) {
+        if (filHåndtering.downloadMedlemsFil().size() == 0) {
             nummerTæller = 1;
             medlem.setMedlemsnummer(nummerTæller);
         } else {
             ArrayList<Integer> medlemsnumre = new ArrayList<>();
-            for (int i = 0; i < filHåndtering.downloadMedlemsliste().size(); i++) {
-                medlemsnumre.add(filHåndtering.downloadMedlemsliste().get(i).getMedlemsnummer());
+            for (int i = 0; i < filHåndtering.downloadMedlemsFil().size(); i++) {
+                medlemsnumre.add(filHåndtering.downloadMedlemsFil().get(i).getMedlemsnummer());
             }
             nummerTæller = Collections.max(medlemsnumre);
             medlem.setMedlemsnummer(nummerTæller + 1);
@@ -90,7 +94,7 @@ public class Formand {
 
         System.out.println("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: ");
 
-        mulighed = ui.validerMulighed();
+        mulighed = ui.valider1Eller2();
 
         if (mulighed.equals("1")) {
             medlem.setAktivitetsstatus("Aktiv");
@@ -108,7 +112,7 @@ public class Formand {
             System.out.println("Hvad for en aktivitetsform er du interesseret i? " +
                 "\nTast 1 for konkurrencesvømmer, 2 for motionist: ");
 
-            mulighed = ui.validerMulighed();
+            mulighed = ui.valider1Eller2();
 
             if (mulighed.equals("1")) {
                 medlem.setAktivitetsForm("Medlemmer.Konkurrencesvømmer");
@@ -127,7 +131,7 @@ public class Formand {
 
 
     public void seMedlemmer() {
-        ArrayList<Medlem> medlemmerEfterNavn = filHåndtering.downloadMedlemsliste();
+        ArrayList<Medlem> medlemmerEfterNavn = filHåndtering.downloadMedlemsFil();
         String betaltStr;
 
         Collections.sort(medlemmerEfterNavn, medlem.medlemmerEfterNavn); // sorterer eksisterende medlemer efter navn
@@ -150,5 +154,50 @@ public class Formand {
                 medlemmerEfterNavn.get(i).getKontingentForRestenAfÅret(), betaltStr);
         }
     }
+
+    public void sletMedlem(Menu menu) {
+
+        System.out.println("VIGTIGT! Du er i gang med at slette et medlem");
+        System.out.println("Vi har følgende  konkurrencesvømmere i vores klub:\n");
+        seMedlemmer();
+        System.out.println("Intast venligst et medlemsnummer for et medlem fra listen:");
+        int svarMedlemsnummer = input.nextInt();
+        String mulighed;
+        ArrayList<Medlem> medlemTemp = filHåndtering.downloadMedlemsFil();
+        for (int i = 0; i < medlemTemp.size(); i++) {
+
+            if (medlemTemp.get(i).getMedlemsnummer() == svarMedlemsnummer) {
+                System.out.println("Er du sikker?\nIndtast venligst: \n1.Ja \n2.Nej");
+                mulighed = ui.valider1Eller2();
+                if (mulighed.equals("1")) {
+                    System.out.println("Medlemsnummer " + medlemTemp.get(i).getMedlemsnummer() +
+                        " som hører til " + medlemTemp.get(i).getNavn() + " er blevet slettet nu");
+
+                    medlemTemp.remove(i);
+                    /*try {
+                        menu.visMenu();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+
+                } else {
+                try {
+                    menu.visMenu();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                }
+            }
+        }
+     //   System.out.println(medlemTemp);
+        try {
+            new FileWriter("src/txt/Medlemliste.txt", false).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        filHåndtering.uploadMedlemsFil(medlemTemp);
+        medlemTemp.clear();
+    }
+
 
 }

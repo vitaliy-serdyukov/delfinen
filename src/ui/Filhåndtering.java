@@ -35,7 +35,7 @@ public class Filhåndtering {
     }
   }
 
-  public ArrayList<Medlem> downloadMedlemsliste() {
+  public ArrayList<Medlem> downloadMedlemsFil() {
     ArrayList<Medlem> medlemsFilliste = new ArrayList<>();
     File file = new File("src/txt/Medlemliste.txt");
     try {
