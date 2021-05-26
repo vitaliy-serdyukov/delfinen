@@ -1,6 +1,7 @@
+package medlemmer;
+
 import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.Date;
 
 public class Konkurrencesvømmer extends Medlem {
 
@@ -97,12 +98,22 @@ public class Konkurrencesvømmer extends Medlem {
 
 
 
-  // bruges for en brugervenlig visning af konkurrencesvømmere på skærm
+  // bruges for en brugervenlig visning af konkurrencesvømmere på skærm (punkt 6)
   public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnAlder = new Comparator<Konkurrencesvømmer>() {
     @Override
     public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
       int flag =  k1.getNavn().compareTo(k2.getNavn());
       if (flag == 0) flag = Integer.compare(k1.getAlder(), k1.getAlder());
+      return flag;
+    }
+  };
+
+  // bruges for en brugervenlig visning af konkurrencesvømmere med rerultater på skærm (punkt 7)
+  public Comparator<Konkurrencesvømmer> konkurrencesvømmerNavnDisciplin = new Comparator<Konkurrencesvømmer>() {
+    @Override
+    public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
+      int flag = k1.getSvømmedisciplin().compareTo(k2.getSvømmedisciplin());
+      if (flag == 0) flag = Double.compare(k1.getSvømmeresultat(), k2.getSvømmeresultat());
       return flag;
     }
   };

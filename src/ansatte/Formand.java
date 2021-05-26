@@ -1,3 +1,9 @@
+package ansatte;
+
+import medlemmer.Medlem;
+import ui.Filhåndtering;
+import ui.UI;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -6,8 +12,7 @@ public class Formand {
 
     //----Attributter
 
-    private int svarPåAktivitetsStatus;
-    private int svarPåAktivitetsForm;
+    private String mulighed;
     private Scanner input = new Scanner(System.in);
 
     //----Lister----
@@ -19,6 +24,7 @@ public class Formand {
     private Kasserer kasserer = new Kasserer();
     private Træner træner = new Træner();
     private Filhåndtering filHåndtering = new Filhåndtering();
+    private UI ui = new UI();
 
     //----Konstruktøren----
     public Formand() {
@@ -30,11 +36,11 @@ public class Formand {
     }
 
 
-
     //----Metoder----
     public void run() {
         findOgSetMedlemsnummer();
-        registrerStamoplysninger();
+        registrerNavn();
+        registrerAlder();
         registrerAktivitetsstatus();
         registrerAktivitetsform();
         kasserer.beregnKontingent(medlem);
@@ -68,46 +74,54 @@ public class Formand {
     }
 
 
-    public void registrerStamoplysninger(){
-        System.out.println("Hvad er dit navn?: ");
-        medlem.setNavn(input.nextLine());
-        System.out.println("Hvad er din alder?: ");
-        medlem.setAlder(input.nextInt());
-    }
+    public void registrerNavn() {
+        System.out.println("\nDu er i gang med oprettelsen af et nyt medlem");
+        System.out.println("Hvad er medlems navn?\nIndtast venigst et navn, der består af max 15 symboler: \n");
+        ui.validerNavn(medlem, new Formand());}
+
+    public void registrerAlder() {
+        System.out.println("Hvad er medlems alder?: \nIndtast venigst en alder her:\n");
+        ui.validerAlder(medlem, new Formand());}
+
+
+
 
     public void registrerAktivitetsstatus(){
+
         System.out.println("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: ");
-        svarPåAktivitetsStatus =  input.nextInt();
-        if (svarPåAktivitetsStatus == 1){
+
+        mulighed = ui.validerMulighed();
+
+        if (mulighed.equals("1")) {
             medlem.setAktivitetsstatus("Aktiv");
-        } else if (svarPåAktivitetsStatus == 2)  {
+            System.out.println("Aktivitetsstatus sat til: Aktiv");
+        } else if (mulighed.equals("2"))  {
             medlem.setAktivitetsstatus("Passiv");
+            System.out.println("Aktivitetsstatus sat til: Passiv");
             System.out.println("Velkommen til klubben!");
-        } // UI, input validering her
+        }
     }
+
 
     public void registrerAktivitetsform(){
         if (medlem.getAktivitetsstatus().equals("Aktiv")) {
-            System.out.println("Hvad for en aktivitetsform er du interesseret i? \nTast 1 for konkurrencesvømmer, 2 for motionist: ");
-            svarPåAktivitetsForm = input.nextInt();
-            if (svarPåAktivitetsForm == 1) {
-                medlem.setAktivitetsForm("Konkurrencesvømmer");
+            System.out.println("Hvad for en aktivitetsform er du interesseret i? " +
+                "\nTast 1 for konkurrencesvømmer, 2 for motionist: ");
+
+            mulighed = ui.validerMulighed();
+
+            if (mulighed.equals("1")) {
+                medlem.setAktivitetsForm("Medlemmer.Konkurrencesvømmer");
                 System.out.println("Ny konkurrencesvømmer registeret: " + medlem.getNavn());
                 System.out.println("Velkommen til klubben " + medlem.getNavn() + "!");
 
-
-
-                input.nextLine(); //Scanner bug
-            } else if (svarPåAktivitetsForm == 2) {
+            } else if (mulighed.equals("2")) {
                 medlem.setAktivitetsForm("Motionist");
                 System.out.println("Ny motionist registreret: " + medlem.getNavn());
-               // træner.getMotionistListe().add(new Motionist(medlem.getNavn(), medlem.getAlder()));
                 System.out.println("Velkommen til klubben " + medlem.getNavn() + "!");
-                input.nextLine(); // forebygger scanner bug ved oprettelsen af de nye medlemmer
-            }
-        } else if (medlem.getAktivitetsstatus().contains("Passiv")){
+                         }
+        } else if (medlem.getAktivitetsstatus().equals("Passiv")) {
             medlem.setAktivitetsForm("Passiv");
-            input.nextLine(); //Scanner bug
         }
     }
 
@@ -118,9 +132,9 @@ public class Formand {
 
         Collections.sort(medlemmerEfterNavn, medlem.medlemmerEfterNavn); // sorterer eksisterende medlemer efter navn
 
-        System.out.printf(" %-10s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \n", "Medlems-",
+        System.out.printf(" %-10s %-20s %-10s %-10s %-25s %-15s %-15s %-10s \n", "Medlems-",
             "Navn", "Alder", "Status", "Aktivitetsform", "Kontingent", "Kontingent", "Betalings-");
-        System.out.printf("\033[4m %-10s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n", "nummer",
+        System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n", "nummer",
             "", "", "", "", "om året", "i år", "status");
         for (int i = 0; i < medlemmerEfterNavn.size(); i++){
 
@@ -129,7 +143,7 @@ public class Formand {
             }
             else betaltStr = "Restance";
 
-            System.out.printf("\033[4m %-10s %-15s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n",
+            System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n",
                 medlemmerEfterNavn.get(i).getMedlemsnummer(),medlemmerEfterNavn.get(i).getNavn(),
                 medlemmerEfterNavn.get(i).getAlder() + " år", medlemmerEfterNavn.get(i).getAktivitetsstatus(),
                 medlemmerEfterNavn.get(i).getAktivitetsForm(), medlemmerEfterNavn.get(i).getKontingent(),
@@ -138,16 +152,3 @@ public class Formand {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

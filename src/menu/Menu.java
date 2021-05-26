@@ -1,3 +1,12 @@
+package menu;
+
+import ansatte.Formand;
+import ansatte.Kasserer;
+import ansatte.Træner;
+import medlemmer.Medlem;
+import ui.Filhåndtering;
+import ui.UI;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -63,8 +72,8 @@ public class Menu {
                 choice = scanner.nextInt();
                 validChoice = true;
             } else {
-               // ui.getInt("Fejl, indtast et tal fra menuen");
-                System.out.println("Fejl, indtast et tal fra menuen");
+                ui.udskrivMedRød("Fejl, indtast et tal fra menuen");
+              //  System.out.println("Fejl, indtast et tal fra menuen");
                 scanner.nextLine();
             }
         }
@@ -129,10 +138,12 @@ public class Menu {
                     break;
                 case 0:
                     isRunning = false;
-                    visMenu();
+                    ui.udskrivMedRød("Afslutter...");
                     break;
                 default:
-                   ui.getInt("\nFejl.\nDet indtastede er ugyldigt ");
+                    ui.udskrivMedRød("\nFejl.\nDet indtastede er ugyldigt ");
+                    visMenu();
+
             }
 
         }

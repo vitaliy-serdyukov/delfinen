@@ -1,3 +1,5 @@
+package medlemmer;
+
 import java.util.Comparator;
 
 public class Medlem {
@@ -28,7 +30,7 @@ public class Medlem {
     public Medlem(){
     }
 
-    public Medlem(int medlemsnummer, String navn, int alder){ // konstruktør, som bliver brugt i Konkurrencesvømmer
+    public Medlem(int medlemsnummer, String navn, int alder){ // konstruktør, som bliver brugt i Medlemmer.Konkurrencesvømmer
         this.medlemsnummer = medlemsnummer;
         this.navn = navn;
         this.alder = alder;
@@ -123,7 +125,7 @@ public class Medlem {
         else betaltStr = "Restance";
 
 
-        return  "Medlem: "  + navn + " " +  alder + " år" +   " " +  aktivitetsstatus   +  " " + aktivitetsForm +
+        return  "Medlemmer.Medlem: "  + navn + " " +  alder + " år" +   " " +  aktivitetsstatus   +  " " + aktivitetsForm +
             " " + "Kontingent " + kontingent + " kr." + kontingentForRestenAfÅret + " kr. " + betaltStr + "\n";
     }
 }

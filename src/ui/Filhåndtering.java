@@ -1,3 +1,7 @@
+package ui;
+
+import medlemmer.Konkurrencesvømmer;
+import medlemmer.Medlem;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +12,7 @@ import java.util.Scanner;
 public class Filhåndtering {
 
   public void uploadMedlemsFil(ArrayList<Medlem> medlemmer) {
-    File file = new File("src/Medlemliste.txt");
+    File file = new File("src/txt/Medlemliste.txt");
     try {
       FileWriter fileWriter = new FileWriter(file, true);
       for (int i = 0; i < medlemmer.size(); i++) {
@@ -33,7 +37,7 @@ public class Filhåndtering {
 
   public ArrayList<Medlem> downloadMedlemsliste() {
     ArrayList<Medlem> medlemsFilliste = new ArrayList<>();
-    File file = new File("src/Medlemliste.txt");
+    File file = new File("src/txt/Medlemliste.txt");
     try {
       Scanner fileReader = new Scanner(file);
       if (fileReader.hasNextLine()) {
@@ -86,7 +90,7 @@ public class Filhåndtering {
 
   public void uploadKonkurrencesvømmerResultatFil(ArrayList<Konkurrencesvømmer> konkurrencesvømmerResultat) {
 
-    File file = new File("src/KonkurrencesvømmerResultat.txt");
+    File file = new File("src/txt/KonkurrencesvømmerResultat.txt");
     try {
       FileWriter fileWriter = new FileWriter(file, true);
       //fileWriter.append("Juniorsvømmer: ");
@@ -108,7 +112,7 @@ public class Filhåndtering {
 
   public ArrayList<Konkurrencesvømmer> downloadKonkurrencesvømmerResultatFil() {
     ArrayList<Konkurrencesvømmer> juniorsvømmerResultFil = new ArrayList<>();
-    File file = new File("src/KonkurrencesvømmerResultat.txt");
+    File file = new File("src/txt/KonkurrencesvømmerResultat.txt");
     try {
       Scanner fileReader = new Scanner(file);
 
@@ -154,7 +158,7 @@ public class Filhåndtering {
 
   public void uploadStævneFil(ArrayList<Konkurrencesvømmer> stævneResultatTemp) {
 
-    File file = new File("src/StævneResulater.txt");
+    File file = new File("src/txt/StævneResulater.txt");
     try {
       FileWriter fileWriter = new FileWriter(file, true);
 
@@ -179,7 +183,7 @@ public class Filhåndtering {
 
   public ArrayList<Konkurrencesvømmer> downloadStævneFil() {
     ArrayList<Konkurrencesvømmer> stævneFil = new ArrayList<>();
-    File file = new File("src/StævneResulater.txt");
+    File file = new File("src/txt/StævneResulater.txt");
     try {
       Scanner fileReader = new Scanner(file);
       if (fileReader.hasNextLine()) {

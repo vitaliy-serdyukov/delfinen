@@ -1,3 +1,10 @@
+package ansatte;
+
+import medlemmer.Konkurrencesvømmer;
+import medlemmer.Medlem;
+import menu.Menu;
+import ui.Filhåndtering;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,15 +47,15 @@ public class Træner {
         }
         Collections.sort(konkurrencesvømmerePåSkærm, medlem.medlemmerEfterNavn);
 
-        System.out.println("Vi har følgende konkurrencesvømmerePåSkærm i vores klub:\n ");
+        System.out.println("Vi har følgende konkurrencesvømmere i vores klub:\n ");
 
-        System.out.printf(" %-10s %-15s %-6s\n", "Medlems-",
+        System.out.printf(" %-10s %-20s %-6s\n", "Medlems-",
             "Navn", "Alder");
-        System.out.printf("\033[4m %-10s %-15s %-5s \033[0m\n", "nummer", "", "");
+        System.out.printf("\033[4m %-10s %-20s %-5s \033[0m\n", "nummer", "", "");
 
         for (int i = 0; i < konkurrencesvømmerePåSkærm.size(); i++) {
 
-            System.out.printf("\033[4m %-10s %-15s %-6s\033[0m\n", konkurrencesvømmerePåSkærm.get(i).getMedlemsnummer(),
+            System.out.printf("\033[4m %-10s %-20s %-6s\033[0m\n", konkurrencesvømmerePåSkærm.get(i).getMedlemsnummer(),
                 konkurrencesvømmerePåSkærm.get(i).getNavn(), konkurrencesvømmerePåSkærm.get(i).getAlder() + " år");
         }
 
@@ -57,7 +64,7 @@ public class Træner {
 
     public void printResultatKonkurrencesvømmer() {
         ArrayList<Konkurrencesvømmer> resultaterPåSkærm = filhåndtering.downloadKonkurrencesvømmerResultatFil();
-        Collections.sort(resultaterPåSkærm, konkurrencesvømmer.konkurrencesvømmerEfterNavnAlder);
+        Collections.sort(resultaterPåSkærm, konkurrencesvømmer.konkurrencesvømmerNavnDisciplin);
         System.out.printf("\033[4m %-3s %-15s %-10s %-15s %-10s %-12s\033[0m\n", "Nr.",
             "Navn", "Alder", "Disciplin", "Resultat", "Dato");
 
@@ -149,28 +156,18 @@ public class Træner {
 
     public void udskiftResultat(){
         ArrayList<Konkurrencesvømmer> bedsteResultat = filhåndtering.downloadKonkurrencesvømmerResultatFil();
+             Collections.sort(bedsteResultat,konkurrencesvømmer.konkurrencesvømmerEfterNavnDisciplinResultat);
 
-        System.out.println("Test1" + bedsteResultat);
-
-        Collections.sort(bedsteResultat,konkurrencesvømmer.konkurrencesvømmerEfterNavnDisciplinResultat);
-
-        System.out.println("Test2" + bedsteResultat);
-
+        // fjerner værste sesultat, hvis en medlem har flere af samme sv ømmedisciplin
             if (bedsteResultat.size() > 1) {
-                for (int j = 0; j < bedsteResultat.size(); j++) { // fjerner værste sesultat, hvis en medlem har flere?
-                    for (int k = j + 1; j < bedsteResultat.size(); k--) {
+                for (int j = 0; j < bedsteResultat.size(); j++) {
+                    for (int k = j + 1; k < bedsteResultat.size(); k++) {
 
                         if ((bedsteResultat.get(j).getMedlemsnummer() == bedsteResultat.get(k).
                             getMedlemsnummer()) && bedsteResultat.get(j).getSvømmedisciplin().
                             equals(bedsteResultat.get(k).getSvømmedisciplin())) {
 
-                            System.out.println("JA, test" + j);
-                            System.out.println(k);
-
                             bedsteResultat.remove(k);
-
-                            System.out.println(k);
-                            System.out.println(j);
                             k--;
 
                         }
@@ -178,7 +175,7 @@ public class Træner {
 
                 }
             }
-        System.out.println("Test3" + bedsteResultat);
+
         try {
             new FileWriter("src/KonkurrencesvømmerResultat.txt", false).close();
         } catch (IOException e) {
