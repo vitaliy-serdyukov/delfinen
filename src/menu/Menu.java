@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Menu {
 
     //----Attributter------
-    private String menuOverskrift =  "Svømmeklubben Delfinen:" +  "\n" + "Vælg venligst: \n";
+    private String menuOverskrift =  "\nSvømmeklubben Delfinen:" +  "\n" + "Vælg venligst: \n";
     private String brugerValg;
     private Formand formand = new Formand();
     private Kasserer kasserer = new Kasserer();
@@ -111,7 +111,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 8:
-                    træner.registrerSvømmeresultat(medlem);
+                    træner.findSvømmer(medlem);
                     visMenu();
                     break;
                 case 9:

@@ -42,9 +42,9 @@ public class Træner {
         }
         Collections.sort(konkurrencesvømmerePåSkærm, medlem.medlemmerEfterNavn);
 
-        ui.returnMessage("Vi har følgende konkurrencesvømmere i vores klub:\n ");
+        ui.returnMessage("Vi har følgende konkurrencesvømmere i vores klub:\n");
 
-        System.out.printf(" %-10s %-20s %-6s\n", "Medlems-",
+        System.out.printf("\n %-10s %-20s %-6s\n", "Medlems-",
             "Navn", "Alder");
         System.out.printf("\033[4m %-10s %-20s %-5s \033[0m\n", "nummer", "", "");
 
@@ -67,6 +67,7 @@ public class Træner {
                 resultaterPåSkærm.get(i).getSvømmedisciplin(), resultaterPåSkærm.get(i).getSvømmeresultat(),
                 resultaterPåSkærm.get(i).getResultatsDato());
         }
+
     }
 
     public void printStævne() {
@@ -84,18 +85,21 @@ public class Træner {
         }
     }
 
-    public void registrerSvømmeresultat(Medlem medlem) {
-        int svarMedlemsnummer;
+/*    public void registrerSvømmeresultat(Medlem medlem) {
+        String svarMedlemsnummer;
         int svarDisciplin;
 
-        ui.returnMessage("Vi har følgende  konkurrencesvømmere i vores klub:\n");
         printKonkurrencesvømmer(medlem);
         ui.returnMessage("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:");
-        svarMedlemsnummer = scan.nextInt();
+        svarMedlemsnummer = scan.nextLine();
 
+        while (!ui.erNummer(svarMedlemsnummer)){
+            ui.udskrivMedRød("Indtast venligst et nummer fra listen...");
+            svarMedlemsnummer = scan.next();
+        }
         for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
 
-            if (filhåndtering.downloadMedlemsFil().get(i).getMedlemsnummer() == svarMedlemsnummer) {
+            if (filhåndtering.downloadMedlemsFil().get(i).getMedlemsnummer() == Integer.parseInt(svarMedlemsnummer)) {
 
                 konkurrencesvømmer.setMedlemsnummer(filhåndtering.downloadMedlemsFil().get(i).getMedlemsnummer());
                 konkurrencesvømmer.setNavn(filhåndtering.downloadMedlemsFil().get(i).getNavn());
@@ -114,38 +118,99 @@ public class Træner {
                     case 4 -> konkurrencesvømmer.setSvømmedisciplin("Brystsvømning");
                     default -> registrerSvømmeresultat(medlem);
                 }
+                 ui.returnMessage("Indtast venligst resultat i format '00,0' sekunder:");
+                 konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
+                 konkurrencesvømmer.setResultatsDato();
 
-                ui.returnMessage("Indtast venligst resultat i format '00,0' sekunder:");
-                konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
-                konkurrencesvømmer.setResultatsDato();
+                 KonkurrencesvømmerResultat.add(new Konkurrencesvømmer(konkurrencesvømmer.getMedlemsnummer(),
+                 konkurrencesvømmer.getNavn(), konkurrencesvømmer.getAlder(), konkurrencesvømmer.getSvømmedisciplin(),
+                 konkurrencesvømmer.getSvømmeresultat(), konkurrencesvømmer.getResultatsDato()));
 
-                // evt. en metode her
-                KonkurrencesvømmerResultat.add(new Konkurrencesvømmer(konkurrencesvømmer.getMedlemsnummer(),
-                    konkurrencesvømmer.getNavn(), konkurrencesvømmer.getAlder(), konkurrencesvømmer.getSvømmedisciplin(),
-                    konkurrencesvømmer.getSvømmeresultat(), konkurrencesvømmer.getResultatsDato()));
+                 filhåndtering.uploadKonkurrencesvømmerResultatFil(KonkurrencesvømmerResultat);
+                 KonkurrencesvømmerResultat.clear();
 
-                filhåndtering.uploadKonkurrencesvømmerResultatFil(KonkurrencesvømmerResultat);
-                KonkurrencesvømmerResultat.clear();
+                 ui.returnMessage("Ny resultat er registreret for:  \n" +
+                 konkurrencesvømmer.getNavn() + "\nDisciplin: " + konkurrencesvømmer.getSvømmedisciplin() +
+                "\nTid: " + konkurrencesvømmer.getSvømmeresultat());
 
-                ui.returnMessage("Ny resultat er registreret for:  \n" +
-                    konkurrencesvømmer.getNavn() + "\nDisciplin: " + konkurrencesvømmer.getSvømmedisciplin() +
-                    "\nTid: " + konkurrencesvømmer.getSvømmeresultat());
-
-                  udskiftResultat();
-            } else {
-                    /*do {
-                        System.out.println("Navnet er indtastet forkert eller ikke fundet i junior liste");
-                        svarNavn = scan.nextLine();
-
-                    } while (!(downloadJuniorsvømmerFil().get(i).getNavn().equals(svarNavn)));*//*
-                // TO DO VALIDERING*/
             }
+        }
+        udskiftResultatSvømmer();
+    }*/
+
+
+    public void findSvømmer(Medlem medlem){
+
+    String svarMedlemsnummer;
+    printKonkurrencesvømmer(medlem);
+    ui.returnMessage("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:\n");
+    svarMedlemsnummer = scan.nextLine();
+        while (!ui.erNummer(svarMedlemsnummer)){
+            ui.udskrivMedRød("Indtast venligst et nummer fra listen...");
+            svarMedlemsnummer = scan.next();
+            }
+               for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
+                  if (filhåndtering.downloadMedlemsFil().get(i).getMedlemsnummer() ==
+                      Integer.parseInt(svarMedlemsnummer)) {
+                  konkurrencesvømmer.setMedlemsnummer(filhåndtering.downloadMedlemsFil().get(i).getMedlemsnummer());
+                  konkurrencesvømmer.setNavn(filhåndtering.downloadMedlemsFil().get(i).getNavn());
+                  konkurrencesvømmer.setAlder(filhåndtering.downloadMedlemsFil().get(i).getAlder());
+                
+                  registrerØvrigeDataSvømmer(medlem);
+            }
+        }
+        udskiftResultatSvømmer();
+    }
+
+
+    public void registrerØvrigeDataSvømmer(Medlem medlem) {
+    registrerSvømmedisciplinSvømmer(medlem);
+    registrerSvømmeresultatSvømmer();
+    gemOgUdstrivDataSvømmer();
+    }
+
+    public void registrerSvømmedisciplinSvømmer(Medlem medlem) {
+    int svarDisciplin;
+    ui.returnMessage("For hvilken svømmedisciplin skal registreres resultat?\n");
+    ui.returnMessage("\nVælg venligst mellem 1 eller 4");
+    ui.returnMessage("\n1. Butterfly" + "\n2. Crawl" + "\n3. Rygcrawl" + "\n4. Brystsvømning\n");
+    svarDisciplin = scan.nextInt();
+    switch (svarDisciplin) {
+        case 1 -> konkurrencesvømmer.setSvømmedisciplin("Butterfly");
+        case 2 -> konkurrencesvømmer.setSvømmedisciplin("Crawl");
+        case 3 -> konkurrencesvømmer.setSvømmedisciplin("Rygcrawl");
+        case 4 -> konkurrencesvømmer.setSvømmedisciplin("Brystsvømning");
+        default -> registrerØvrigeDataSvømmer(medlem);
         }
     }
 
-    public void udskiftResultat(){
+    public void registrerSvømmeresultatSvømmer() {
+    ui.returnMessage("Indtast venligst resultat i format '00,0' sekunder:\n");
+    konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
+    konkurrencesvømmer.setResultatsDato();
+    }
+
+    public void gemOgUdstrivDataSvømmer() {
+    KonkurrencesvømmerResultat.add(new Konkurrencesvømmer(konkurrencesvømmer.getMedlemsnummer(),
+    konkurrencesvømmer.getNavn(), konkurrencesvømmer.getAlder(), konkurrencesvømmer.getSvømmedisciplin(),
+    konkurrencesvømmer.getSvømmeresultat(), konkurrencesvømmer.getResultatsDato()));
+
+    filhåndtering.uploadKonkurrencesvømmerResultatFil(KonkurrencesvømmerResultat);
+    KonkurrencesvømmerResultat.clear();
+
+    ui.returnMessage("Ny resultat er registreret for en konkurrencesvømmer: " + konkurrencesvømmer.getNavn() +
+        "\nDisciplin: " + konkurrencesvømmer.getSvømmedisciplin() + "\nTid: " + konkurrencesvømmer.getSvømmeresultat());
+
+    }
+
+    String filNavnResultater = "src/txt/KonkurrencesvømmerResultat.txt";
+    String filNavnStævneresultater = "src/txt/StævneResulater.txt";
+    ArrayList<Konkurrencesvømmer> resultater = filhåndtering.downloadKonkurrencesvømmerResultatFil();
+    ArrayList<Konkurrencesvømmer> stævneresultater;*/
+
+    public void udskiftResultatSvømmer(){
         ArrayList<Konkurrencesvømmer> bedsteResultat = filhåndtering.downloadKonkurrencesvømmerResultatFil();
-             Collections.sort(bedsteResultat,konkurrencesvømmer.konkurrencesvømmerEfterNavnDisciplinResultat);
+        Collections.sort(bedsteResultat,konkurrencesvømmer.konkurrencesvømmerEfterNavnDisciplinResultat);
 
         // fjerner værste resultat, hvis en medlem har flere af samme svømmedisciplin
             if (bedsteResultat.size() > 1) {
@@ -161,36 +226,69 @@ public class Træner {
                     }
                 }
             }
-
-        try {
-            new FileWriter("src/KonkurrencesvømmerResultat.txt", false).close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        try
+        {
+        new FileWriter(filNavnResultater, false).close();
+        } catch (IOException e)
+        {
+        e.printStackTrace();
         }
         filhåndtering.uploadKonkurrencesvømmerResultatFil(bedsteResultat);
         bedsteResultat.clear();
     }
 
-    public void registrerStævneresultat() {
-    String svarStævneNavn;
-    String svarStævneDato;
-    int svarMedlemsnummer;
-    String stævneDato;
-    int placeringSvar;
 
-    ui.returnMessage("Vælg venligst en disciplin og Top-5 hold først:");
+   /* public void udskiftStævneResultat(){
+    ArrayList<Konkurrencesvømmer> bedsteResultat = filhåndtering.downloadStævneFil();
+    Collections.sort(bedsteResultat,konkurrencesvømmer.konkurrencesvømmerEfterNavnDisciplinResultat);
+
+    // fjerner værste resultat, hvis en medlem har flere af samme svømmedisciplin
+    if (bedsteResultat.size() > 1) {
+        for (int j = 0; j < bedsteResultat.size(); j++) {
+            for (int k = j + 1; k < bedsteResultat.size(); k++) {
+                if ((bedsteResultat.get(j).getMedlemsnummer() == bedsteResultat.get(k).
+                    getMedlemsnummer()) && bedsteResultat.get(j).getSvømmedisciplin().
+                    equals(bedsteResultat.get(k).getSvømmedisciplin())) {
+
+                    bedsteResultat.remove(k);
+                    k--;
+                }
+            }
+        }
+    }
+    try
+    {
+        new FileWriter("src/txt/KonkurrencesvømmerResultat.txt", false).close();
+    } catch (IOException e)
+    {
+        e.printStackTrace();
+    }
+    filhåndtering.uploadKonkurrencesvømmerResultatFil(bedsteResultat);
+    bedsteResultat.clear();
+}*/
+
+
+
+    public void registrerStævneresultat() {
+        String svarStævneNavn;
+        String svarStævneDato;
+        int svarMedlemsnummer;
+        String stævneDato;
+        int placeringSvar;
+
+        ui.returnMessage("Vælg venligst en disciplin og Top-5 hold først:");
         delKonkurrencesvømmere();
         vælgSvømmedisciplinTop5();
         vælgHoldTop5(new Menu());
 
-    ui.returnMessage("Her er vores konkurrencesvømmere, som skal have registreret deres stævneresultater ");
+        ui.returnMessage("Her er vores konkurrencesvømmere, som skal have registreret deres stævneresultater ");
 
-    ArrayList <Konkurrencesvømmer> stævneResultater = sorterOgUdskrivTop5();// kalder rigtigt her
-    ArrayList <Konkurrencesvømmer> stævneResultatTemp = new ArrayList<>();
+        ArrayList<Konkurrencesvømmer> stævneResultater = sorterOgUdskrivTop5();// kalder rigtigt her
+        ArrayList<Konkurrencesvømmer> stævneResultatTemp = new ArrayList<>();
 
-    ui.returnMessage("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:");
-    svarMedlemsnummer = scan.nextInt();
-    scan.nextLine();
+        ui.returnMessage("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:");
+        svarMedlemsnummer = scan.nextInt();
+        scan.nextLine();
         for (int i = 0; i < stævneResultater.size(); i++) {
 
             if (stævneResultater.get(i).getMedlemsnummer() == svarMedlemsnummer) {
@@ -202,7 +300,7 @@ public class Træner {
                 svarStævneNavn = scan.nextLine();
                 konkurrencesvømmer.setStævneNavn(svarStævneNavn);
 
-                konkurrencesvømmer.setStævneDato(stævneResultater. get(i).getResultatsDato());
+                konkurrencesvømmer.setStævneDato(stævneResultater.get(i).getResultatsDato());
 
                 konkurrencesvømmer.setSvømmedisciplin(stævneResultater.get(i).getSvømmedisciplin());
 
@@ -222,10 +320,13 @@ public class Træner {
             }
         }
 
-    filhåndtering.uploadStævneFil(stævneResultatTemp);
-    stævneResultater.clear();
-    stævneResultatTemp.clear();
+        filhåndtering.uploadStævneFil(stævneResultatTemp);
+        stævneResultater.clear();
+        stævneResultatTemp.clear();
+
     }
+
+
 
     public void runTop5(Menu menu){
         delKonkurrencesvømmere();
@@ -326,9 +427,9 @@ public class Træner {
             "", "dato");
 
         for (int i = 0; i < max; i++) {
-            System.out.printf("\033[4m %-10s %-15s %-8s %-15s %-12s %-8s \033[0m\n",disciplinArray.get(i).getMedlemsnummer(),
-                disciplinArray.get(i).getNavn(), disciplinArray.get(i).getAlder(), disciplinArray.get(i).
-                    getSvømmedisciplin(), disciplinArray.get(i).getSvømmeresultat(),
+            System.out.printf("\033[4m %-10s %-15s %-8s %-15s %-12s %-8s \033[0m\n",disciplinArray.get(i).
+                    getMedlemsnummer(), disciplinArray.get(i).getNavn(), disciplinArray.get(i).getAlder(),
+                disciplinArray.get(i).getSvømmedisciplin(), disciplinArray.get(i).getSvømmeresultat(),
                 disciplinArray.get(i).getResultatsDato());
            }
         return disciplinArray;

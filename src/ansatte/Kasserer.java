@@ -92,8 +92,8 @@ public class Kasserer {
     for (int i = 0; i < fh.downloadMedlemsFil().size(); i++) {
       forventedeKontingent += fh.downloadMedlemsFil().get(i).getKontingentForRestenAfÅret();
     }
-    System.out.printf("\033[4m %-40s %-5s %-5s\033[0m\n", "Den forventede årlige kontingentindkomst er ",
-        forventedeKontingent, "kr." );
+    System.out.printf("\033[4m %-40s %-5s %-4s\033[0m\n", "Den forventede årlige kontingentindkomst er ",
+        forventedeKontingent, "kr.\n" );
   }
 
   public void findMedlemmerIRestance(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
