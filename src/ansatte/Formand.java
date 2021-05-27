@@ -1,16 +1,21 @@
 package ansatte;
 
 import medlemmer.Medlem;
+import menu.Menu;
 import ui.Filhåndtering;
 import ui.UI;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Formand {
 
     //----Attributter
     private String mulighed;
-
+    private Scanner input = new Scanner(System.in);
     //----Lister----
     private ArrayList<Medlem> medlemmer = new ArrayList<>();
 
@@ -19,6 +24,7 @@ public class Formand {
     private Kasserer kasserer = new Kasserer();
     private Filhåndtering filHåndtering = new Filhåndtering();
     private UI ui = new UI();
+
 
 
     //----Konstruktøren----
@@ -51,23 +57,22 @@ public class Formand {
 
         Collections.sort(medlemmerEfterNavn, medlem.medlemmerEfterNavn); // sorterer eksisterende medlemer efter navn
 
-        System.out.printf(" %-10s %-20s %-10s %-10s %-25s %-15s %-15s %-10s \n", "Medlems-",
-                "Navn", "Alder", "Status", "Aktivitetsform", "Kontingent", "Kontingent", "Betalings-");
+        System.out.printf("\n %-10s %-20s %-10s %-10s %-25s %-15s %-15s %-10s \n", "Medlems-",
+            "Navn", "Alder", "Status", "Aktivitetsform", "Kontingent", "Kontingent", "Betalings-");
         System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n", "nummer",
-                "", "", "", "", "om året", "i år", "status");
+            "", "", "", "", "om året", "i år", "status");
 
-        for (int i = 0; i < medlemmerEfterNavn.size(); i++){
+        for (int i = 0; i < medlemmerEfterNavn.size(); i++) {
 
-            if (medlemmerEfterNavn.get(i).getBetalt()){
+            if (medlemmerEfterNavn.get(i).getBetalt()) {
                 betaltStr = "Betalt";
-            }
-            else betaltStr = "Restance";
+            } else betaltStr = "Restance";
 
             System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-25s %-15s %-15.2f %-10s \033[0m\n",
-                    medlemmerEfterNavn.get(i).getMedlemsnummer(),medlemmerEfterNavn.get(i).getNavn(),
-                    medlemmerEfterNavn.get(i).getAlder() + " år", medlemmerEfterNavn.get(i).getAktivitetsstatus(),
-                    medlemmerEfterNavn.get(i).getAktivitetsForm(), medlemmerEfterNavn.get(i).getKontingent(),
-                    medlemmerEfterNavn.get(i).getKontingentForRestenAfÅret(), betaltStr);
+                medlemmerEfterNavn.get(i).getMedlemsnummer(), medlemmerEfterNavn.get(i).getNavn(),
+                medlemmerEfterNavn.get(i).getAlder() + " år", medlemmerEfterNavn.get(i).getAktivitetsstatus(),
+                medlemmerEfterNavn.get(i).getAktivitetsForm(), medlemmerEfterNavn.get(i).getKontingent(),
+                medlemmerEfterNavn.get(i).getKontingentForRestenAfÅret(), betaltStr);
         }
     }
 
@@ -89,14 +94,16 @@ public class Formand {
     public void registrerNavn() {
         ui.returnerBesked("\nDu er i gang med oprettelsen af et nyt medlem.\n");
         ui.returnerBesked("Indtast venigst et navn, der består af max 15 symboler: \n");
-        ui.validerNavn(medlem, new Formand());}
+        ui.validerNavn(medlem, new Formand());
+    }
 
     public void registrerAlder() {
         ui.returnerBesked("Indtast venigst en alder her:\n");
-        ui.validerAlder(medlem, new Formand());}
+        ui.validerAlder(medlem, new Formand());
+    }
 
 
-    public void registrerAktivitetsstatus(){
+    public void registrerAktivitetsstatus() {
 
         ui.returnerBesked("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: \n");
 
@@ -105,14 +112,14 @@ public class Formand {
         if (mulighed.equals("1")) {
             medlem.setAktivitetsstatus("Aktiv");
             ui.returnerBesked("Aktivitetsstatus sat til: Aktiv\n");
-        } else if (mulighed.equals("2"))  {
+        } else if (mulighed.equals("2")) {
             medlem.setAktivitetsstatus("Passiv");
             ui.returnerBesked("Aktivitetsstatus sat til: Passiv\n");
             ui.returnerBesked("\nVelkommen til klubben!\n");
         }
     }
 
-    public void registrerAktivitetsform(){
+    public void registrerAktivitetsform() {
         if (medlem.getAktivitetsstatus().equals("Aktiv")) {
             ui.returnerBesked("\nHvad for en aktivitetsform er du interesseret i?\n" +
                 "Tast 1 for konkurrencesvømmer, 2 for motionist: \n");
@@ -128,56 +135,49 @@ public class Formand {
                 medlem.setAktivitetsForm("Motionist");
                 ui.returnerBesked("Ny motionist registreret: " + medlem.getNavn() + "\n");
                 ui.returnerBesked("Velkommen til klubben " + medlem.getNavn() + "!\n");
-                         }
+            }
         } else if (medlem.getAktivitetsstatus().equals("Passiv")) {
             medlem.setAktivitetsForm("Passiv");
         }
+
     }
+    public void sletMedlem (Menu menu) {
 
-   /* public void sletMedlem(Menu menu) {
+            ui.returnerBesked("VIGTIGT! Du er i gang med at slette et medlem");
+            ui.returnerBesked("Vi har følgende  konkurrencesvømmere i vores klub:\n");
+            seMedlemmer();
+            ui.returnerBesked("Intast venligst et medlemsnummer for et medlem fra listen: ");
+            int svarMedlemsnummer = input.nextInt();
+            String mulighed;
+            ArrayList<Medlem> medlemTemp = filHåndtering.downloadMedlemsFil();
+            for (int i = 0; i < medlemTemp.size(); i++) {
 
-        ui.returnMessage("VIGTIGT! Du er i gang med at slette et medlem");
-        ui.returnMessage("Vi har følgende  konkurrencesvømmere i vores klub:\n");
-        ui.seMedlemmer();
-        ui.returnMessage("Intast venligst et medlemsnummer for et medlem fra listen: ");
-        int svarMedlemsnummer = input.nextInt();
-        String mulighed;
-        ArrayList<Medlem> medlemTemp = filHåndtering.downloadMedlemsFil();
-        for (int i = 0; i < medlemTemp.size(); i++) {
+                if (medlemTemp.get(i).getMedlemsnummer() == svarMedlemsnummer) {
+                    ui.returnerBesked("Er du sikker?\nIndtast venligst: \n1.Ja \n2.Nej\n");
+                    mulighed = ui.valider1Eller2();
+                    if (mulighed.equals("1")) {
+                        System.out.println("Medlemsnummer " + medlemTemp.get(i).getMedlemsnummer() +
+                            " som hører til " + medlemTemp.get(i).getNavn() + " er blevet slettet nu");
 
-            if (medlemTemp.get(i).getMedlemsnummer() == svarMedlemsnummer) {
-                ui.returnMessage("Er du sikker?\nIndtast venligst: \n1.Ja \n2.Nej");
-                mulighed = ui.valider1Eller2();
-                if (mulighed.equals("1")) {
-                    System.out.println("Medlemsnummer " + medlemTemp.get(i).getMedlemsnummer() +
-                        " som hører til " + medlemTemp.get(i).getNavn() + " er blevet slettet nu");
+                        medlemTemp.remove(i);
+                        try {
+                            menu.visMenu();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-                    medlemTemp.remove(i);
-                    /*try {
-                        menu.visMenu();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
 
-                } else {
-                try {
-                    menu.visMenu();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 }
             }
-        }
-     //  System.out.println(medlemTemp);
-        try {
-            new FileWriter("src/txt/Medlemliste.txt", false).close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        filHåndtering.uploadMedlemsFil(medlemTemp);
-        medlemTemp.clear();
+            System.out.println(medlemTemp);
+            try {
+                new FileWriter("src/txt/Medlemliste.txt", false).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            filHåndtering.uploadMedlemsFil(medlemTemp);
+            medlemTemp.clear();
     }
-
-    */
-
 }
+

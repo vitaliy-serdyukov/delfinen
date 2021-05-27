@@ -126,7 +126,7 @@ public class Menu {
                     visMenu();
                     break;
                 case 12:
-                    //formand.sletMedlem(new Menu());
+                    formand.sletMedlem(new Menu());
                     break;
                 case 0:
                     isRunning = false;

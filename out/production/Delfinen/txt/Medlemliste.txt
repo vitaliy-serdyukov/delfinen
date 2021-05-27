@@ -70,14 +70,6 @@ Konkurrencesvømmer
 1600
 955.6164383561643
 false
-30
-Jens
-22
-Aktiv
-Konkurrencesvømmer
-1600
-955.6164383561643
-false
 31
 fdfdgg
 12
