@@ -11,6 +11,7 @@ public class Konkurrencesvømmer extends Medlem {
     private LocalDate resultatsDato = LocalDate.now();
     private String stævneNavn;
     private int placering;
+    // skal være lavet om med henblik til at stævnedato skal kunne være tastet ind manuelt
     private LocalDate stævneDato = LocalDate.now();
 
     //----Gettere----

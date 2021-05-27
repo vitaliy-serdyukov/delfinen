@@ -15,7 +15,7 @@ public class UI {
 
 
   public static final String FONT_RESET = "\033[0m"; // Font color reset
-  public static final String RED_BOLD = "\033[1;31m";    // Red bold font
+  public static final String RED_BOLD = "\033[1;31m"; // Red bold font
   //  public static final String GREEN_BOLD = "\033[1;32m"; // Green bold font
   //   public static final String PURPLE_BOLD = "\033[1;35m"; // Purple bold font
 
@@ -24,7 +24,7 @@ public class UI {
     System.out.println(RED_BOLD + warning + FONT_RESET); // udskrivMedRød for varsler
   }
 
-  public void returnMessage(String message){
+  public void returnerBesked(String message){
     System.out.printf(message);
   }
 

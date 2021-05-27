@@ -19,8 +19,9 @@ public class Menu {
     private Filhåndtering filhåndtering = new Filhåndtering();
     private final UI ui = new UI();
     private Medlem medlem = new Medlem();
+ //   private String brugerValg;
     private  String[] menuChoice = {
-            "1. Opret medlem",
+            "\n1. Opret medlem",
             "2. Medlemmer",
             "3. Kontingentoversigt",
             "4. Forventede kontingentindkomst",
@@ -36,9 +37,9 @@ public class Menu {
 
 
     //----Konstruktør----
-    public Menu(String menuOverskrift, String brugerValg, String[] menuChoice) {
+    public Menu(String menuOverskrift, /*String brugerValg,*/ String[] menuChoice) {
         this.menuOverskrift = menuOverskrift;
-        this.brugerValg = brugerValg;
+      //  this.brugerValg = brugerValg;
         this.menuChoice = menuChoice;
     }
 
@@ -52,34 +53,34 @@ public class Menu {
         }
     }
 
-    public int readChoice() {
+    public int læsVælg() {
         Scanner scanner = new Scanner(System.in);
-        boolean validChoice = false;
-        int choice = -1;
-        while (!validChoice) {
+        boolean gyldigtVælg = false;
+        int vælg = -1;
+        while (!gyldigtVælg) {
            // System.out.print(brugerValg); giver null efter menuen
             if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                validChoice = true;
+                vælg = scanner.nextInt();
+                gyldigtVælg = true;
             } else {
                 ui.udskrivMedRød("Fejl, indtast et tal fra menuen");
                 scanner.nextLine();
             }
         }
-        return choice;
+        return vælg;
     }
 
     public void visMenu() throws IOException {
-        ui.returnMessage("");
-        ui.returnMessage(menuOverskrift);
+        ui.returnerBesked("");
+        ui.returnerBesked(menuOverskrift);
         printMenu();
 
-        boolean isRunning;
+        boolean isRunning; // kører, løber på Dansk???
         isRunning = true;
         while (isRunning) {
-            int userChoice = readChoice();
+            int brugerVælg = læsVælg();
 
-            switch (userChoice) {
+            switch (brugerVælg) {
                 case 1:
                     formand.run();
                     visMenu();

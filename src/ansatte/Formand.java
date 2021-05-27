@@ -87,47 +87,47 @@ public class Formand {
     }
 
     public void registrerNavn() {
-        ui.returnMessage("\nDu er i gang med oprettelsen af et nyt medlem.\n");
-        ui.returnMessage("Indtast venigst et navn, der består af max 15 symboler: \n");
+        ui.returnerBesked("\nDu er i gang med oprettelsen af et nyt medlem.\n");
+        ui.returnerBesked("Indtast venigst et navn, der består af max 15 symboler: \n");
         ui.validerNavn(medlem, new Formand());}
 
     public void registrerAlder() {
-        ui.returnMessage("Indtast venigst en alder her:\n");
+        ui.returnerBesked("Indtast venigst en alder her:\n");
         ui.validerAlder(medlem, new Formand());}
 
 
     public void registrerAktivitetsstatus(){
 
-        ui.returnMessage("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: \n");
+        ui.returnerBesked("Vil du være aktivt eller passivt medlem? \nTast 1 for aktiv, 2 for passiv: \n");
 
         mulighed = ui.valider1Eller2();
 
         if (mulighed.equals("1")) {
             medlem.setAktivitetsstatus("Aktiv");
-            ui.returnMessage("Aktivitetsstatus sat til: Aktiv\n");
+            ui.returnerBesked("Aktivitetsstatus sat til: Aktiv\n");
         } else if (mulighed.equals("2"))  {
             medlem.setAktivitetsstatus("Passiv");
-            ui.returnMessage("Aktivitetsstatus sat til: Passiv\n");
-            ui.returnMessage("\nVelkommen til klubben!\n");
+            ui.returnerBesked("Aktivitetsstatus sat til: Passiv\n");
+            ui.returnerBesked("\nVelkommen til klubben!\n");
         }
     }
 
     public void registrerAktivitetsform(){
         if (medlem.getAktivitetsstatus().equals("Aktiv")) {
-            ui.returnMessage("\nHvad for en aktivitetsform er du interesseret i?\n" +
+            ui.returnerBesked("\nHvad for en aktivitetsform er du interesseret i?\n" +
                 "Tast 1 for konkurrencesvømmer, 2 for motionist: \n");
 
             mulighed = ui.valider1Eller2();
 
             if (mulighed.equals("1")) {
                 medlem.setAktivitetsForm("Konkurrencesvømmer");
-                ui.returnMessage("Ny konkurrencesvømmer registeret: " + medlem.getNavn() + "\n");
-                ui.returnMessage("Velkommen til klubben " + medlem.getNavn() + "!\n");
+                ui.returnerBesked("Ny konkurrencesvømmer registeret: " + medlem.getNavn() + "\n");
+                ui.returnerBesked("Velkommen til klubben " + medlem.getNavn() + "!\n");
 
             } else if (mulighed.equals("2")) {
                 medlem.setAktivitetsForm("Motionist");
-                ui.returnMessage("Ny motionist registreret: " + medlem.getNavn() + "\n");
-                ui.returnMessage("Velkommen til klubben " + medlem.getNavn() + "!\n");
+                ui.returnerBesked("Ny motionist registreret: " + medlem.getNavn() + "\n");
+                ui.returnerBesked("Velkommen til klubben " + medlem.getNavn() + "!\n");
                          }
         } else if (medlem.getAktivitetsstatus().equals("Passiv")) {
             medlem.setAktivitetsForm("Passiv");

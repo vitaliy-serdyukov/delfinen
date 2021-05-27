@@ -36,7 +36,7 @@ public class Træner {
         }
         Collections.sort(konkurrencesvømmerePåSkærm, medlem.medlemmerEfterNavn);
 
-        ui.returnMessage("Vi har følgende konkurrencesvømmere i vores klub:\n");
+        ui.returnerBesked("Vi har følgende konkurrencesvømmere i vores klub:\n");
 
         System.out.printf("\n %-10s %-20s %-6s\n", "Medlems-",
             "Navn", "Alder");
@@ -66,11 +66,14 @@ public class Træner {
     public void printStævne() {
         ArrayList<Konkurrencesvømmer> stævnePåSkærm = filhåndtering.downloadStævneFil();
         Collections.sort(stævnePåSkærm, konkurrencesvømmer.konkurrencesvømmerEfterNavnAlder);
-        System.out.printf("\033[4m %-3s %-15s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", "Nr.",
-            "Navn", "Alder", " Stævnenavn", "Stævnedato", "Disciplin","Placering", "Resultat");
+        ui.returnerBesked("\nHer er vores konkurrencesvømmere, som har deltaget i forskellige stævne\n");
+        System.out.printf("\n %-10s %-20s %-7s %-15s %-15s %-10s %-10s %-10s\n", "Medlems-",
+            "Navn", "Alder", " Stævnenavn", "Stævnedato", "Disciplin","Placering", "Svømme-");
+        System.out.printf("\033[4m %-10s %-20s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", "nummer",
+            "", "", " ", "", "","", "resultat");
 
         for (int i = 0; i < stævnePåSkærm.size(); i++) {
-            System.out.printf("\033[4m %-3s %-15s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", stævnePåSkærm.get(i).
+            System.out.printf("\033[4m %-10s %-20s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", stævnePåSkærm.get(i).
                     getMedlemsnummer(), stævnePåSkærm.get(i).getNavn(), stævnePåSkærm.get(i).getAlder() + " år",
                 stævnePåSkærm.get(i).getStævneNavn(), stævnePåSkærm.get(i).getStævneDato(),
                 stævnePåSkærm.get(i).getSvømmedisciplin(),stævnePåSkærm.get(i).getPlacering(),
@@ -83,7 +86,7 @@ public class Træner {
 
     String svarMedlemsnummer;
     printKonkurrencesvømmer(medlem);
-    ui.returnMessage("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:\n");
+    ui.returnerBesked("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:\n");
     svarMedlemsnummer = scan.nextLine();
         while (!ui.erNummer(svarMedlemsnummer)){
             ui.udskrivMedRød("Indtast venligst et nummer fra listen...");
@@ -111,9 +114,9 @@ public class Træner {
 
     public void registrerSvømmedisciplinSvømmer(Medlem medlem) {
     int svarDisciplin;
-    ui.returnMessage("For hvilken svømmedisciplin skal registreres resultat?\n");
-    ui.returnMessage("\nVælg venligst mellem 1 eller 4");
-    ui.returnMessage("\n1. Butterfly" + "\n2. Crawl" + "\n3. Rygcrawl" + "\n4. Brystsvømning\n");
+    ui.returnerBesked("For hvilken svømmedisciplin skal registreres resultat?\n");
+    ui.returnerBesked("\nVælg venligst mellem 1 eller 4");
+    ui.returnerBesked("\n1. Butterfly" + "\n2. Crawl" + "\n3. Rygcrawl" + "\n4. Brystsvømning\n");
     svarDisciplin = scan.nextInt();
     switch (svarDisciplin) {
         case 1 -> konkurrencesvømmer.setSvømmedisciplin("Butterfly");
@@ -125,7 +128,7 @@ public class Træner {
     }
 
     public void registrerSvømmeresultatSvømmer() {
-    ui.returnMessage("Indtast venligst resultat i format '00,0' sekunder:\n");
+    ui.returnerBesked("Indtast venligst resultat i format '00,0' sekunder:\n");
     konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
     konkurrencesvømmer.setResultatsDato();
     }
@@ -138,7 +141,7 @@ public class Træner {
     filhåndtering.uploadKonkurrencesvømmerResultatFil(KonkurrencesvømmerResultat);
     KonkurrencesvømmerResultat.clear();
 
-    ui.returnMessage("Ny resultat er registreret for en konkurrencesvømmer: " + konkurrencesvømmer.getNavn() +
+    ui.returnerBesked("Ny resultat er registreret for en konkurrencesvømmer: " + konkurrencesvømmer.getNavn() +
         "\nDisciplin: " + konkurrencesvømmer.getSvømmedisciplin() + "\nTid: " + konkurrencesvømmer.getSvømmeresultat());
 
     }
@@ -180,17 +183,17 @@ public class Træner {
         String stævneDato;
         int placeringSvar;
 
-        ui.returnMessage("Vælg venligst en disciplin og Top-5 hold først:");
+        ui.returnerBesked("Vælg venligst en disciplin og Top-5 hold først\n");
         delKonkurrencesvømmere();
         vælgSvømmedisciplinTop5();
         vælgHoldTop5(new Menu());
 
-        ui.returnMessage("Her er vores konkurrencesvømmere, som skal have registreret deres stævneresultater ");
+        ui.returnerBesked("Her er vores konkurrencesvømmere, som kan have registreret deres stævneresultater\n");
 
         ArrayList<Konkurrencesvømmer> stævneResultater = sorterOgUdskrivTop5();// kalder rigtigt her
         ArrayList<Konkurrencesvømmer> stævneResultatTemp = new ArrayList<>();
 
-        ui.returnMessage("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:");
+        ui.returnerBesked("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:\n");
         svarMedlemsnummer = scan.nextInt();
         scan.nextLine();
         for (int i = 0; i < stævneResultater.size(); i++) {
@@ -200,7 +203,7 @@ public class Træner {
                 konkurrencesvømmer.setNavn(stævneResultater.get(i).getNavn());
                 konkurrencesvømmer.setAlder(stævneResultater.get(i).getAlder());
 
-                ui.returnMessage("Indtast venligst stævnenavn :");
+                ui.returnerBesked("Indtast venligst stævnenavn:\n");
                 svarStævneNavn = scan.nextLine();
                 konkurrencesvømmer.setStævneNavn(svarStævneNavn);
 
@@ -208,11 +211,11 @@ public class Træner {
 
                 konkurrencesvømmer.setSvømmedisciplin(stævneResultater.get(i).getSvømmedisciplin());
 
-                ui.returnMessage("Indtast venligst placering: ");
+                ui.returnerBesked("Indtast venligst placering:\n");
                 placeringSvar = scan.nextInt();
                 konkurrencesvømmer.setPlacering(placeringSvar);
 
-                ui.returnMessage("Indtast venligst resultat i format '00,0' sekunder:");
+                ui.returnerBesked("Indtast venligst resultat i format '00,0' sekunder:\n");
                 konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
 
                 stævneResultatTemp.add(new Konkurrencesvømmer(konkurrencesvømmer.getMedlemsnummer(),
@@ -249,9 +252,9 @@ public class Træner {
 
     public void vælgSvømmedisciplinTop5() {
         int svarDisciplin;
-        ui.returnMessage("For hvilken svømmedisciplin skal vises bedste 5 resultater (Top 5):  ");
-        ui.returnMessage("\nVælg venligst mellem 1 eller 4");
-        ui.returnMessage("1. Butterfly" + "\n2. Crawl" + "\n3. Rygcrawl" + "\n4. Brystsvømning");
+        ui.returnerBesked("\nFor hvilken svømmedisciplin skal vises bedste 5 resultater (Top 5):  ");
+        ui.returnerBesked("\nVælg venligst mellem 1 eller 4\n");
+        ui.returnerBesked("\n1. Butterfly" + "\n2. Crawl" + "\n3. Rygcrawl" + "\n4. Brystsvømning\n");
 
         svarDisciplin = scan.nextInt();
         switch (svarDisciplin) {
@@ -265,7 +268,8 @@ public class Træner {
 
     public void vælgHoldTop5 (Menu menu) {
         int svarHold;
-            ui.returnMessage("Hvilket hold skal vises resultaterne for?\n1. Junior (under 18 år)\n2. Senior (over 18 år)");
+            ui.returnerBesked("Hvilket hold skal vises resultaterne for?\n1. Junior (under 18 år)\n" +
+                "2. Senior (over 18 år)\n");
             svarHold = scan.nextInt();
             disciplinArray.clear(); // virker dette her?
             if (svarHold == 1) {
@@ -279,7 +283,7 @@ public class Træner {
                 senior.clear();
 
                 if (disciplinArray.size() == 0) {
-                ui.returnMessage("Der er ingen konkurrencesvømmere i junior hold med denne disciplin");
+                ui.returnerBesked("Der er ingen konkurrencesvømmere i junior hold med denne disciplin\n");
                     try {
                         menu.visMenu();
                     } catch (IOException e) {
@@ -295,7 +299,7 @@ public class Træner {
                 junior.clear();
                 senior.clear();
                 if (disciplinArray.size() == 0) {
-                    ui.returnMessage("Der er ingen konkurrencesvømmere i senior hold med denne disciplin");
+                    ui.returnerBesked("Der er ingen konkurrencesvømmere i senior hold med denne disciplin");
                     try {
                         menu.visMenu();
                     } catch (IOException e) {
@@ -317,12 +321,12 @@ public class Træner {
 
         // fortæller os hvad for et hold vi har i vores ArrayList
         if(disciplinArray.size() > 0 && disciplinArray.get(0).getAlder() < 18) {
-           ui.returnMessage("\nHer er Top-5 " + holdJunior + "svømmere i disciplinen " + disciplin + "\n");
+           ui.returnerBesked("\nHer er Top-5 " + holdJunior + "svømmere i disciplinen " + disciplin + "\n");
         } else {
-            ui.returnMessage("\nHer er Top-5 " + holdSenior + "svømmere i disciplinen " + disciplin + "\n");
+            ui.returnerBesked("\nHer er Top-5 " + holdSenior + "svømmere i disciplinen " + disciplin + "\n");
         }
 
-        System.out.printf(" %-10s %-15s %-8s %-15s %-12s %-8s \n", "Medlems-", "Navn", "Alder", "Disciplin",
+        System.out.printf("\n %-10s %-15s %-8s %-15s %-12s %-8s \n", "Medlems-", "Navn", "Alder", "Disciplin",
             "Tid", "Resultats-");
         System.out.printf("\033[4m %-10s %-15s %-8s %-15s %-12s %-10s \033[0m\n", "nummer", "", "", "",
             "", "dato");
