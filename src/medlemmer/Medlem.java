@@ -105,9 +105,9 @@ public class Medlem {
     public static Comparator<Medlem> medlemmerEfterNavn = new Comparator<Medlem>() {
         @Override
         public int compare(Medlem m1, Medlem m2) {
-           int flag =  m1.getNavn().compareTo(m2.getNavn());
-           if (flag == 0) flag = Integer.compare(m1.getAlder(), m2.getAlder());
-           return flag;
+            int flag =  m1.getNavn().compareTo(m2.getNavn());
+            if (flag == 0) flag = Integer.compare(m1.getAlder(), m2.getAlder());
+            return flag;
         }
     };
 
@@ -121,7 +121,7 @@ public class Medlem {
         }
         else betaltStr = "Restance";
 
-        return  "Medlemmer.Medlem: "  + navn + " " +  alder + " år" +   " " +  aktivitetsstatus   +  " " + aktivitetsForm +
+        return  medlemsnummer + " " + "Medlemmer.Medlem: "  + navn + " " +  alder + " år" +   " " +  aktivitetsstatus   +  " " + aktivitetsForm +
             " " + "Kontingent " + kontingent + " kr." + kontingentForRestenAfÅret + " kr. " + betaltStr + "\n";
     }
 }

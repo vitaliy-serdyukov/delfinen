@@ -3,22 +3,15 @@ package ui;
 import ansatte.Formand;
 import medlemmer.Konkurrencesvømmer;
 import medlemmer.Medlem;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class UI {
   private Scanner input = new Scanner(System.in);
-  private Filhåndtering filHåndtering = new Filhåndtering();
-  private Medlem medlem = new Medlem();
-
+  private String vælg;
 
   public static final String FONT_RESET = "\033[0m"; // Font color reset
   public static final String RED_BOLD = "\033[1;31m"; // Red bold font
-  //  public static final String GREEN_BOLD = "\033[1;32m"; // Green bold font
-  //   public static final String PURPLE_BOLD = "\033[1;35m"; // Purple bold font
-
 
   public void udskrivMedRød(String warning) {
     System.out.println(RED_BOLD + warning + FONT_RESET); // udskrivMedRød for varsler
@@ -45,7 +38,7 @@ public class UI {
     }
   }
 
-  public void validerAlder(Medlem medlem, Formand formand) {
+  public String validerAlder(Medlem medlem, Formand formand) {
     String alder;
     alder = input.nextLine();
     if (erNummer(alder)) {
@@ -60,8 +53,8 @@ public class UI {
       udskrivMedRød("Noget gik galt. Indtast venligst kun cifrer her");
       formand.registrerAlder();
     }
+    return alder;
   }
-
 
   public boolean erNummer(String alder) {
     try {
@@ -69,21 +62,9 @@ public class UI {
       return true;
     } catch (NumberFormatException e) {
       return false;
-
     }
-
   }
 
-
-  /*public String getVælg() {
-    return vælg;
-  }
-
-  public void setVælg(String vælg) {
-    this.vælg = vælg;
-  }*/
-
-  String vælg;
   public String valider1Eller2(){
     vælg =  input.nextLine();
     while (!vælg.equals("1")
@@ -94,70 +75,4 @@ public class UI {
     }
     return vælg;
   }
-
-
-
-
-
- /* public String insertName(){
-    Scanner scan2 = new Scanner(System.in);
-    System.out.println("\nPlease insert the name for Student: ");
-    return scan2.nextLine();
-  }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  private String option;
-
-  public void setOption(String option) {
-    this.option = option;
-  }
-
-  public String getOption() {
-    return option;
-  }
-
-  public int readChoice(int max){
-    int choice = 0;
-    do {
-      System.out.println(getOption());
-      while (!input.hasNextInt()) {
-        System.out.println("NOT A VALID CHOICE");
-        input.next();
-        System.out.println(getOption());
-      }
-      choice = input.nextInt();
-      input.nextLine();
-
-      if (choice <= 0 || choice > max) {
-        System.out.println("NOT A VALID CHOICE");
-      }
-    }
-    while(choice <= 0 || choice > max);
-
-    return choice;
-  }
-
-
-
-   /* public void getInt(String s) {
-    }*/
-
-    public void getString(String s) {
-    }
 }

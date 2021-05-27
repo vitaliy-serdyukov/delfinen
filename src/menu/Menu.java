@@ -1,3 +1,4 @@
+
 package menu;
 
 import ansatte.Formand;
@@ -18,32 +19,23 @@ public class Menu {
     private Træner træner = new Træner();
     private Filhåndtering filhåndtering = new Filhåndtering();
     private final UI ui = new UI();
-    private Medlem medlem = new Medlem();
- //   private String brugerValg;
+    private Medlem medlem;
     private  String[] menuChoice = {
-            "\n1. Opret medlem",
-            "2. Medlemmer",
-            "3. Kontingentoversigt",
-            "4. Forventede kontingentindkomst",
-            "5. Medlemmer i restance",
-            "6. Konkurrencesvømmere",
-            "7. Konkurrencesvømmere med resultat",
-            "8. Registrer svømmeresultat",
-            "9. Find top 5",
-           "10. Registrer stævneresultat",
-           "11. Vis stævneresultater",
-           "12. Slet medlem",
-            "0. Afslut"};
+        "\n1. Opret medlem",
+        "2. Medlemmer",
+        "3. Kontingentoversigt",
+        "4. Forventede kontingentindkomst",
+        "5. Medlemmer i restance",
+        "6. Konkurrencesvømmere",
+        "7. Konkurrencesvømmere med resultat",
+        "8. Registrer svømmeresultat",
+        "9. Find top 5",
+        "10. Registrer stævneresultat",
+        "11. Vis stævneresultater",
+        "12. Slet medlem",
+        "0. Afslut"};
 
-
-    //----Konstruktør----
-    public Menu(String menuOverskrift, /*String brugerValg,*/ String[] menuChoice) {
-        this.menuOverskrift = menuOverskrift;
-      //  this.brugerValg = brugerValg;
-        this.menuChoice = menuChoice;
-    }
-
-    //----Override konstrtuktør----
+    //----konstrtuktør----
     public Menu() {}
 
     //----Metoder----
@@ -58,7 +50,6 @@ public class Menu {
         boolean gyldigtVælg = false;
         int vælg = -1;
         while (!gyldigtVælg) {
-           // System.out.print(brugerValg); giver null efter menuen
             if (scanner.hasNextInt()) {
                 vælg = scanner.nextInt();
                 gyldigtVælg = true;
@@ -75,9 +66,9 @@ public class Menu {
         ui.returnerBesked(menuOverskrift);
         printMenu();
 
-        boolean isRunning; // kører, løber på Dansk???
-        isRunning = true;
-        while (isRunning) {
+        boolean erIgang;
+        erIgang = true;
+        while (erIgang) {
             int brugerVælg = læsVælg();
 
             switch (brugerVælg) {
@@ -129,7 +120,7 @@ public class Menu {
                     formand.sletMedlem(new Menu());
                     break;
                 case 0:
-                    isRunning = false;
+                    erIgang = false;
                     ui.udskrivMedRød("Afslutter...");
                     break;
                 default:

@@ -53,34 +53,34 @@ public class Kasserer {
     if (medlem.getAktivitetsstatus().contains("Aktiv") && medlem.getAlder() < 18) {
       medlem.setKontingent(1000);
       ui.returnerBesked("\nDin årlige kontingent er: " + medlem.getKontingent() + "\n");
-      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr;
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret());
       ui.returnerBesked("For resten af året skal du betale: " +
-          (String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n"); //Der er noget galt med udregningen
+          (String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
 
     } else if (medlem.getAktivitetsstatus().contains("Aktiv") && 18 <= medlem.getAlder() && medlem.getAlder() < 60) {
       medlem.setKontingent(1600);
       ui.returnerBesked("\nDin årlige kontingent er: " + medlem.getKontingent() +  "\n");
-      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr;
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret());
       ui.returnerBesked("For resten af året skal du betale: " +
-              (String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
+          (String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
 
     } else if (medlem.getAktivitetsstatus().contains("Aktiv") && medlem.getAlder() >= 60) {
       medlem.setKontingent(1200);
       ui.returnerBesked("\nDin årlige kontingent er: " + medlem.getKontingent() + "\n");
-      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr;
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret());
       ui.returnerBesked("For resten af året skal du betale: " +
-              (String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
+          (String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
 
     } else if (medlem.getAktivitetsstatus().contains("Passiv")) {
       medlem.setKontingent(500);
       ui.returnerBesked("\nDin årlige kontingent er: " + medlem.getKontingent() + "\n");
-      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr; //2,7
-      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret()); //2,7 * 224
+      double kontingentPrDag = (double) medlem.getKontingent() / dagePåEtÅr;
+      medlem.setKontingentForRestenAfÅret(kontingentPrDag * beregnResterendeDagePåÅret());
       ui.returnerBesked("For resten af året skal du betale: " +
-              (String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
+          (String.format("%.2f", medlem.getKontingentForRestenAfÅret())) + "\n");
     }
   }
 
@@ -97,14 +97,14 @@ public class Kasserer {
     System.out.println("Vi har følgende medlemmer med følgende kontingentsats i vores klub:\n ");
 
     System.out.printf("%-10s %-20s %-10s %-10s %-10s\n", "Medlems-",
-            "Navn", "Alder", "Kontigent- ", "Kontingent");
+        "Navn", "Alder", "Kontigent- ", "Kontingent");
     System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-8s \033[0m\n", "nummer", "", "", "sats", "i år");
 
     for (int i = 0; i < kontingenterPåSkærm.size(); i++) {
 
       System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-9.2f\033[0m\n", kontingenterPåSkærm.get(i).getMedlemsnummer(),
-              kontingenterPåSkærm.get(i).getNavn(), kontingenterPåSkærm.get(i).getAlder() + " år",
-              kontingenterPåSkærm.get(i).getKontingent(), kontingenterPåSkærm.get(i).getKontingentForRestenAfÅret());
+          kontingenterPåSkærm.get(i).getNavn(), kontingenterPåSkærm.get(i).getAlder() + " år",
+          kontingenterPåSkærm.get(i).getKontingent(), kontingenterPåSkærm.get(i).getKontingentForRestenAfÅret());
     }
   }
 
@@ -116,19 +116,18 @@ public class Kasserer {
       forventedeKontingent += fh.downloadMedlemsFil().get(i).getKontingentForRestenAfÅret();
     }
     System.out.printf("\033[4m %-40s %-5.2f %-4s\033[0m\n", "Den forventede årlige kontingentindkomst er ",
-           forventedeKontingent, "kr.\n" );
+        forventedeKontingent, "kr.\n" );
   }
 
   public void findMedlemmerIRestance(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
-
     String betaltStr;
-    ArrayList<Medlem> restanvePåSkærm = new ArrayList<>();
+    ArrayList<Medlem> restancePåSkærm = new ArrayList<>();
     for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
       if (!filhåndtering.downloadMedlemsFil().get(i).getBetalt()) {
-        restanvePåSkærm.add(filhåndtering.downloadMedlemsFil().get(i));
+        restancePåSkærm.add(filhåndtering.downloadMedlemsFil().get(i));
       }
     }
-    Collections.sort(restanvePåSkærm, medlem.medlemmerEfterNavn);
+    Collections.sort(restancePåSkærm, medlem.medlemmerEfterNavn);
 
     ui.returnerBesked("Vi har følgende medlemmer med restance i vores klub: \n ");
 
@@ -136,15 +135,15 @@ public class Kasserer {
         "Navn", "Alder", "Beløb i", "Restance");
     System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-8s \033[0m\n", "nummer", "", "", "restance", "Status");
 
-    for (int i = 0; i < restanvePåSkærm.size(); i++) {
-      if (restanvePåSkærm.get(i).getBetalt()){
+    for (int i = 0; i < restancePåSkærm.size(); i++) {
+      if (restancePåSkærm.get(i).getBetalt()){
         betaltStr = "Betalt";
       }
       else betaltStr = "Restance";
 
-      System.out.printf("\033[4m %-10s %-20s %-10s %-10.2f %-9s\033[0m\n", restanvePåSkærm.get(i).getMedlemsnummer(),
-          restanvePåSkærm.get(i).getNavn(), restanvePåSkærm.get(i).getAlder() + " år",
-          restanvePåSkærm.get(i).getKontingentForRestenAfÅret(), betaltStr);
+      System.out.printf("\033[4m %-10s %-20s %-10s %-10.2f %-9s\033[0m\n", restancePåSkærm.get(i).getMedlemsnummer(),
+          restancePåSkærm.get(i).getNavn(), restancePåSkærm.get(i).getAlder() + " år",
+          restancePåSkærm.get(i).getKontingentForRestenAfÅret(), betaltStr);
     }
   }
 

@@ -40,15 +40,15 @@ public class Konkurrencesvømmer extends Medlem {
 
     //----Settere----
     public void setStævneNavn(String stævneNavn) {
-    this.stævneNavn = stævneNavn;
+        this.stævneNavn = stævneNavn;
     }
 
     public void setPlacering(int placering) {
-    this.placering = placering;
+        this.placering = placering;
     }
 
     public void setStævneDato(LocalDate stævneDato) {
-    this.stævneDato = stævneDato;
+        this.stævneDato = stævneDato;
     }
 
     public void setSvømmedisciplin(String svømmedisciplin) {
@@ -68,13 +68,13 @@ public class Konkurrencesvømmer extends Medlem {
 
     //----Konstruktøren----
     public Konkurrencesvømmer(int medlemsnummer, String navn, int alder, String stævneNavn, LocalDate stævneDato,
-                            String svømmedisciplin,int placering, double svømmeresultat) {
-    super(medlemsnummer, navn, alder);
-    this.stævneNavn = stævneNavn;
-    this.stævneDato = stævneDato;
-    this.svømmedisciplin = svømmedisciplin;
-    this.placering  = placering;
-    this.svømmeresultat = svømmeresultat;
+                              String svømmedisciplin,int placering, double svømmeresultat) {
+        super(medlemsnummer, navn, alder);
+        this.stævneNavn = stævneNavn;
+        this.stævneDato = stævneDato;
+        this.svømmedisciplin = svømmedisciplin;
+        this.placering  = placering;
+        this.svømmeresultat = svømmeresultat;
     }
 
     //----Overrider konstruktør----
@@ -93,25 +93,25 @@ public class Konkurrencesvømmer extends Medlem {
     // bruges for en brugervenlig visning af konkurrencesvømmere på skærm (punkt 6)
     public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnAlder = new Comparator<Konkurrencesvømmer>() {
         @Override
-    public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
-      int flag =  k1.getNavn().compareTo(k2.getNavn());
-      if (flag == 0) flag = Integer.compare(k1.getAlder(), k1.getAlder());
-      return flag;
-    }
+        public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
+            int flag =  k1.getNavn().compareTo(k2.getNavn());
+            if (flag == 0) flag = Integer.compare(k1.getAlder(), k1.getAlder());
+            return flag;
+        }
     };
 
     // bruges for en brugervenlig visning af konkurrencesvømmere med rerultater på skærm (punkt 7)
     public Comparator<Konkurrencesvømmer> konkurrencesvømmerNavnDisciplin = new Comparator<Konkurrencesvømmer>() {
-    @Override
-    public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
-      int flag = k1.getSvømmedisciplin().compareTo(k2.getSvømmedisciplin());
-      if (flag == 0) flag = Double.compare(k1.getSvømmeresultat(), k2.getSvømmeresultat());
-      return flag;
-    }
+        @Override
+        public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
+            int flag = k1.getSvømmedisciplin().compareTo(k2.getSvømmedisciplin());
+            if (flag == 0) flag = Double.compare(k1.getSvømmeresultat(), k2.getSvømmeresultat());
+            return flag;
+        }
     };
 
     // bruges til at sammenligne efter resultat
-    public Comparator<Konkurrencesvømmer> resultatEfterDouble = new Comparator<Konkurrencesvømmer>() {
+    public Comparator<Konkurrencesvømmer> sorterResultatEfterDouble = new Comparator<Konkurrencesvømmer>() {
         @Override
         public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
             return Double.compare(k1.getSvømmeresultat(), k2.getSvømmeresultat());

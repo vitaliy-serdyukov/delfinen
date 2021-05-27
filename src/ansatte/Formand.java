@@ -93,12 +93,12 @@ public class Formand {
 
     public void registrerNavn() {
         ui.returnerBesked("\nDu er i gang med oprettelsen af et nyt medlem.\n");
-        ui.returnerBesked("Indtast venigst et navn, der består af max 15 symboler: \n");
+        ui.returnerBesked("Indtast venligst et navn: \n");
         ui.validerNavn(medlem, new Formand());
     }
 
     public void registrerAlder() {
-        ui.returnerBesked("Indtast venigst en alder her:\n");
+        ui.returnerBesked("Indtast venligst en alder:\n");
         ui.validerAlder(medlem, new Formand());
     }
 
@@ -141,43 +141,51 @@ public class Formand {
         }
 
     }
-    public void sletMedlem (Menu menu) {
+    public void sletMedlem(Menu menu) {
 
-            ui.returnerBesked("VIGTIGT! Du er i gang med at slette et medlem");
-            ui.returnerBesked("Vi har følgende  konkurrencesvømmere i vores klub:\n");
-            seMedlemmer();
-            ui.returnerBesked("Intast venligst et medlemsnummer for et medlem fra listen: ");
-            int svarMedlemsnummer = input.nextInt();
-            String mulighed;
-            ArrayList<Medlem> medlemTemp = filHåndtering.downloadMedlemsFil();
+        ui.returnerBesked("VIGTIGT! Du er i gang med at slette et medlem");
+        ui.returnerBesked("Vi har følgende  konkurrencesvømmere i vores klub:\n");
+        seMedlemmer();
+        ui.returnerBesked("Intast venligst et medlemsnummer for et medlem fra listen: ");
+        int svarMedlemsnummer = input.nextInt();
+        input.nextLine();
+        String mulighed;
+        ArrayList<Medlem> medlemTemp = filHåndtering.downloadMedlemsFil();
+
+        if (medlemTemp.size() > 1) {
             for (int i = 0; i < medlemTemp.size(); i++) {
-
                 if (medlemTemp.get(i).getMedlemsnummer() == svarMedlemsnummer) {
                     ui.returnerBesked("Er du sikker?\nIndtast venligst: \n1.Ja \n2.Nej\n");
                     mulighed = ui.valider1Eller2();
                     if (mulighed.equals("1")) {
                         System.out.println("Medlemsnummer " + medlemTemp.get(i).getMedlemsnummer() +
                             " som hører til " + medlemTemp.get(i).getNavn() + " er blevet slettet nu");
-
+                        System.out.println("Test1" + medlemTemp);
                         medlemTemp.remove(i);
+                        System.out.println("Test2" + medlemTemp);
                         try {
-                            menu.visMenu();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                        menu.visMenu();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                } return;
 
-                }
             }
-            System.out.println(medlemTemp);
-            try {
-                new FileWriter("src/txt/Medlemliste.txt", false).close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            filHåndtering.uploadMedlemsFil(medlemTemp);
-            medlemTemp.clear();
+        }
+        System.out.println("Test3" + medlemTemp);
+        try {
+            new FileWriter("src/txt/Medlemliste.txt", false).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Test4" + medlemTemp);
+        filHåndtering.uploadMedlemsFil(medlemTemp);
+        medlemTemp.clear();
+
     }
 }
+}
+
+
+
 
