@@ -87,11 +87,11 @@ public class Menu {
                     visMenu();
                     break;
                 case 2:
-                    ui.seMedlemmer();
+                    formand.seMedlemmer();
                     visMenu();
                     break;
                 case 3:
-                    ui.visKontingenter(formand, filhåndtering, medlem);
+                    kasserer.visKontingenter(formand, filhåndtering, medlem);
                     visMenu();
                     break;
                 case 4:

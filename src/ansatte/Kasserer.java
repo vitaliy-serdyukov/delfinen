@@ -85,6 +85,30 @@ public class Kasserer {
     }
   }
 
+  public void visKontingenter(Formand formand, Filhåndtering filhåndtering, Medlem medlem) {
+
+    ArrayList<Medlem> kontingenterPåSkærm = new ArrayList<>();
+    for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
+      if (filhåndtering.downloadMedlemsFil().get(i).getKontingent() > 0) {
+        kontingenterPåSkærm.add(filhåndtering.downloadMedlemsFil().get(i));
+      }
+    }
+    Collections.sort(kontingenterPåSkærm, medlem.medlemmerEfterNavn);
+
+    System.out.println("Vi har følgende medlemmer med følgende kontingentsats i vores klub:\n ");
+
+    System.out.printf("%-10s %-20s %-10s %-10s %-10s\n", "Medlems-",
+            "Navn", "Alder", "Kontigent- ", "Kontingent");
+    System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-8s \033[0m\n", "nummer", "", "", "sats", "i år");
+
+    for (int i = 0; i < kontingenterPåSkærm.size(); i++) {
+
+      System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-9s\033[0m\n", kontingenterPåSkærm.get(i).getMedlemsnummer(),
+              kontingenterPåSkærm.get(i).getNavn(), kontingenterPåSkærm.get(i).getAlder() + " år",
+              kontingenterPåSkærm.get(i).getKontingent(), kontingenterPåSkærm.get(i).getKontingentForRestenAfÅret());
+    }
+  }
+
   public void udregnKontingenter(Formand formand, Filhåndtering fh) {
     ArrayList<String> forventedeKontingentListe = new ArrayList<>();
     int forventedeKontingent = 0;
