@@ -1,21 +1,15 @@
 package ansatte;
 
 import medlemmer.Medlem;
-import menu.Menu;
 import ui.Filhåndtering;
 import ui.UI;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class Formand {
 
     //----Attributter
     private String mulighed;
-    private Scanner input = new Scanner(System.in);
 
     //----Lister----
     private ArrayList<Medlem> medlemmer = new ArrayList<>();
@@ -23,7 +17,6 @@ public class Formand {
     //----Objekter----
     private Medlem medlem = new Medlem();
     private Kasserer kasserer = new Kasserer();
-    private Træner træner = new Træner();
     private Filhåndtering filHåndtering = new Filhåndtering();
     private UI ui = new UI();
 
@@ -31,12 +24,6 @@ public class Formand {
     //----Konstruktøren----
     public Formand() {
     }
-
-    // ---------Gettere----------
-    public ArrayList<Medlem> getMedlemmer() {
-        return medlemmer;
-    }
-
 
     //----Metoder----
     public void run() {
@@ -76,7 +63,7 @@ public class Formand {
             }
             else betaltStr = "Restance";
 
-            System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-25s %-15s %-15s %-10s \033[0m\n",
+            System.out.printf("\033[4m %-10s %-20s %-10s %-10s %-25s %-15s %-15.2f %-10s \033[0m\n",
                     medlemmerEfterNavn.get(i).getMedlemsnummer(),medlemmerEfterNavn.get(i).getNavn(),
                     medlemmerEfterNavn.get(i).getAlder() + " år", medlemmerEfterNavn.get(i).getAktivitetsstatus(),
                     medlemmerEfterNavn.get(i).getAktivitetsForm(), medlemmerEfterNavn.get(i).getKontingent(),
@@ -101,11 +88,11 @@ public class Formand {
 
     public void registrerNavn() {
         ui.returnMessage("\nDu er i gang med oprettelsen af et nyt medlem.\n");
-        ui.returnMessage("Hvad er medlems navn?\nIndtast venigst et navn, der består af max 15 symboler: \n");
+        ui.returnMessage("Indtast venigst et navn, der består af max 15 symboler: \n");
         ui.validerNavn(medlem, new Formand());}
 
     public void registrerAlder() {
-        ui.returnMessage("Hvad er medlems alder?: \nIndtast venigst en alder her:\n");
+        ui.returnMessage("Indtast venigst en alder her:\n");
         ui.validerAlder(medlem, new Formand());}
 
 
@@ -121,13 +108,13 @@ public class Formand {
         } else if (mulighed.equals("2"))  {
             medlem.setAktivitetsstatus("Passiv");
             ui.returnMessage("Aktivitetsstatus sat til: Passiv\n");
-            ui.returnMessage("Velkommen til klubben!\n");
+            ui.returnMessage("\nVelkommen til klubben!\n");
         }
     }
 
     public void registrerAktivitetsform(){
         if (medlem.getAktivitetsstatus().equals("Aktiv")) {
-            ui.returnMessage("Hvad for en aktivitetsform er du interesseret i?\n" +
+            ui.returnMessage("\nHvad for en aktivitetsform er du interesseret i?\n" +
                 "Tast 1 for konkurrencesvømmer, 2 for motionist: \n");
 
             mulighed = ui.valider1Eller2();

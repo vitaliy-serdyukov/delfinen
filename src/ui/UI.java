@@ -37,7 +37,7 @@ public class UI {
     navn = input.nextLine();
     if (navn.matches("[a-zA-Z]+") && navn.length() <= 15) {
 
-      System.out.println("Navnet er registreret som " + navn);
+      System.out.println("Navnet er registreret som " + navn + "\n");
       medlem.setNavn(navn);
     } else {
       udskrivMedRød("Noget gik galt. Indtast venligst et navn af passende længde. Prøv igen.");
@@ -53,7 +53,7 @@ public class UI {
         udskrivMedRød("Noget gik galt. Prøv venligst at være realisten...");
         formand.registrerAlder();
       } else {
-        System.out.println("Alderen er registreret som " + alder + " år");
+        System.out.println("Alderen er registreret som " + alder + " år\n");
         medlem.setAlder(Integer.parseInt(alder));
       }
     } else {

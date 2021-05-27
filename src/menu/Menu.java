@@ -6,7 +6,6 @@ import ansatte.Træner;
 import medlemmer.Medlem;
 import ui.Filhåndtering;
 import ui.UI;
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -14,7 +13,6 @@ public class Menu {
 
     //----Attributter------
     private String menuOverskrift =  "\nSvømmeklubben Delfinen:" +  "\n" + "Vælg venligst: \n";
-    private String brugerValg;
     private Formand formand = new Formand();
     private Kasserer kasserer = new Kasserer();
     private Træner træner = new Træner();

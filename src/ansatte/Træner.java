@@ -5,7 +5,6 @@ import medlemmer.Medlem;
 import menu.Menu;
 import ui.Filhåndtering;
 import ui.UI;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,11 +25,6 @@ public class Træner {
     Konkurrencesvømmer konkurrencesvømmer = new Konkurrencesvømmer();
     Filhåndtering filhåndtering = new Filhåndtering();
     UI ui = new UI();
-
-    //----Gettere----
-    public ArrayList<Konkurrencesvømmer> getKonkurrencesvømmerResultat() {
-        return KonkurrencesvømmerResultat;
-    }
 
     //----Metoder----
     public void printKonkurrencesvømmer(Medlem medlem) {
@@ -67,7 +61,6 @@ public class Træner {
                 resultaterPåSkærm.get(i).getSvømmedisciplin(), resultaterPåSkærm.get(i).getSvømmeresultat(),
                 resultaterPåSkærm.get(i).getResultatsDato());
         }
-
     }
 
     public void printStævne() {
@@ -211,7 +204,7 @@ public class Træner {
                 svarStævneNavn = scan.nextLine();
                 konkurrencesvømmer.setStævneNavn(svarStævneNavn);
 
-                konkurrencesvømmer.setStævneDato(stævneResultater.get(i).getResultatsDato());
+                konkurrencesvømmer.setStævneDato(stævneResultater.get(i).getStævneDato());
 
                 konkurrencesvømmer.setSvømmedisciplin(stævneResultater.get(i).getSvømmedisciplin());
 
@@ -230,14 +223,11 @@ public class Træner {
                 ui.returnArrayList(stævneResultatTemp);
             }
         }
-
         filhåndtering.uploadStævneFil(stævneResultatTemp);
         stævneResultater.clear();
         stævneResultatTemp.clear();
 
     }
-
-
 
     public void runTop5(Menu menu){
         delKonkurrencesvømmere();

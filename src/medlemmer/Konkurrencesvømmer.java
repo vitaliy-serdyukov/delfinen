@@ -11,7 +11,7 @@ public class Konkurrencesvømmer extends Medlem {
     private LocalDate resultatsDato = LocalDate.now();
     private String stævneNavn;
     private int placering;
-    private LocalDate stævneDato;
+    private LocalDate stævneDato = LocalDate.now();
 
     //----Gettere----
     public String getStævneNavn() {
@@ -91,7 +91,7 @@ public class Konkurrencesvømmer extends Medlem {
 
     // bruges for en brugervenlig visning af konkurrencesvømmere på skærm (punkt 6)
     public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnAlder = new Comparator<Konkurrencesvømmer>() {
-    @Override
+        @Override
     public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
       int flag =  k1.getNavn().compareTo(k2.getNavn());
       if (flag == 0) flag = Integer.compare(k1.getAlder(), k1.getAlder());
