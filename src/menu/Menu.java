@@ -53,6 +53,7 @@ public class Menu {
             if (scanner.hasNextInt()) {
                 vælg = scanner.nextInt();
                 gyldigtVælg = true;
+                scanner.nextLine();
             } else {
                 ui.udskrivMedRød("Fejl, indtast et tal fra menuen");
                 scanner.nextLine();

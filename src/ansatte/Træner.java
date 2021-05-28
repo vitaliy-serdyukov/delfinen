@@ -67,13 +67,13 @@ public class Træner {
     ArrayList<Konkurrencesvømmer> stævnePåSkærm = filhåndtering.downloadStævneFil();
     Collections.sort(stævnePåSkærm, konkurrencesvømmer.konkurrencesvømmerEfterNavnAlder);
     ui.returnerBesked("\nHer er vores konkurrencesvømmere, som har deltaget i forskellige stævne\n");
-    System.out.printf("\n %-10s %-20s %-7s %-15s %-15s %-10s %-10s %-10s\n", "Medlems-",
+    System.out.printf("\n %-10s %-20s %-7s %-15s %-15s %-15s %-10s %-10s\n", "Medlems-",
         "Navn", "Alder", " Stævnenavn", "Stævnedato", "Disciplin","Placering", "Svømme-");
-    System.out.printf("\033[4m %-10s %-20s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", "nummer",
+    System.out.printf("\033[4m %-10s %-20s %-7s %-15s %-15s %-15s %-10s %-10s\033[0m\n", "nummer",
         "", "", " ", "", "","", "resultat");
 
     for (int i = 0; i < stævnePåSkærm.size(); i++) {
-      System.out.printf("\033[4m %-10s %-20s %-7s %-15s %-15s %-10s %-10s %-10s\033[0m\n", stævnePåSkærm.get(i).
+      System.out.printf("\033[4m %-10s %-20s %-7s %-15s %-15s %-15s %-10s %-10s\033[0m\n", stævnePåSkærm.get(i).
               getMedlemsnummer(), stævnePåSkærm.get(i).getNavn(), stævnePåSkærm.get(i).getAlder() + " år",
           stævnePåSkærm.get(i).getStævneNavn(), stævnePåSkærm.get(i).getStævneDato(),
           stævnePåSkærm.get(i).getSvømmedisciplin(),stævnePåSkærm.get(i).getPlacering(),
@@ -88,10 +88,10 @@ public class Træner {
     printKonkurrencesvømmer(medlem);
     ui.returnerBesked("\nIntast venligst medlemsnummer for medlem fra overnævnte liste:\n");
     svarMedlemsnummer = scan.nextLine();
-    while (!ui.erNummer(svarMedlemsnummer)){
-      ui.udskrivMedRød("Indtast venligst et nummer fra listen...");
-      svarMedlemsnummer = scan.next();
-    }
+        while (!ui.erNummer(svarMedlemsnummer)) {
+          ui.udskrivMedRød("Indtast venligst et nummer fra listen...");
+          svarMedlemsnummer = scan.next();
+        }
     for (int i = 0; i < filhåndtering.downloadMedlemsFil().size(); i++) {
       if (filhåndtering.downloadMedlemsFil().get(i).getMedlemsnummer() ==
           Integer.parseInt(svarMedlemsnummer)) {
@@ -130,6 +130,7 @@ public class Træner {
   public void registrerSvømmeresultatSvømmer() {
     ui.returnerBesked("Indtast venligst resultat i format '00,0' sekunder:\n");
     konkurrencesvømmer.setSvømmeresultat(scan.nextDouble());
+    scan.nextLine();
     konkurrencesvømmer.setResultatsDato();
   }
 
@@ -269,7 +270,8 @@ public class Træner {
     ui.returnerBesked("Hvilket hold skal vises resultaterne for?\n1. Junior (under 18 år)\n" +
         "2. Senior (over 18 år)\n");
     svarHold = scan.nextInt();
-    disciplinArray.clear(); // virker dette her?
+    disciplinArray.clear();
+    scan.nextLine();
     if (svarHold == 1) {
 
       for (int i = 0; i < junior.size(); i++) {
