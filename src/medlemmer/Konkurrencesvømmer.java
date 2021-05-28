@@ -121,7 +121,8 @@ public class Konkurrencesvømmer extends Medlem {
 
     // bruges i udskiftTilEnBedreResultat() til at sortere brugere med samme navn, svømmedisciplin, men forskellige
     // resultater
-    public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnDisciplinResultat = new Comparator<Konkurrencesvømmer>() {
+    public Comparator<Konkurrencesvømmer> konkurrencesvømmerEfterNavnDisciplinResultat =
+        new Comparator<Konkurrencesvømmer>() {
         @Override
         public int compare(Konkurrencesvømmer k1, Konkurrencesvømmer k2) {
             int flag = k1.getNavn().compareTo(k2.getNavn());
@@ -135,8 +136,8 @@ public class Konkurrencesvømmer extends Medlem {
 
     @Override
     public String toString() {
-        return  super.getMedlemsnummer() + " " +  super.getNavn() + " " + super.getAlder() + " " + svømmedisciplin + " " +
-            svømmeresultat + " " + resultatsDato + "\n";
+        return  super.getMedlemsnummer() + " " +  super.getNavn() + " " + super.getAlder() + " " + svømmedisciplin +
+            " " + svømmeresultat + " " + resultatsDato + "\n";
     }
 }
 

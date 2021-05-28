@@ -32,7 +32,7 @@ public class Medlem {
     }
 
     //----Overrider konstruktør----
-    public Medlem(int medlemsnummer, String navn, int alder){ // konstruktør, som bliver brugt i Medlemmer.Konkurrencesvømmer
+    public Medlem(int medlemsnummer, String navn, int alder){
         this.medlemsnummer = medlemsnummer;
         this.navn = navn;
         this.alder = alder;
@@ -117,12 +117,13 @@ public class Medlem {
 
         String betaltStr;
         if (betalt){
-            betaltStr = "Betalt"; // sådan, så er der ikke mere true eller false :)
+            betaltStr = "Betalt";
         }
         else betaltStr = "Restance";
 
-        return  medlemsnummer + " " + "Medlemmer.Medlem: "  + navn + " " +  alder + " år" +   " " +  aktivitetsstatus   +  " " + aktivitetsForm +
-            " " + "Kontingent " + kontingent + " kr." + kontingentForRestenAfÅret + " kr. " + betaltStr + "\n";
+        return  medlemsnummer + " " + "Medlemmer.Medlem: "  + navn + " " +  alder + " år" +   " " +
+            aktivitetsstatus   +  " " + aktivitetsForm + " " + "Kontingent " + kontingent + " kr." +
+            kontingentForRestenAfÅret + " kr. " + betaltStr + "\n";
     }
 }
 

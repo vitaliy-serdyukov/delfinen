@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Træner {
 
   // ----Attributter---------
-  private ArrayList<Konkurrencesvømmer> KonkurrencesvømmerResultat = new ArrayList<>();  // Konkurrencesvømmere med resultat
+  private ArrayList<Konkurrencesvømmer> KonkurrencesvømmerResultat = new ArrayList<>();
   private ArrayList<Konkurrencesvømmer> junior = new ArrayList<>();
   private ArrayList<Konkurrencesvømmer> senior = new ArrayList<>();
   private ArrayList<Konkurrencesvømmer> disciplinArray = new ArrayList<Konkurrencesvømmer>();
@@ -260,7 +260,7 @@ public class Træner {
       case 2 -> disciplin = "Crawl";
       case 3 -> disciplin = "Rygcrawl";
       case 4 -> disciplin = "Brystsvømning";
-      default ->  vælgSvømmedisciplinTop5(); //System.out.println("Intast venligst et rigtigt nummer");
+      default ->  vælgSvømmedisciplinTop5();
     }
   }
 

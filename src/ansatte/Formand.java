@@ -26,7 +26,6 @@ public class Formand {
     private UI ui = new UI();
 
 
-
     //----Konstruktøren----
     public Formand() {
     }
@@ -141,51 +140,40 @@ public class Formand {
         }
 
     }
-    public void sletMedlem(Menu menu) {
+
+    public void sletMedlem() {
 
         ui.returnerBesked("VIGTIGT! Du er i gang med at slette et medlem");
         ui.returnerBesked("Vi har følgende  konkurrencesvømmere i vores klub:\n");
         seMedlemmer();
-        ui.returnerBesked("Intast venligst et medlemsnummer for et medlem fra listen: ");
+        ui.returnerBesked("\nIntast venligst et medlemsnummer for et medlem fra listen:\n");
         int svarMedlemsnummer = input.nextInt();
-        input.nextLine();
-        String mulighed;
+
         ArrayList<Medlem> medlemTemp = filHåndtering.downloadMedlemsFil();
 
-        if (medlemTemp.size() > 1) {
-            for (int i = 0; i < medlemTemp.size(); i++) {
-                if (medlemTemp.get(i).getMedlemsnummer() == svarMedlemsnummer) {
-                    ui.returnerBesked("Er du sikker?\nIndtast venligst: \n1.Ja \n2.Nej\n");
-                    mulighed = ui.valider1Eller2();
-                    if (mulighed.equals("1")) {
-                        System.out.println("Medlemsnummer " + medlemTemp.get(i).getMedlemsnummer() +
-                            " som hører til " + medlemTemp.get(i).getNavn() + " er blevet slettet nu");
-                        System.out.println("Test1" + medlemTemp);
-                        medlemTemp.remove(i);
-                        System.out.println("Test2" + medlemTemp);
-                        try {
-                        menu.visMenu();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } return;
+        for (int i = 0; i < medlemTemp.size(); i++) {
 
+            if (medlemTemp.get(i).getMedlemsnummer() == svarMedlemsnummer) {
+                ui.returnerBesked("Er du sikker?\nIndtast venligst: \n1.Ja \n2.Nej\n");
+                mulighed = ui.valider1Eller2();
+                if (mulighed.equals("1")) {
+                    System.out.println("Medlemsnummer " + medlemTemp.get(i).getMedlemsnummer() +
+                        " som hører til " + medlemTemp.get(i).getNavn() + " er blevet slettet nu");
+                    medlemTemp.remove(i);
+                    break;
+                }
             }
         }
-        System.out.println("Test3" + medlemTemp);
-        try {
-            new FileWriter("src/txt/Medlemliste.txt", false).close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Test4" + medlemTemp);
-        filHåndtering.uploadMedlemsFil(medlemTemp);
-        medlemTemp.clear();
+            try {
+                new FileWriter("src/txt/Medlemliste.txt", false).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            filHåndtering.uploadMedlemsFil(medlemTemp);
+            medlemTemp.clear();
 
     }
 }
-}
-
 
 
 

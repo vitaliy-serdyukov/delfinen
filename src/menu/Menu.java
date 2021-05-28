@@ -117,7 +117,8 @@ public class Menu {
                     visMenu();
                     break;
                 case 12:
-                    formand.sletMedlem(new Menu());
+                    formand.sletMedlem();
+                    visMenu();
                     break;
                 case 0:
                     erIgang = false;
