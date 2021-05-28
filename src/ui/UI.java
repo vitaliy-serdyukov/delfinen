@@ -29,12 +29,12 @@ public class UI {
     String navn;
     navn = input.nextLine();
     if (navn.matches("[a-zA-Z]+") && navn.length() <= 15) {
-
-      System.out.println("Navnet er registreret som " + navn + "\n");
       medlem.setNavn(navn);
+      System.out.println("Navnet er registreret som " + navn + "\n");
+
     } else {
       udskrivMedRød("Noget gik galt. Indtast venligst et navn af passende længde. Prøv igen.");
-      formand.registrerNavn();
+      validerNavn(medlem, formand);
     }
   }
 
