@@ -42,14 +42,14 @@ Windows:
 ```
 <<git clone https://github.com/vitaliy-serdyukov/delfinen.git>>
 ```
-## Brug <project_name>
+## Brug
 
 
 ## Bidrag til <projektnavn>
 
 Følg disse trin for at bidrage til <projektnavn>:
 
-1. Gaffel dette lager.
+1. Gaffel dette repository.
 2. Opret en gren: `git checkout -b <branch_name>`.
 3. Foretag dine ændringer og begå dem: `git commit -m '<commit_message>' '
 4. Skub til den originale gren: `git push origin <projektnavn>/<location>`
