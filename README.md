@@ -31,7 +31,7 @@ Systemet er udviklet uden brug af databaser, da vi har ikke lært om databaser p
 
 ## Installering 
 
-Projektet har ikke brug for installering og skal bare hentes ved brug af en følgende kommando i GitBash:
+Projektet har ikke brug for installering og skal blot hentes ved brug af en følgende kommando i GitBash Shell:
 
 macOS:
 ```
