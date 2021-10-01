@@ -5,4 +5,4 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/vitaliy-serdyukov/delfinen)
 ![GitHub stars](https://img.shields.io/github/stars/vitaliy-serdyukov/delfinen?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/vitaliy-serdyukov/delfinen?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/vitaliy-serdyukov?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/vitaliy_mail?style=social)
