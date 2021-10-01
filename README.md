@@ -16,7 +16,7 @@ Projektet er et [software system](https://en.wikipedia.org/wiki/Software_system)
 Systemet er udviklet uden brug af databaser, da vi har ikke lært om databaser på udviklingstidspunktet.
 
 
-## Inden i gå i gang, skal du sikre dig, at du har opfyldt følgende krav:
+## Inden du gå i gang, skal du sikre dig, at du har opfyldt følgende krav:
 
 * Du har installeret den nyeste version af [Java](https://www.oracle.com/java/technologies/downloads/)
 
@@ -24,7 +24,7 @@ Systemet er udviklet uden brug af databaser, da vi har ikke lært om databaser p
 
 * Du har installeret den nyeste version af [GitBash Shell for Windows](https://gitforwindows.org) eller [GitBash Shell for Mac](https://downloads.digitaltrends.com/git/mac)
 
-* Du har en [Windows](https://www.microsoft.com) maskine med minimum Windows 7 OS eller [Mac](https://www.apple.com/macos) maskine med minimum MacOS version 10.5 installeret.
+* Du har en [Windows](https://www.microsoft.com) maskine med minimum Windows 7 OS eller [Mac](https://www.apple.com/macos) maskine med minimum MacOS version 10.5 installeret
 * Du har læst [README.md](https://github.com/vitaliy-serdyukov/delfinen/blob/main/README.md)
 
 
@@ -40,7 +40,7 @@ macOS:
 
 Windows:
 ```
-<<git clone https://github.com/vitaliy-serdyukov/delfinen.git>>
+<git clone https://github.com/vitaliy-serdyukov/delfinen.git>
 ```
 ## Brug
 
