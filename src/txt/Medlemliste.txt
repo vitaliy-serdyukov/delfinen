@@ -86,11 +86,3 @@ Konkurrencesvømmer
 1000
 594.5205479452054
 false
-41
-null
-23
-Aktiv
-Konkurrencesvømmer
-1600
-951.2328767123287
-false

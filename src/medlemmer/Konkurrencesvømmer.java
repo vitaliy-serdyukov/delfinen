@@ -3,7 +3,7 @@ package medlemmer;
 import java.time.LocalDate;
 import java.util.Comparator;
 
-public class Konkurrencesvømmer extends Medlem {
+public class Konkurrencesvømmer extends Medlem  {
 
     //----Attributter----
     private String svømmedisciplin;

@@ -64,6 +64,12 @@ Michael
 Brystsvømning
 2.0
 2021-05-28
+42
+Navn
+34
+Brystsvømning
+20.5
+2021-05-28
 40
 Nikolaj
 1
@@ -94,3 +100,9 @@ null
 Crawl
 23.3
 2021-05-28
+42
+vASYL
+40
+Rygcrawl
+20.0
+2021-05-30

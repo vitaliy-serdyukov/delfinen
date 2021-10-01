@@ -94,3 +94,11 @@ Konkurrencesvømmer
 1600
 951.2328767123287
 false
+42
+vASYL
+40
+Aktiv
+Konkurrencesvømmer
+1600
+942.4657534246575
+false

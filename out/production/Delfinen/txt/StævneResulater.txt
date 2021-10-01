@@ -46,3 +46,11 @@ DKCUP
 Brystsvømning
 1
 1.9
+42
+Navn
+34
+CUP
+2021-05-28
+Brystsvømning
+5
+15.4
